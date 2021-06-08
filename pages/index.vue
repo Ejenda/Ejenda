@@ -69,7 +69,7 @@ export default {
         set assignments(value) {
             let temporary = this.assignments
             temporary.push(value)
-            localStorage.setItem(name.toLowerCase(), JSON.stringify(t))
+            localStorage.setItem(name.toLowerCase(), JSON.stringify(temporary))
         },
       }
     },
