@@ -1,7 +1,6 @@
 <template>
   <div class="flex flex-col">
     <h1 class="font-serif font-bold text-4xl">E-jenda</h1>
-    <span class="p-1 font-italic">This demo is not completed and is buggy. Do not store anything in it, as it may be lost.</span>
     <ul
       class="-bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
