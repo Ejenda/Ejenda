@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-serif font-bold text-4xl">E-jenda</h1>
+    <h1 class="font-serif font-bold text-4xl p-1">E-jenda</h1>
     <ul
       class="-bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
