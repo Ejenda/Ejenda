@@ -65,22 +65,12 @@ export default {
         id: name.toLowerCase(),
         color: color,
         get assignments() {
-          if (process.browser) {
-            if (typeof localStorage[name.toLowerCase()] == 'undefined')
-              localStorage.math = '[]'
             return JSON.parse(localStorage.getItem(name.toLowerCase()) || '[]')
-          } else {
-            return []
-          }
         },
         set assignments(value) {
-          if (process.browser) {
-            let t = this.assignments
-            t.push(value)
+            let temporary = this.assignments
+            temporary.push(value)
             localStorage.setItem(name.toLowerCase(), JSON.stringify(t))
-          } else {
-            return []
-          }
         },
       }
     },
