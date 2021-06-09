@@ -8,6 +8,9 @@
       :class="parseColor(subject.color)"
     >
       <h1 class="font-serif font-bold text-4xl">{{ subject.name }}</h1>
+      <p v-show="!subject.assignments.length > 0" class="p-2 italic">
+        Nothing yet, add a new assignment
+      </p>
       <li
         class="
           bg-opacity-75
@@ -17,11 +20,19 @@
           text-gray-800
           m-2
           p-1
+          flex
+          justify-between
         "
-        v-for="assignment of subject.assignments"
+        v-for="(assignment, i) of subject.assignments"
         :key="`${assignment.id}`"
       >
-        {{ assignment.name }}
+        <input class="bg-transparent flex-auto" v-model="assignment.name">
+        <button
+          class="px-2 py-1 m-1 bg-white rounded-md"
+          @click="deleteItem(subject, i)"
+        >
+          Delete
+        </button>
       </li>
       <button
         class="rounded-l-sm bg-white text-gray-800 p-2"
@@ -45,6 +56,7 @@ export default {
         this.generateSubject('Math', 'red'),
         this.generateSubject('English', 'indigo'),
         this.generateSubject('Science', 'yellow'),
+        this.generateSubject('Social Studies', 'blue'),
       ]
     )
   },
@@ -55,8 +67,16 @@ export default {
   },
   methods: {
     push(subject) {
-      subject.assignments = { name: subject.entry, id: new Date() }
+      let temporary = subject.assignments
+      temporary.push({ name: subject.entry, id: new Date() })
+
+      subject.assignments = temporary
       subject.entry = ''
+    },
+    deleteItem(subject, i) {
+      let temporary = subject.assignments
+      temporary.splice(i, 1)
+      subject.assignments = temporary
     },
     generateSubject(name, color) {
       return {
@@ -64,12 +84,10 @@ export default {
         id: name.toLowerCase(),
         color: color,
         get assignments() {
-            return JSON.parse(localStorage.getItem(name.toLowerCase()) || '[]')
+          return JSON.parse(localStorage.getItem(name.toLowerCase()) || '[]')
         },
         set assignments(value) {
-            let temporary = this.assignments
-            temporary.push(value)
-            localStorage.setItem(name.toLowerCase(), JSON.stringify(temporary))
+          localStorage.setItem(name.toLowerCase(), JSON.stringify(value))
         },
       }
     },
