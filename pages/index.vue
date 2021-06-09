@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-serif font-bold text-4xl p-1">E-jenda <span class="text-base">v1.0</span></h1>
+    <h1 class="font-serif font-bold text-4xl p-1">E-jenda <span class="text-base">v{{version}}</span></h1>
     <ul
       class="-bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
@@ -8,7 +8,7 @@
       :class="parseColor(subject.color)"
     >
       <h1 class="font-serif font-bold text-4xl">{{ subject.name }}</h1>
-      <p v-show="!subject.assignments.length > 0" class="p-2 italic">
+      <p v-show="!subject.assignments.length > 0" class="py-2 italic">
         Nothing yet, add a new assignment
       </p>
       <li
@@ -18,7 +18,7 @@
           rounded-sm
           bg-white
           text-gray-800
-          m-2
+          my-2
           p-1
           flex
           justify-between
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import json from '~/package.json'
 export default {
   mounted() {
     this.subjects.push(
@@ -63,6 +64,7 @@ export default {
   data() {
     return {
       subjects: [],
+      version: json.version
     }
   },
   methods: {
