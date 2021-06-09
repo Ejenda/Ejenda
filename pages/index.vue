@@ -42,7 +42,7 @@
       ><input
         placeholder="Add a new assignment"
         class="text-gray-800 rounded-r-sm p-2"
-        v-model="subject.name"
+        v-model="subject.entry"
       />
     </ul>
   </div>
@@ -52,7 +52,6 @@
 import {version} from '~/package.json'
 export default {
   mounted() {
-    [["Math","red"],['English', 'indigo'],["Science", "yellow"],['Social Studies', 'blue']].ma
     this.subjects.push(
       ...[
         this.generateSubject('Math', 'red'),
