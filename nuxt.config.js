@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'E-Jenda',
+    title: 'E-jenda',
     htmlAttrs: {
       lang: 'en'
     },
