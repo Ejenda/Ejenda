@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import json from '~/package.json'
+import {version} from '~/package.json'
 export default {
   mounted() {
     this.subjects.push(
@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       subjects: [],
-      version: json.version
+      version
     }
   },
   methods: {
