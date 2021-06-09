@@ -52,12 +52,15 @@
 import {version} from '~/package.json'
 export default {
   mounted() {
+    [["Math","red"],['English', 'indigo'],["Science", "yellow"],['Social Studies', 'blue']].ma
     this.subjects.push(
       ...[
         this.generateSubject('Math', 'red'),
         this.generateSubject('English', 'indigo'),
         this.generateSubject('Science', 'yellow'),
         this.generateSubject('Social Studies', 'blue'),
+        this.generateSubject('Foreign Language', 'green'),
+        this.generateSubject('Related Arts', 'yellow'),
       ]
     )
   },
@@ -103,7 +106,8 @@ export default {
           return 'bg-blue-400 text-white'
         case 'yellow':
           return 'bg-yellow-400 text-white'
-
+        case 'green':
+          return 'bg-green-400 text-white'
         default:
           return 'bg-red-400 text-white'
       }
