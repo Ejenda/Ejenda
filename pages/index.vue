@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <h1 class="font-serif font-bold text-4xl p-1">E-jenda <span class="text-base">v{{version}}</span></h1>
+    <h1 class="font-serif font-bold text-4xl p-1">
+      E-jenda <span class="text-base">v{{ version }}</span>
+    </h1>
     <ul
       class="-bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
@@ -26,7 +28,7 @@
         v-for="(assignment, i) of subject.assignments"
         :key="`${assignment.id}`"
       >
-        <input class="bg-transparent flex-auto" v-model="assignment.name">
+        {{ assignment.name }}
         <button
           class="px-2 py-1 m-1 bg-white rounded-md"
           @click="deleteItem(subject, i)"
@@ -49,7 +51,7 @@
 </template>
 
 <script>
-import {version} from '~/package.json'
+import { version } from '~/package.json'
 export default {
   mounted() {
     this.subjects.push(
@@ -66,13 +68,25 @@ export default {
   data() {
     return {
       subjects: [],
-      version
+      version,
+      currentEntry: '',
     }
   },
   methods: {
+    change(assignment, subject, i) {
+      temp = subject.assignments
+      temporary = assignment
+      temporary.name = this.currentEntry
+      temp.assignments[i] = assignment
+      subject.assignments = temp
+    },
     push(subject) {
       let temporary = subject.assignments
-      temporary.push({ name: subject.entry, id: new Date() })
+      temporary.push({
+        name: subject.entry,
+        id: new Date(),
+        entry: subject.entry,
+      })
 
       subject.assignments = temporary
       subject.entry = ''
