@@ -42,7 +42,7 @@
       ><input
         placeholder="Add a new assignment"
         class="text-gray-800 rounded-r-sm p-2"
-        v-model="subject.entry"
+        v-model="subject.name"
       />
     </ul>
   </div>
