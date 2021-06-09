@@ -60,7 +60,7 @@ export default {
         this.generateSubject('Science', 'yellow'),
         this.generateSubject('Social Studies', 'blue'),
         this.generateSubject('Foreign Language', 'green'),
-        this.generateSubject('Related Arts', 'yellow'),
+        this.generateSubject('Related Arts', 'purple'),
       ]
     )
   },
@@ -108,6 +108,9 @@ export default {
           return 'bg-yellow-400 text-white'
         case 'green':
           return 'bg-green-400 text-white'
+        case 'purple':
+          return 'bg-purple-400 text-white'
+
         default:
           return 'bg-red-400 text-white'
       }
