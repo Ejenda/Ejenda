@@ -45,6 +45,7 @@
         placeholder="Add a new assignment"
         class="text-gray-800 rounded-r-sm p-2"
         v-model="subject.entry"
+        @keydown.enter="push(subject)"
       />
     </ul>
   </div>
@@ -81,6 +82,7 @@ export default {
       subject.assignments = temp
     },
     push(subject) {
+      if (subject.entry?.trim() == '' || !subject.entry) return
       let temporary = subject.assignments
       temporary.push({
         name: subject.entry,
