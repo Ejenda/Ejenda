@@ -101,14 +101,6 @@ export default {
           },
         },
         {
-          text: 'Yesterday',
-          onClick() {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            return date
-          },
-        },
-        {
           text: 'Tommorrow',
           onClick() {
             const date = new Date()
