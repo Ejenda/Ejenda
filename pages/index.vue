@@ -18,8 +18,7 @@
         class="
           font-serif
           rounded-sm
-          bg-white
-          bg-opacity-75
+          bg-white bg-opacity-75
           text-gray-800
           my-2
           p-1
@@ -28,7 +27,10 @@
         "
         v-for="(assignment, i) of subject.assignments"
         :key="`${assignment.id}`"
-        :class="{ 'bg-red-800 text-white': isToday(new Date(assignment.date)),'bg-yellow-400': isLate(new Date(assignment.date)) }"
+        :class="{
+          'bg-red-800 text-white': isToday(new Date(assignment.date)),
+          'bg-yellow-400': isLate(new Date(assignment.date)),
+        }"
       >
         <div class="block">
           <p>{{ assignment.name }}</p>
@@ -61,6 +63,8 @@
         v-model="subject.dateEntry"
         type="date"
         :disabled-date="notBeforeToday"
+        :default-value="new Date()"
+        :shortcuts="shortcuts"
       ></date-picker>
     </ul>
   </div>
@@ -87,6 +91,32 @@ export default {
       subjects: [],
       version,
       currentEntry: '',
+      shortcuts: [
+        {
+          text: 'Today',
+          onClick() {
+            const date = new Date()
+            // return a Date
+            return date
+          },
+        },
+        {
+          text: 'Yesterday',
+          onClick() {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            return date
+          },
+        },
+        {
+          text: 'Tommorrow',
+          onClick() {
+            const date = new Date()
+            date.setTime(date.getTime() + 3600 * 1000 * 24)
+            return date
+          },
+        },
+      ],
     }
   },
   methods: {
