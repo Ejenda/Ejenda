@@ -65,6 +65,7 @@
         :disabled-date="notBeforeToday"
         :default-value="new Date()"
         :shortcuts="shortcuts"
+        format="MM/DD/YYYY"
       ></date-picker>
     </ul>
   </div>
