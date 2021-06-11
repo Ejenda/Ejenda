@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col bg-red-100 min-h-screen">
     <h1 class="font-serif font-bold text-4xl p-1">
-      <img class="h-10 w-10 inline align-text-bottom" src="~/static/logo.svg"> E-jenda <span class="text-base">v{{ version }}</span>
+      <img class="h-10 w-10 inline align-text-bottom" src="~/static/logo.svg" />
+      E-jenda <span class="text-base">v{{ version }}</span>
     </h1>
     <ul
       class="-bg-opacity-50 w-full p-6"
@@ -15,10 +16,10 @@
       </p>
       <li
         class="
-          bg-opacity-75
           font-serif
           rounded-sm
           bg-white
+          bg-opacity-75
           text-gray-800
           my-2
           p-1
@@ -27,10 +28,18 @@
         "
         v-for="(assignment, i) of subject.assignments"
         :key="`${assignment.id}`"
+        :class="{ 'bg-red-800 text-white': isToday(new Date(assignment.date)),'bg-yellow-400': isLate(new Date(assignment.date)) }"
       >
-        {{ assignment.name }}
+        <div class="block">
+          <p>{{ assignment.name }}</p>
+
+          <p v-if="assignment.date" class="italic text-gray-400">
+            Due: {{ new Date(assignment.date).toLocaleDateString() }}
+          </p>
+          <p v-else class="italic text-gray-400">No due date</p>
+        </div>
         <button
-          class="px-2 py-1 m-1 bg-white rounded-md"
+          class="px-2 py-1 m-1 bg-white rounded-md text-gray-800"
           @click="deleteItem(subject, i)"
         >
           Delete
@@ -47,6 +56,12 @@
         v-model="subject.entry"
         @keydown.enter="push(subject)"
       />
+      <date-picker
+        class=""
+        v-model="subject.dateEntry"
+        type="date"
+        :disabled-date="notBeforeToday"
+      ></date-picker>
     </ul>
   </div>
 </template>
@@ -63,6 +78,7 @@ export default {
         this.generateSubject('Social Studies', 'blue'),
         this.generateSubject('Foreign Language', 'green'),
         this.generateSubject('Related Arts', 'purple'),
+        this.generateSubject('Random Things', ''),
       ]
     )
   },
@@ -74,6 +90,10 @@ export default {
     }
   },
   methods: {
+    notBeforeToday(date) {
+      return date < new Date(new Date().setHours(0, 0, 0, 0))
+    },
+
     change(assignment, subject, i) {
       temp = subject.assignments
       temporary = assignment
@@ -87,7 +107,7 @@ export default {
       temporary.push({
         name: subject.entry,
         id: new Date(),
-        entry: subject.entry,
+        date: subject.dateEntry,
       })
 
       subject.assignments = temporary
@@ -111,6 +131,23 @@ export default {
         },
       }
     },
+    isToday(someDate) {
+      const today = new Date()
+      return (
+        someDate.getDate() == today.getDate() &&
+        someDate.getMonth() == today.getMonth() &&
+        someDate.getFullYear() == today.getFullYear()
+      )
+    },
+    isLate(someDate) {
+      const today = new Date()
+      return (
+        someDate.getDate() < today.getDate() &&
+        someDate.getMonth() < today.getMonth() &&
+        someDate.getFullYear() < today.getFullYear()
+      )
+    },
+
     parseColor(color) {
       switch (color) {
         case 'red':
@@ -126,9 +163,16 @@ export default {
         case 'purple':
           return 'bg-purple-400 text-white'
         default:
-          return ''
+          return 'text-red-700'
       }
     },
   },
 }
 </script>
+<style lang="postcss">
+.mx-input {
+  @apply h-[40px];
+  border: none;
+  box-shadow: none;
+}
+</style>
