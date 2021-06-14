@@ -1,197 +1,294 @@
 <template>
-<div>
-      <ul
-      class="-bg-opacity-50 w-full p-6"
-      v-for="subject of subjects"
-      :key="subject.name"
-      :class="parseColor(subject.color)"
-    >
-      <h1 class="font-serif font-bold text-4xl">{{ subject.name }}</h1>
-      <p v-show="!subject.assignments.length > 0" class="py-2 italic">
-        Nothing yet, add a new assignment
-      </p>
-      <li
-        class="
-          font-serif
-          rounded-sm
-          bg-white bg-opacity-75
-          text-gray-800
-          my-2
-          p-1
-          flex
-          justify-between
-        "
-        v-for="(assignment, i) of subject.assignments"
-        :key="`${assignment.id}`"
-        :class="{
-          'bg-red-800 text-white': isToday(new Date(assignment.date)),
-          'bg-yellow-400': isLate(new Date(assignment.date)),
-        }"
-      >
-        <div class="block">
-          <p>{{ assignment.name }}</p>
-
-          <p v-if="assignment.date" class="italic text-gray-400">
-            Due: {{ new Date(assignment.date).toLocaleDateString() }}
-          </p>
-          <p v-else class="italic text-gray-400">No due date</p>
+  <div class="">
+    <div class="bg-white py-16 bg-opacity-25 my-1">
+      <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div class="col-span-6">
+            <h1
+              class="
+                font-bold
+                text-4xl
+                md:text-5xl
+                max-w-xl
+                text-gray-900
+                leading-tight
+              "
+            >
+              E-jenda
+            </h1>
+            <hr class="w-12 h-1 bg-red-400 rounded-full mt-8" />
+            <p
+              class="text-gray-700 text-2xl leading-relaxed mt-8 font-semibold"
+            >
+              The digital agenda
+            </p>
+            <div class="my-2">
+              <nuxt-link
+                to="/app"
+                class="bg-red-300 p-3 rounded text-white font-bold"
+                >Use the app</nuxt-link
+              >
+            </div>
+          </div>
+          <div class="col-span-6">
+            <img
+              alt="Ejenda logo"
+              src="~/static/logo.svg"
+              height="300px"
+              width="300px"
+            />
+          </div>
         </div>
-        <button
-          class="px-2 py-1 m-1 bg-white rounded-md text-gray-800"
-          @click="deleteItem(subject, i)"
-        >
-          Delete
-        </button>
-      </li>
-      <button
-        class="rounded-l-sm bg-white text-gray-800 p-2"
-        @click="push(subject)"
+      </div>
+    </div>
+    <div class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:text-center">
+          <h2
+            class="text-base text-red-600 font-semibold tracking-wide uppercase"
+          >
+            Ejenda
+          </h2>
+          <p
+            class="
+              mt-2
+              text-3xl
+              leading-8
+              font-extrabold
+              tracking-tight
+              text-gray-900
+              sm:text-4xl
+            "
+          >
+            A better way to keep track
+          </p>
+          <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+            Ejenda lets you keep track of all your assignments easily.
+          </p>
+        </div>
+
+        <div class="mt-10">
+          <dl
+            class="
+              space-y-10
+              md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10
+            "
+          >
+            <div class="relative">
+              <dt>
+                <div
+                  class="
+                    absolute
+                    flex
+                    items-center
+                    justify-center
+                    h-12
+                    w-12
+                    rounded-md
+                    bg-red-500
+                    text-white
+                  "
+                >
+                  <!-- Heroicon name: outline/globe-alt -->
+                  <svg
+                    class="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                    />
+                  </svg>
+                </div>
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                  Teacher provided links
+                </p>
+              </dt>
+              <dd class="mt-2 ml-16 text-base text-gray-500">
+                Teachers can give you links that add assignments right into your
+                ajenda.
+              </dd>
+            </div>
+
+            <div class="relative">
+              <dt>
+                <div
+                  class="
+                    absolute
+                    flex
+                    items-center
+                    justify-center
+                    h-12
+                    w-12
+                    rounded-md
+                    bg-red-500
+                    text-white
+                  "
+                >
+                  <!-- Heroicon name: outline/scale -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    />
+                  </svg>
+                </div>
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                  No more writing
+                </p>
+              </dt>
+              <dd class="mt-2 ml-16 text-base text-gray-500">
+                All you have to do is type in assignments!
+              </dd>
+            </div>
+
+            <div class="relative">
+              <dt>
+                <div
+                  class="
+                    absolute
+                    flex
+                    items-center
+                    justify-center
+                    h-12
+                    w-12
+                    rounded-md
+                    bg-red-500
+                    text-white
+                  "
+                >
+                  <!-- Heroicon name: outline/lightning-bolt -->
+                  <svg
+                    class="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                  Fast
+                </p>
+              </dt>
+              <dd class="mt-2 ml-16 text-base text-gray-500">
+                Ejenda is engineered to be super-fast, which saves you time.
+              </dd>
+            </div>
+
+            <div class="relative">
+              <dt>
+                <div
+                  class="
+                    absolute
+                    flex
+                    items-center
+                    justify-center
+                    h-12
+                    w-12
+                    rounded-md
+                    bg-red-500
+                    text-white
+                  "
+                >
+                  <!-- Heroicon name: outline/annotation -->
+                  <svg
+                    class="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+                    />
+                  </svg>
+                </div>
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                  Never miss another assignment
+                </p>
+              </dt>
+              <dd class="mt-2 ml-16 text-base text-gray-500">
+                We know it's hard to stay on top of everything, so Ejenda makes
+                late and due-that-day assignments pop out.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-50">
+      <div
+        class="
+          max-w-7xl
+          mx-auto
+          py-12
+          px-4
+          sm:px-6
+          lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between
+        "
       >
-        +</button
-      ><input
-        placeholder="Add a new assignment"
-        class="text-gray-800 rounded-r-sm p-2"
-        v-model="subject.entry"
-        @keydown.enter="push(subject)"
-      />
-      <date-picker
-        class=""
-        v-model="subject.dateEntry"
-        type="date"
-        :disabled-date="notBeforeToday"
-        :default-value="new Date()"
-        :shortcuts="shortcuts"
-        format="MM/DD/YYYY"
-      ></date-picker>
-    </ul>
+        <h2
+          class="
+            text-3xl
+            font-extrabold
+            tracking-tight
+            text-gray-900
+            sm:text-4xl
+          "
+        >
+          <span class="block">Ready to dive in?</span>
+          <span class="block text-red-600">Start using it today.</span>
+        </h2>
+        <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+          <div class="inline-flex rounded-md shadow">
+            <nuxt-link
+              to="/app"
+              class="
+                inline-flex
+                items-center
+                justify-center
+                px-5
+                py-3
+                border border-transparent
+                text-base
+                font-medium
+                rounded-md
+                text-white
+                bg-red-600
+                hover:bg-red-700
+              "
+            >
+              Get started
+            </nuxt-link>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
-<script>
-import { version } from '~/package.json'
-export default {
-  mounted() {
-    this.subjects.push(
-      ...[
-        this.generateSubject('Math', 'red'),
-        this.generateSubject('English', 'indigo'),
-        this.generateSubject('Science', 'yellow'),
-        this.generateSubject('Social Studies', 'blue'),
-        this.generateSubject('Foreign Language', 'green'),
-        this.generateSubject('Related Arts', 'purple'),
-        this.generateSubject('Random Things', ''),
-      ]
-    )
-    if (window.location.hash) {
-      let data = JSON.parse(decodeURI(window.location.hash.split('#')[1]))
-      let assignments = this.subjects.find((item) => {return item.id == data.subject}).assignments
-      assignments.push(...data.assignments)
-      this.subjects.find((item) => {return item.id == data.subject}).assignments = assignments
-      window.location.href = ''
-    }
-  },
-  data() {
-    return {
-      subjects: [],
-      
-      currentEntry: '',
-      shortcuts: [
-        {
-          text: 'Today',
-          onClick() {
-            const date = new Date()
-            // return a Date
-            return date
-          },
-        },
-        {
-          text: 'Tommorrow',
-          onClick() {
-            const date = new Date()
-            date.setTime(date.getTime() + 3600 * 1000 * 24)
-            return date
-          },
-        },
-      ],
-    }
-  },
-  methods: {
-    notBeforeToday(date) {
-      return date < new Date(new Date().setHours(0, 0, 0, 0))
-    },
-
-    change(assignment, subject, i) {
-      temp = subject.assignments
-      temporary = assignment
-      temporary.name = this.currentEntry
-      temp.assignments[i] = assignment
-      subject.assignments = temp
-    },
-    push(subject) {
-      if (subject.entry?.trim() == '' || !subject.entry) return
-      let temporary = subject.assignments
-      temporary.push({
-        name: subject.entry,
-        id: new Date(),
-        date: subject.dateEntry,
-      })
-
-      subject.assignments = temporary
-      subject.entry = ''
-    },
-    deleteItem(subject, i) {
-      let temporary = subject.assignments
-      temporary.splice(i, 1)
-      subject.assignments = temporary
-    },
-    generateSubject(name, color) {
-      return {
-        name: name,
-        id: name.toLowerCase(),
-        color: color,
-        get assignments() {
-          return JSON.parse(localStorage.getItem(name.toLowerCase()) || '[]')
-        },
-        set assignments(value) {
-          localStorage.setItem(name.toLowerCase(), JSON.stringify(value))
-        },
-      }
-    },
-    isToday(someDate) {
-      const today = new Date()
-      return (
-        someDate.getDate() == today.getDate() &&
-        someDate.getMonth() == today.getMonth() &&
-        someDate.getFullYear() == today.getFullYear()
-      )
-    },
-    isLate(someDate) {
-      const today = new Date()
-      return (
-        someDate.getDate() < today.getDate() &&
-        someDate.getMonth() < today.getMonth() &&
-        someDate.getFullYear() < today.getFullYear()
-      )
-    },
-
-    parseColor(color) {
-      switch (color) {
-        case 'red':
-          return 'bg-red-400 text-white'
-        case 'indigo':
-          return 'bg-indigo-400 text-white'
-        case 'blue':
-          return 'bg-blue-400 text-white'
-        case 'yellow':
-          return 'bg-yellow-400 text-white'
-        case 'green':
-          return 'bg-green-400 text-white'
-        case 'purple':
-          return 'bg-purple-400 text-white'
-        default:
-          return 'text-red-700'
-      }
-    },
-  },
-}
-</script>

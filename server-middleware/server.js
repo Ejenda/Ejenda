@@ -1,8 +1,7 @@
 const app = require('express')()
 var crypto = require('crypto')
 const bodyParser = require('body-parser')
-
-const db = require('monk')(process.env.URL)
+const db = require('monk')(process.env.URL?? require('../env.json').URL)
 
 const assignments = db.get('assignments')
 console.log(assignments)
@@ -23,7 +22,7 @@ app.post('/get', (req, res) => {
 app.get('/add/:str', async (req, res) => {
   data = await assignments.findOne({ id: req.params.str })
   console.log(data)
-  res.redirect(`/#${JSON.stringify(data)}`)
+  res.redirect(`/app#${JSON.stringify(data)}`)
 })
 
 module.exports = app
