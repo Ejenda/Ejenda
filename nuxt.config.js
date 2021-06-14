@@ -51,5 +51,12 @@ export default {
   },
   generate: {
     fallback: true
+  },
+  pwa: {
+    manifest: {
+      name: 'E-jenda',
+    }
   }
+  
+  
 }
