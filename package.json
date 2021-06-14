@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "core-js": "^3.9.1",
+    "express": "^4.17.1",
+    "monk": "^7.3.4",
     "nuxt": "^2.15.3",
     "vue2-datepicker": "^3.9.1"
   },

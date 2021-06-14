@@ -1,0 +1,19 @@
+{
+  "builds": [
+    {
+      "src": "nuxt.config.js",
+      "use": "@nuxtjs/vercel-builder",
+      "config": {
+        "serverFiles": ["server-middleware/**"]
+      },
+      "env": {
+        "URL": true
+      },
+      "build": {
+        "env": {
+          "URL": true
+        }
+      }
+    }
+  ]
+}

@@ -1,10 +1,6 @@
 <template>
-  <div class="flex flex-col bg-red-100 min-h-screen">
-    <h1 class="font-serif font-bold text-4xl p-1">
-      <img class="h-10 w-10 inline align-text-bottom" src="~/static/logo.svg" />
-      E-jenda <span class="text-base">v{{ version }}</span>
-    </h1>
-    <ul
+<div>
+      <ul
       class="-bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
       :key="subject.name"
@@ -86,11 +82,18 @@ export default {
         this.generateSubject('Random Things', ''),
       ]
     )
+    if (window.location.hash) {
+      let data = JSON.parse(decodeURI(window.location.hash.split('#')[1]))
+      let assignments = this.subjects.find((item) => {return item.id == data.subject}).assignments
+      assignments.push(...data.assignments)
+      this.subjects.find((item) => {return item.id == data.subject}).assignments = assignments
+      window.location.href = ''
+    }
   },
   data() {
     return {
       subjects: [],
-      version,
+      
       currentEntry: '',
       shortcuts: [
         {
@@ -192,10 +195,3 @@ export default {
   },
 }
 </script>
-<style lang="postcss">
-.mx-input {
-  @apply h-[40px];
-  border: none;
-  box-shadow: none;
-}
-</style>

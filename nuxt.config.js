@@ -40,6 +40,7 @@ export default {
       mode: 'jit'
     }
   },
+  serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
   ],
