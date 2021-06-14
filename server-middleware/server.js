@@ -3,6 +3,8 @@ var crypto = require('crypto')
 const bodyParser = require('body-parser')
 
 const db = require('monk')(process.env.URL)
+db.log_events.ensureIndex({ "createdAt": 1 }, { expireAfterSeconds: 2592000 })
+
 const assignments = db.get('assignments')
 console.log(assignments)
 app.use(bodyParser.json())
