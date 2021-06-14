@@ -89,6 +89,8 @@ export default {
       this.subjects.find((item) => {return item.id == data.subject}).assignments = assignments
       window.location.href = ''
     }
+    this.$set(this.subjects[0].assignments, 0, {})
+
   },
   data() {
     return {
