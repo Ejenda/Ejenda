@@ -22,7 +22,7 @@
             >
               The digital agenda
             </p>
-            <div class="my-2">
+            <div class="my-4">
               <nuxt-link
                 to="/app"
                 class="bg-red-300 p-3 rounded text-white font-bold"

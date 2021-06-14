@@ -6,7 +6,9 @@
     </h1>
 
     <Nuxt />
+    <footer class="bg-red-50 p-4"><span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahanSH</span></footer>
   </div>
+
 </template>
 <script>
 import { version } from '~/package.json'
