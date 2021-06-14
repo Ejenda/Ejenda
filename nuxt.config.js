@@ -55,6 +55,7 @@ export default {
   pwa: {
     manifest: {
       name: 'E-jenda',
+      start_url: '/app'
     }
   }
   
