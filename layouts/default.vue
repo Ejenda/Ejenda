@@ -1,12 +1,12 @@
 <template>
     <div class="flex flex-col bg-red-100 min-h-screen">
     <h1 class="font-serif font-bold text-4xl p-1">
-      <img class="h-10 w-10 inline align-text-bottom" src="~/static/logo.svg" />
+      <img class="rounded-full h-10 w-10 inline align-text-bottom" src="~/static/logo.svg" />
       E-jenda <span class="text-base">v{{ version }}</span>
     </h1>
 
     <Nuxt />
-    <footer class="bg-red-50 p-4"><span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahanSH</span></footer>
+    <footer class="bg-red-50 p-4"><span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahamSH</span></footer>
   </div>
 
 </template>

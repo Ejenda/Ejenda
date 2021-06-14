@@ -32,7 +32,7 @@
           </div>
           <div class="col-span-6">
             <img
-              alt="Ejenda logo"
+              alt="E-jenda logo"
               src="~/static/logo.svg"
               height="300px"
               width="300px"
@@ -47,7 +47,7 @@
           <h2
             class="text-base text-red-600 font-semibold tracking-wide uppercase"
           >
-            Ejenda
+            E-jenda
           </h2>
           <p
             class="
@@ -63,7 +63,7 @@
             A better way to keep track
           </p>
           <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Ejenda lets you keep track of all your assignments easily.
+            E-jenda lets you keep track of all your assignments easily.
           </p>
         </div>
 
@@ -193,7 +193,7 @@
                 </p>
               </dt>
               <dd class="mt-2 ml-16 text-base text-gray-500">
-                Ejenda is engineered to be super-fast, which saves you time.
+                E-jenda is engineered to be super-fast, which saves you time.
               </dd>
             </div>
 
@@ -234,7 +234,7 @@
                 </p>
               </dt>
               <dd class="mt-2 ml-16 text-base text-gray-500">
-                We know it's hard to stay on top of everything, so Ejenda makes
+                We know it's hard to stay on top of everything, so E-jenda makes
                 late and due-that-day assignments pop out.
               </dd>
             </div>

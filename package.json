@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.9.1",
     "express": "^4.17.1",
     "monk": "^7.3.4",
