@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col bg-red-100 min-h-screen">
-    <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="bg-red-600">
       <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between flex-wrap">
@@ -69,7 +68,7 @@
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
       />
-      E-jenda <span class="text-base">v{{ version }}</span>
+      <nuxt-link to="/">E-jenda</nuxt-link> <span class="text-base">v{{ version }}</span>
     </h1>
 
     <Nuxt />
