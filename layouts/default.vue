@@ -63,13 +63,15 @@
       </div>
     </div>
 
-    <h1 class="font-serif font-bold text-4xl p-1">
-      <img
+    <div class=" p-1 flex justify-between">
+      <div class="font-serif font-bold text-4xl"><img
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
       />
-      <nuxt-link to="/">E-jenda</nuxt-link> <span class="text-base">v{{ version }}</span>
-    </h1>
+      <nuxt-link to="/">E-jenda</nuxt-link> <span class="text-base">v{{ version }}</span></div>
+          <nuxt-link to="/faq" class="bg-red-400 text-red-300 hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">FAQ</nuxt-link>
+
+    </div>
 
     <Nuxt />
     <footer class="bg-red-50 p-4">
@@ -90,5 +92,8 @@ export default {
   @apply h-[40px];
   border: none;
   box-shadow: none;
+}
+.link {
+  @apply text-red-400;
 }
 </style>

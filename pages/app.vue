@@ -54,7 +54,7 @@
         v-model="subject.entry"
         @keydown.enter="push(subject)"
       />
-      <date-picker
+      Due: <date-picker
         class=""
         v-model="subject.dateEntry"
         type="date"

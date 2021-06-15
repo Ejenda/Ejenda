@@ -250,7 +250,7 @@
           py-12
           px-4
           sm:px-6
-          lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between
+          lg:py-16 lg:px-8  lg:items-center
         "
       >
         <h2
@@ -266,7 +266,7 @@
           <span class="block text-red-600">Start using it today.</span>
         </h2>
         <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-          <div class="inline-flex rounded-md shadow">
+          <div class="inline-flex rounded-md shadow my-2">
             <nuxt-link
               to="/app"
               class="
@@ -282,6 +282,7 @@
                 text-white
                 bg-red-600
                 hover:bg-red-700
+                
               "
             >
               Get started
@@ -314,7 +315,7 @@
           <span class="block text-red-600">Generate a link for your students!</span>
         </h2>
         <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0 justify-end">
-          <div class="inline-flex rounded-md shadow">
+          <div class="inline-flex rounded-md shadow my-2">
             <nuxt-link
               to="/teachers"
               class="
@@ -332,7 +333,7 @@
                 hover:bg-red-700
               "
             >
-              Get started
+              Generate a link
             </nuxt-link>
           </div>
         </div>
