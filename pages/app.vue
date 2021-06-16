@@ -24,8 +24,8 @@
         v-for="(assignment, i) of subject.assignments"
         :key="`${assignment.id}`"
         :class="{
-          'bg-red-800 text-white': isToday(new Date(assignment.date)),
-          'bg-yellow-400': isLate(new Date(assignment.date)),
+          '!bg-red-800 !text-white': isToday(new Date(assignment.date)),
+          '!bg-yellow-400': isLate(new Date(assignment.date)),
         }"
       >
         <div class="block">
