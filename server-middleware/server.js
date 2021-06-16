@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const db = require('monk')(process.env.URL?? require('../env.json').URL)
 
 const assignments = db.get('assignments')
-console.log(assignments)
 app.use(bodyParser.json())
 app.post('/get', (req, res) => {
   if (req.body.assignments && req.body.subject) {
