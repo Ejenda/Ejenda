@@ -25,7 +25,7 @@
         :key="`${assignment.id}`"
         :class="{
           '!bg-red-800 !text-white': isToday(new Date(assignment.date)),
-          '!bg-yellow-400': isLate(new Date(assignment.date)),
+          '!bg-yellow-400': isLate(assignment.date),
         }"
       >
         <div class="block">
@@ -167,13 +167,8 @@ export default {
         someDate.getFullYear() == today.getFullYear()
       )
     },
-    isLate(someDate) {
-      const today = new Date()
-      return (
-        someDate.getDate() < today.getDate() &&
-        someDate.getMonth() < today.getMonth() &&
-        someDate.getFullYear() < today.getFullYear()
-      )
+    isLate(date) {
+      return new Date(date).valueOf() < new Date().valueOf();
     },
 
     parseColor(color) {

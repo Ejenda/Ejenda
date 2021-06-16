@@ -69,7 +69,7 @@
         src="~/static/logo.svg"
       />
       <nuxt-link to="/">E-jenda</nuxt-link> <span class="text-base">v{{ version }}</span></div>
-          <nuxt-link to="/faq" class="bg-red-400 text-red-300 hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">FAQ</nuxt-link>
+          <nuxt-link to="/faq" class="bg-red-300 text-red-100 hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">FAQ</nuxt-link>
 
     </div>
 
@@ -89,9 +89,9 @@ export default {
 </script>
 <style lang="postcss">
 .mx-input {
-  @apply h-[40px];
-  border: none;
-  box-shadow: none;
+  @apply !h-[40px];
+  border: none!important;
+  box-shadow: none!important;
 }
 .link {
   @apply text-red-400;
