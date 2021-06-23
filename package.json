@@ -17,7 +17,7 @@
     "vue2-datepicker": "^3.9.1"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^4.0.1",
+    "@nuxtjs/tailwindcss": "^4.2.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "postcss": "^8.3.5",
