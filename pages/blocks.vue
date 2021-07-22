@@ -57,9 +57,14 @@
         <div class="mt-8">
           <h2 class="font-semibold leading-relaxed mb-3 flex items-center">
             <span class="sm:hidden">Get notified when it’s ready</span>
+            <div>
             <span class="hidden sm:inline"
               >Get behind-the-scenes updates and find out when it’s ready</span
             >
+            <p class="italic font-normal">
+                Just send me a way to contact you on the link below
+            </p>
+            </div>
             <svg
               width="12"
               height="12"
