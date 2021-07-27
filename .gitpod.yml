@@ -3,3 +3,4 @@ ports:
   onOpen: open-browser
 tasks:
 - command: npm run dev
+- init: npm ci
