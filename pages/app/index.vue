@@ -1,7 +1,7 @@
 <template>
-<div class="dark:bg-gray-700">
-      <ul
-      class="dark:bg-opacity-25 w-full p-6"
+  <div class="dark:bg-gray-700">
+    <ul
+      class="dark:bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
       :key="subject.name"
       :class="parseColor(subject.color)"
@@ -54,7 +54,8 @@
         v-model="subject.entry"
         @keydown.enter="push(subject)"
       />
-      Due: <date-picker
+      Due:
+      <date-picker
         class=""
         v-model="subject.dateEntry"
         type="date"
@@ -84,18 +85,21 @@ export default {
     )
     if (window.location.hash) {
       let data = JSON.parse(decodeURI(window.location.hash.split('#')[1]))
-      let assignments = this.subjects.find((item) => {return item.id == data.subject}).assignments
+      let assignments = this.subjects.find((item) => {
+        return item.id == data.subject
+      }).assignments
       assignments.push(...data.assignments)
-      this.subjects.find((item) => {return item.id == data.subject}).assignments = assignments
+      this.subjects.find((item) => {
+        return item.id == data.subject
+      }).assignments = assignments
       window.location.href = ''
     }
     this.$set(this.subjects[0].assignments, 0, {})
-
   },
   data() {
     return {
       subjects: [],
-      
+
       currentEntry: '',
       shortcuts: [
         {
@@ -168,7 +172,7 @@ export default {
       )
     },
     isLate(date) {
-      return new Date(date).valueOf() < new Date().valueOf();
+      return new Date(date).valueOf() < new Date().valueOf()
     },
 
     parseColor(color) {
@@ -180,7 +184,7 @@ export default {
         case 'blue':
           return 'bg-blue-400 text-white'
         case 'yellow':
-          return 'bg-yellow-400 text-white'
+          return 'bg-yellow-400 dark:bg-yellow-300 text-white'
         case 'green':
           return 'bg-green-400 text-white'
         case 'purple':

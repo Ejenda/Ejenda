@@ -6,64 +6,54 @@ export default {
   head: {
     title: 'E-jenda',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'E-jenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as E-jenda is in beta.' }
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'E-jenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as E-jenda is in beta.',
+      },
     ],
-    link: [
-      { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }
-    ]
+    link: [{ rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: '~/plugins/date-picker.js'},
-  ],
+  plugins: [{ src: '~/plugins/date-picker.js' }],
   colorMode: {
-    classSuffix: ''
+    classSuffix: '',
   },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/color-mode'
-  ],
+  buildModules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
   tailwindcss: {
     config: {
       mode: 'jit',
-      darkMode: 'class'
-
-    }
+      darkMode: 'class',
+    },
   },
-  serverMiddleware: ["~/server-middleware/server.js"],
+  serverMiddleware: ['~/server-middleware/server.js'],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    '@nuxtjs/pwa',
-    
-  ],
+  modules: ['@nuxtjs/pwa'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  },
+  build: {},
   generate: {
-    fallback: true
+    fallback: true,
   },
   pwa: {
     manifest: {
       name: 'E-jenda',
-      start_url: '/app'
-    }
-  }
-  
-  
+      start_url: '/app',
+    },
+  },
 }

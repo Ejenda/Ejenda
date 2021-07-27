@@ -1,7 +1,7 @@
 const app = require('express')()
 var crypto = require('crypto')
 const bodyParser = require('body-parser')
-const db = require('monk')(process.env.URL?? require('../env.json').URL)
+const db = require('monk')(process.env.URL ?? require('../env.json').URL)
 
 const assignments = db.get('assignments')
 app.use(bodyParser.json())

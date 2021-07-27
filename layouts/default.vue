@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-red-100 dark:bg-gray-400 min-h-screen">
+  <div class="flex flex-col bg-red-100 dark:bg-gray-500 min-h-screen">
     <div class="bg-red-600">
       <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between flex-wrap">
@@ -88,13 +88,15 @@
 
     <Nuxt />
     <footer class="bg-red-50 p-4 dark:bg-gray-800 dark:text-white">
-      <span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahamSH</span>    
-      <select class="p-2 rounded dark:bg-gray-700" v-model="$colorMode.preference">
-      <option value="system">System</option>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-    </select>
-
+      <span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahamSH</span>
+      <select
+        class="p-2 rounded dark:bg-gray-700"
+        v-model="$colorMode.preference"
+      >
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
     </footer>
     <div class="inset-x-0 bottom-0 rounded sticky" v-show="!hide">
       <div
@@ -131,9 +133,7 @@
               </svg>
             </span>
             <p class="ml-3 font-medium text-white truncate">
-              <span class="">
-                Coming soon: Ejenda Blocks
-              </span>
+              <span class=""> Coming soon: Ejenda Blocks </span>
             </p>
           </div>
           <div
@@ -161,7 +161,6 @@
                 text-red-600
                 bg-white
                 hover:bg-red-50
-                
               "
             >
               Learn more
@@ -218,7 +217,7 @@ export default {
     hideComingSoonPopup() {
       this.hide = true
       localStorage.setItem('hide', 'true')
-    }
+    },
   },
 }
 </script>
