@@ -26,24 +26,30 @@ export default {
   plugins: [
     { src: '~/plugins/date-picker.js'},
   ],
+  colorMode: {
+    classSuffix: ''
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode'
   ],
   tailwindcss: {
     config: {
-      mode: 'jit'
+      mode: 'jit',
+      darkMode: 'class'
+
     }
   },
   serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

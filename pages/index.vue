@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="py-12 bg-white">
+    <div class="py-12 bg-white dark:bg-gray-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2
@@ -242,7 +242,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50">
+    <div class="bg-gray-50 dark:bg-gray-200">
       <div
         class="
           max-w-7xl
@@ -291,7 +291,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50 text-right">
+    <div class="bg-gray-50 dark:bg-gray-200 text-right">
       <div
         class="
           max-w-7xl

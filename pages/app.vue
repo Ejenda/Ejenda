@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="dark:bg-gray-700">
       <ul
-      class="-bg-opacity-50 w-full p-6"
+      class="dark:bg-opacity-25 w-full p-6"
       v-for="subject of subjects"
       :key="subject.name"
       :class="parseColor(subject.color)"
@@ -186,7 +186,7 @@ export default {
         case 'purple':
           return 'bg-purple-400 text-white'
         default:
-          return 'text-red-700'
+          return 'dark:text-white text-red-700'
       }
     },
   },
