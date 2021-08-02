@@ -40,20 +40,12 @@ export default {
       mode: 'jit'
     }
   },
-  serverMiddleware: ["~/server-middleware/server.js","~/server-middleware/socket-io-server.js" ],
+  serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/pwa',
-    'nuxt-socket-io',
+    
   ],
-  io: {
-
-    sockets: [{
-      default: true,
-      name: 'main', 
-      url: 'https://3001-magenta-bug-vtlh0jiq.ws-us11.gitpod.io/' 
-    }]
-  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
