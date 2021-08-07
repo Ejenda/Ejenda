@@ -20,6 +20,12 @@ const sessionSchema = new Schema({
   token: String,
 })
 const Session = models.sessions || model('sessions', sessionSchema)
+const schoolSchema = new Schema({
+  url: String,
+  name: String,
+})
+const School = models.schools || model('schools', schoolSchema)
+
 const userSchema = new Schema({
   name: String,
   password: String,
@@ -31,13 +37,13 @@ let sessions = []
 })()
 
 const strictCors = {
-  origin: '*'/*function (origin, callback) {
+  origin: '*' /*function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
     }
-  },*/
+  },*/,
 }
 function findSession(token) {
   const session = sessions.find((f) => f.token == token)
@@ -255,6 +261,20 @@ app.post('/get', (req, res) => {
 app.get('/add/:str', async (req, res) => {
   data = await Assignment.findOne({ id: req.params.str })
   res.redirect(`/app#${JSON.stringify(data)}`)
+})
+app.post('/schools/lookup', async (req, res) => {
+  console.log(req.body.url)
+  let school = await School.findOne({ url: req.body.url })
+  console.log(school)
+  if (school) {
+    res.json({ id: school._id, name: school.name })
+  } else {
+    res.json({})
+  }
+})
+app.post('/schools/new', /*checkLoggedIn(),*/ async (req, res) => {
+  new School({ url: req.body.url, name: req.body.name }).save()
+  res.json({})
 })
 
 export default app

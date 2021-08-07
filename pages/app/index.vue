@@ -1,5 +1,6 @@
 <template>
 <div>
+  <calendar :subjects="subjects"/>
       <ul
       class="-bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
@@ -68,8 +69,10 @@
 </template>
 
 <script>
+import calendar from '~/components/calendar.vue'
 import { version } from '~/package.json'
 export default {
+  components: { calendar },
   mounted() {
     this.subjects.push(
       ...[

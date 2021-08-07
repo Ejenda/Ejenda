@@ -83,7 +83,7 @@ export default {
         try {
           await this.$store.dispatch("auth/login", data.token);
           this.$router.push({
-            path: `/users/${username}`,
+            path: `/onboarding`,
           });
           
         } catch (err) {
