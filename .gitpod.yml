@@ -3,4 +3,4 @@ ports:
     onOpen: open-browser
 tasks:
   - command: npm run dev
-  - init: npm ci
+  - init: npm ci && export BACKENDURL=$(gp url 3000)
