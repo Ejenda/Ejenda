@@ -1,8 +1,7 @@
 <template>
-<div>
-  <calendar :subjects="subjects"/>
-      <ul
-      class="-bg-opacity-50 w-full p-6"
+  <div class="dark:bg-gray-700">
+    <ul
+      class="dark:bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
       :key="subject.name"
       :class="parseColor(subject.color)"
@@ -98,7 +97,6 @@ export default {
   data() {
     return {
       subjects: [],
-      
       currentEntry: '',
       shortcuts: [
         {
@@ -183,13 +181,13 @@ export default {
         case 'blue':
           return 'bg-blue-400 text-white'
         case 'yellow':
-          return 'bg-yellow-400 text-white'
+          return 'bg-yellow-400 dark:bg-yellow-300 text-white'
         case 'green':
           return 'bg-green-400 text-white'
         case 'purple':
           return 'bg-purple-400 text-white'
         default:
-          return 'text-red-700'
+          return 'dark:text-white text-red-700'
       }
     },
   },

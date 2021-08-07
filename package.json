@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/color-mode": "^2.0.10",
     "@nuxtjs/pwa": "^3.3.5",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
@@ -28,7 +29,7 @@
     "@nuxtjs/tailwindcss": "^4.0.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "postcss": "^8.3.5",
+    "postcss": "^8.3.6",
     "prettier": "^2.3.2"
   }
 }
