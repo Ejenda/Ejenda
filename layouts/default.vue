@@ -71,6 +71,11 @@
         />
         <nuxt-link to="/">E-jenda</nuxt-link>
         <span class="text-base">v{{ version }}</span>
+        <div v-if="$auth.loggedIn" >
+        <span class="text-base">Hi, {{ $auth.user.name }}</span>
+        <button @click="logout">Logout</button>
+        </div>
+        <div v-else><nuxt-link to="/login">Login</nuxt-link> <nuxt-link to="/join">Join</nuxt-link></div>
       </div>
       <nuxt-link
         to="/faq"
@@ -217,6 +222,12 @@ export default {
     hideComingSoonPopup() {
       this.hide = true
       localStorage.setItem('hide', 'true')
+    },
+    async logout() {
+      await this.$store.dispatch('auth/logout')
+      this.$router.push({
+        path: '/',
+      })
     },
   },
 }

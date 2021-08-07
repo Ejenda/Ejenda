@@ -54,8 +54,7 @@
         v-model="subject.entry"
         @keydown.enter="push(subject)"
       />
-      Due:
-      <date-picker
+      Due: <date-picker
         class=""
         v-model="subject.dateEntry"
         type="date"
@@ -69,8 +68,10 @@
 </template>
 
 <script>
+import calendar from '~/components/calendar.vue'
 import { version } from '~/package.json'
 export default {
+  components: { calendar },
   mounted() {
     this.subjects.push(
       ...[
@@ -85,21 +86,17 @@ export default {
     )
     if (window.location.hash) {
       let data = JSON.parse(decodeURI(window.location.hash.split('#')[1]))
-      let assignments = this.subjects.find((item) => {
-        return item.id == data.subject
-      }).assignments
+      let assignments = this.subjects.find((item) => {return item.id == data.subject}).assignments
       assignments.push(...data.assignments)
-      this.subjects.find((item) => {
-        return item.id == data.subject
-      }).assignments = assignments
+      this.subjects.find((item) => {return item.id == data.subject}).assignments = assignments
       window.location.href = ''
     }
     this.$set(this.subjects[0].assignments, 0, {})
+
   },
   data() {
     return {
       subjects: [],
-
       currentEntry: '',
       shortcuts: [
         {
@@ -172,7 +169,7 @@ export default {
       )
     },
     isLate(date) {
-      return new Date(date).valueOf() < new Date().valueOf()
+      return new Date(date).valueOf() < new Date().valueOf();
     },
 
     parseColor(color) {

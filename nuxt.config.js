@@ -25,13 +25,22 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/date-picker.js' }],
+
+  plugins: [
+    { src: '~/plugins/date-picker.js'},
+    { src: '~/plugins/auth.js'},
+    { src: '~/plugins/calendar.client.js'},
+  ],
   colorMode: {
     classSuffix: '',
   },
 
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
+  env: {
+    backendURL: process.env.BACKENDURL || 'http://localhost:8000',
+  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
@@ -43,7 +52,10 @@ export default {
   },
   serverMiddleware: ['~/server-middleware/server.js'],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/pwa'],
+  modules: [
+    '@nuxtjs/pwa',
+    
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
@@ -53,7 +65,10 @@ export default {
   pwa: {
     manifest: {
       name: 'E-jenda',
-      start_url: '/app',
-    },
+      start_url: '/app'
+    }
   },
+  
+  
+  
 }
