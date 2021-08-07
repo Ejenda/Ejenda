@@ -26,6 +26,7 @@ export default {
   plugins: [
     { src: '~/plugins/date-picker.js'},
     { src: '~/plugins/auth.js'},
+    { src: '~/plugins/calendar.client.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

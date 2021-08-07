@@ -19,4 +19,7 @@ export default async function ({ $auth, redirect, req, store }) {
   if (!$auth.loggedIn) {
     return redirect('/login')
   }
+  if (!$auth.onboarded) {
+    return redirect('/onboarding')
+  }
 }
