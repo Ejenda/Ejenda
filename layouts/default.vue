@@ -71,6 +71,11 @@
         />
         <nuxt-link to="/">E-jenda</nuxt-link>
         <span class="text-base">v{{ version }}</span>
+        <div v-if="$auth.loggedIn" >
+        <span class="text-base">Hi, {{ $auth.user.name }}</span>
+        <button @click="logout">Logout</button>
+        </div>
+        <div v-else><nuxt-link to="/login">Login</nuxt-link> <nuxt-link to="/join">Join</nuxt-link></div>
       </div>
       <nuxt-link
         to="/faq"
@@ -125,9 +130,7 @@
               </svg>
             </span>
             <p class="ml-3 font-medium text-white truncate">
-              <span class="">
-                Coming soon: Ejenda Blocks
-              </span>
+              <span class=""> Coming soon: Ejenda Blocks </span>
             </p>
           </div>
           <div
@@ -155,7 +158,6 @@
                 text-red-600
                 bg-white
                 hover:bg-red-50
-                
               "
             >
               Learn more
@@ -212,7 +214,13 @@ export default {
     hideComingSoonPopup() {
       this.hide = true
       localStorage.setItem('hide', 'true')
-    }
+    },
+    async logout() {
+      await this.$store.dispatch('auth/logout')
+      this.$router.push({
+        path: '/',
+      })
+    },
   },
 }
 </script>
