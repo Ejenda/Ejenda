@@ -14,7 +14,7 @@
     "express": "^4.17.1",
     "monk": "^7.3.4",
     "nuxt": "^2.15.7",
-    "vue2-datepicker": "^3.9.1"
+    "vue2-datepicker": "^3.9.2"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^4.0.1",
