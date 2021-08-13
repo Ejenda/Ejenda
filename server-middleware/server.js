@@ -25,10 +25,18 @@ const schoolSchema = new Schema({
   name: String,
 })
 const School = models.schools || model('schools', schoolSchema)
-
+const userAssignmentSchema = new Schema({
+  name: String,
+  date: String,
+  id: String,
+  subject: String,
+})
 const userSchema = new Schema({
   name: String,
   password: String,
+  onboarded: Boolean,
+  school: String,
+  assignments: [userAssignmentSchema],
 })
 const User = models.users || model('users', userSchema)
 let sessions = []
@@ -272,9 +280,55 @@ app.post('/schools/lookup', async (req, res) => {
     res.json({})
   }
 })
-app.post('/schools/new', /*checkLoggedIn(),*/ async (req, res) => {
-  new School({ url: req.body.url, name: req.body.name }).save()
+app.post(
+  '/schools/new',
+  /*checkLoggedIn(),*/ async (req, res) => {
+    new School({ url: req.body.url, name: req.body.name }).save()
+    res.json({})
+  }
+)
+app.post('/onboard', checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester
+
+  let dbUser = await User.findOne({ _id: user._id })
+  dbUser.school = req.body.school
+  dbUser.onboarded = true
+  await dbUser.save()
+  res.json({ ok: true })
+})
+app.post('/assignments/new', checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester
+  let dbUser = await User.findOne({ _id: user._id })
+  let body = req.body
+  let temp = dbUser
+  temp.assignments.push({
+    name: body.name,
+    date: body.date,
+    id: body.id,
+    subject: body.subject,
+  })
+  dbUser = temp
+  await dbUser.save()
   res.json({})
 })
-
+app.get('/assignments/:subject', checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester
+  let dbUser = await User.findOne({ _id: user._id })
+  res.json(
+    dbUser.assignments.filter((item) => {
+      return item.subject == req.params.subject
+    })
+  )
+})
+app.delete('/assignments/delete', checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester
+  let dbUser = await User.findOne({ _id: user._id })
+  let assignments = await dbUser.assignments
+  let filtered = assignments.filter((item) => {
+    return item.id !== req.body.id
+  })
+  dbUser.assignments = filtered
+  await dbUser.save()
+  res.json({ ok: true })
+})
 export default app

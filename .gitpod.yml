@@ -2,5 +2,5 @@ ports:
   - port: 3000
     onOpen: open-browser
 tasks:
-  - command: npm run dev
-  - init: npm ci && export BACKENDURL=$(gp url 3000)
+  - command: BACKENDURL=$(gp url 3000) npm run dev
+  - init: npm ci

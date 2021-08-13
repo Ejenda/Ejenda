@@ -64,31 +64,51 @@
     </div>
 
     <div class="p-1 flex justify-between">
-      <div class="font-serif font-bold text-4xl">
+      <div class="font-serif font-bold">
         <img
           class="rounded-full h-10 w-10 inline align-text-bottom"
           src="~/static/logo.svg"
         />
-        <nuxt-link to="/">E-jenda</nuxt-link>
+        <nuxt-link to="/" class="text-4xl">E-jenda</nuxt-link>
         <span class="text-base">v{{ version }}</span>
-        <div v-if="$auth.loggedIn" >
-        <span class="text-base">Hi, {{ $auth.user.name }}</span>
-        <button @click="logout">Logout</button>
-        </div>
-        <div v-else><nuxt-link to="/login">Login</nuxt-link> <nuxt-link to="/join">Join</nuxt-link></div>
       </div>
-      <nuxt-link
-        to="/faq"
-        class="
-          bg-red-300
-          text-red-100
-          hover:bg-red-700 hover:text-white
-          px-3
-          py-2
-          rounded-md
-        "
-        >FAQ</nuxt-link
-      >
+      <div class="flex flex-row">
+        <nuxt-link
+          to="/faq"
+          class="
+            bg-red-300
+            text-red-100
+            hover:bg-red-700 hover:text-white
+            px-3
+            py-2
+            rounded-md
+          "
+          >FAQ</nuxt-link
+        >
+        <div v-if="$auth.loggedIn">
+          <span class="text-base">Hi, {{ $auth.user.name }}</span>
+          <button @click="logout">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div v-else>
+          <nuxt-link to="/login">Login</nuxt-link>
+          <nuxt-link to="/join">Join</nuxt-link>
+        </div>
+      </div>
     </div>
 
     <Nuxt />

@@ -54,68 +54,102 @@
         v-model="subject.entry"
         @keydown.enter="push(subject)"
       />
-      Due: <date-picker
-        class=""
-        v-model="subject.dateEntry"
-        type="date"
-        :disabled-date="notBeforeToday"
-        :default-value="new Date()"
-        :shortcuts="shortcuts"
-        format="MM/DD/YYYY"
-      ></date-picker>
+      Due:
+      <client-only>
+        <v-date-picker
+          class="inline h-full w-72"
+          v-model="subject.dateEntry"
+          :min-date="new Date()"
+        >
+          <template v-slot="{ inputValue, togglePopover }">
+            <div class="flex items-center">
+              <div
+                class="
+                  p-2
+                  bg-blue-100
+                  border border-blue-200
+                  text-blue-600
+                  rounded-l
+                "
+                @click="togglePopover()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  class="w-4 h-4 fill-current"
+                >
+                  <path
+                    d="M1 4c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4zm2 2v12h14V6H3zm2-6h2v2H5V0zm8 0h2v2h-2V0zM5 9h2v2H5V9zm0 4h2v2H5v-2zm4-4h2v2H9V9zm0 4h2v2H9v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2z"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                :value="inputValue"
+                class="
+                  bg-white
+                  text-gray-700
+                  w-full
+                  py-1
+                  px-2
+                  appearance-none
+                  border
+                  rounded-r
+                  focus:outline-none focus:border-blue-500
+                "
+                @click="togglePopover()"
+                readonly
+              />
+            </div>
+          </template>
+        </v-date-picker>
+      </client-only>
     </ul>
   </div>
 </template>
 
 <script>
-import calendar from '~/components/calendar.vue'
 import { version } from '~/package.json'
 export default {
-  components: { calendar },
   mounted() {
-    this.subjects.push(
-      ...[
-        this.generateSubject('Math', 'red'),
-        this.generateSubject('English', 'indigo'),
-        this.generateSubject('Science', 'yellow'),
-        this.generateSubject('Social Studies', 'blue'),
-        this.generateSubject('Foreign Language', 'green'),
-        this.generateSubject('Related Arts', 'purple'),
-        this.generateSubject('Random Things', ''),
-      ]
-    )
     if (window.location.hash) {
       let data = JSON.parse(decodeURI(window.location.hash.split('#')[1]))
-      let assignments = this.subjects.find((item) => {return item.id == data.subject}).assignments
+      let assignments = this.subjects.find((item) => {
+        return item.id == data.subject
+      }).assignments
       assignments.push(...data.assignments)
-      this.subjects.find((item) => {return item.id == data.subject}).assignments = assignments
+      this.subjects.find((item) => {
+        return item.id == data.subject
+      }).assignments = assignments
       window.location.href = ''
     }
-    this.$set(this.subjects[0].assignments, 0, {})
-
+  },
+  watch: {},
+  async fetch() {
+    let subjects = [
+      ['Math', 'red'],
+      ['English', 'indigo'],
+      ['Science', 'yellow'],
+      ['Social Studies', 'blue'],
+      ['Foreign Language', 'green'],
+      ['Related Arts', 'purple'],
+      ['Random Things', ''],
+    ]
+    let built = []
+    for (let subject of subjects) {
+      let assignments = await (
+        await fetch(
+          `${process.env.backendURL}/assignments/${subject[0].toLowerCase()}`,
+          { headers: { Authorization: this.$auth.token } }
+        )
+      ).json()
+      built.push(this.generateSubject(subject[0], subject[1], assignments))
+    }
+    this.subjects = [...built]
   },
   data() {
     return {
       subjects: [],
       currentEntry: '',
-      shortcuts: [
-        {
-          text: 'Today',
-          onClick() {
-            const date = new Date()
-            // return a Date
-            return date
-          },
-        },
-        {
-          text: 'Tommorrow',
-          onClick() {
-            const date = new Date()
-            date.setTime(date.getTime() + 3600 * 1000 * 24)
-            return date
-          },
-        },
-      ],
     }
   },
   methods: {
@@ -123,41 +157,42 @@ export default {
       return date < new Date(new Date().setHours(0, 0, 0, 0))
     },
 
-    change(assignment, subject, i) {
-      temp = subject.assignments
-      temporary = assignment
-      temporary.name = this.currentEntry
-      temp.assignments[i] = assignment
-      subject.assignments = temp
-    },
-    push(subject) {
+    async push(subject) {
       if (subject.entry?.trim() == '' || !subject.entry) return
-      let temporary = subject.assignments
-      temporary.push({
+      let obj = {
         name: subject.entry,
         id: new Date(),
         date: subject.dateEntry,
+      }
+      subject.assignments.push(obj)
+      obj.subject = subject.id
+      await fetch(`${process.env.backendURL}/assignments/new`, {
+        method: 'POST',
+        headers: {
+          Authorization: this.$auth.token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj),
       })
-
-      subject.assignments = temporary
       subject.entry = ''
     },
-    deleteItem(subject, i) {
-      let temporary = subject.assignments
-      temporary.splice(i, 1)
-      subject.assignments = temporary
+    async deleteItem(subject, i) {
+      await fetch(`${process.env.backendURL}/assignments/delete`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: this.$auth.token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id:subject.assignments[i].id}),
+      })
+      subject.assignments.splice(i, 1)
     },
-    generateSubject(name, color) {
+    generateSubject(name, color, assignments) {
       return {
         name: name,
         id: name.toLowerCase(),
         color: color,
-        get assignments() {
-          return JSON.parse(localStorage.getItem(name.toLowerCase()) || '[]')
-        },
-        set assignments(value) {
-          localStorage.setItem(name.toLowerCase(), JSON.stringify(value))
-        },
+        assignments,
       }
     },
     isToday(someDate) {
@@ -169,7 +204,7 @@ export default {
       )
     },
     isLate(date) {
-      return new Date(date).valueOf() < new Date().valueOf();
+      return new Date(date).valueOf() < new Date().valueOf()
     },
 
     parseColor(color) {

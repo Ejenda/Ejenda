@@ -43,7 +43,7 @@ export default {
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  buildModules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode',/*"nuxt-vite"*/],
   tailwindcss: {
     config: {
       mode: 'jit',

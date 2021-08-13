@@ -8,29 +8,52 @@
       <h1 class="text-2xl font-bold">Find your school</h1>
       Enter your school domain
       <input v-model="domain" />
-      <div v-if="school.name"><span class="italic text-sm text-gray-300">You are at {{ school.name }}</span></div>
+      <div v-if="school.name">
+        <span class="italic text-sm text-gray-300"
+          >You are at {{ school.name }}</span
+        >
+      </div>
+      <button type="submit" @click="onboard()">Let's get started</button>
     </div>
   </div>
 </template>
 <script>
 export default {
+  middleware: 'authenticated',
   data() {
     return { domain: '', school: {} }
   },
+  methods: {
+    async onboard() {
+      if (this.school.id) {
+        let res = await fetch('/onboard', {
+          method: 'POST',
+          body: JSON.stringify({ school: this.school.id }),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.$auth.token,
+          },
+        })
+        let data = await res.json()
+        if (data.ok) {
+          this.$router.push('/app')
+        }
+      }
+    },
+  },
   watch: {
     async domain() {
-      //if (new RegExp("[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)").test(this.domain)) {
       let res = await fetch('/schools/lookup', {
         method: 'POST',
-        body: JSON.stringify({ url: this.domain.replace('https://','').replace('http://','') }),
+        body: JSON.stringify({
+          url: this.domain.replace('https://', '').replace('http://', ''),
+        }),
         headers: {
-      'Content-Type': 'application/json'
-    },
-
+          'Content-Type': 'application/json',
+        },
       })
       let data = await res.json()
       this.school = data
-      //}
     },
   },
 }
