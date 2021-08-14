@@ -22,4 +22,5 @@ export default async function ({ $auth, redirect, req, store }) {
   if (!$auth.onboarded) {
     return redirect('/onboarding')
   }
+
 }

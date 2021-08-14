@@ -48,6 +48,7 @@ export default {
     config: {
       mode: "jit",
       darkMode: "class",
+      plugins:[require('@tailwindcss/forms'),    ]
     },
   },
   serverMiddleware: ["~/server-middleware/server.js"],

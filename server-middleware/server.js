@@ -226,6 +226,7 @@ function cleanFormatUser(user) {
   return {
     name: user.name,
     id: user._id,
+    onboarded: user.onboarded,
   };
 }
 
