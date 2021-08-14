@@ -3,7 +3,7 @@
   <main class="min-h-screen flex items-center justify-center py-12 px-4 bg-gray-100">
     <div class="bg-white shadow p-8 rounded-xl max-w-lg w-full">
       <div class="text-center">
-        <img class="mx-auto h-10 w-auto" src="/brand/logo-invert.svg" alt="wasteof.money" />
+        <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="wasteof.money" />
         <h2 class="font-bold text-2xl my-2">Join wasteof.money</h2>
         <p class="my-2 text-gray-500">
           Or
