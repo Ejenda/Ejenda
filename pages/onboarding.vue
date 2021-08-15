@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-white flex">
+  <div class="bg-white flex dark:bg-gray-400">
     <div class="p-4 h-[75vh] bg-red-800 text-white">
       <h1 class="text-3xl font-bold">Welcome to Ejenda</h1>
       Let's get you set up
     </div>
     <div class="p-4">
-                  <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                  <div class="px-4 py-5  space-y-6 sm:p-6">
 
       <h1 class="text-2xl font-bold">Find your school</h1>
               <div class="grid grid-cols-3 gap-6">

@@ -85,7 +85,9 @@
           "
           >FAQ</nuxt-link
         >
-        <div v-if="$auth.loggedIn">
+        <div class="flex flex-col ml-2">
+        <div v-if="$auth.loggedIn" class="flex justify-center content-center flex-col">
+          <div>
           <span class="text-base">Hi, {{ $auth.user.name }}</span>
           <button @click="logout">
             <svg
@@ -103,10 +105,12 @@
               ></path>
             </svg>
           </button>
+          </div>
         </div>
         <div v-else>
           <nuxt-link to="/login">Login</nuxt-link>
           <nuxt-link to="/join">Join</nuxt-link>
+        </div>
         </div>
       </div>
     </div>

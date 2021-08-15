@@ -54,8 +54,7 @@
         v-model="subject.entry"
         @keydown.enter="push(subject)"
       />
-      <div>
-        Due:
+      <div class="mt-1">
         <client-only>
           <v-date-picker
             class="block h-full w-72"
@@ -66,10 +65,10 @@
               <div class="flex items-center">
                 <div
                   class="
-                    p-1
-                    bg-blue-100
-                    border border-blue-200
-                    text-blue-600
+                    p-2
+                    bg-red-100
+                    border border-red-200
+                    text-red-600
                     rounded-l
                   "
                   @click="togglePopover()"
@@ -82,12 +81,11 @@
                     bg-white
                     text-gray-700
                     w-full
-                    py-1
-                    px-2
+                    p-2
                     appearance-none
                     border
                     rounded-r
-                    focus:outline-none focus:border-blue-500
+                    focus:outline-none focus:border-f-500
                   "
                   @click="togglePopover()"
                   readonly
