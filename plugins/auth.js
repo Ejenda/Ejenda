@@ -1,5 +1,5 @@
 export default ({ store }, inject) => {
-  // Inject $hello(msg) in Vue, context and store.
+  // Inject $auth in Vue, context and store.
   let auth = {
     get loggedIn() {
       return !!store.state.auth.user

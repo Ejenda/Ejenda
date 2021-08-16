@@ -74,10 +74,6 @@ export const actions = {
       commit('reset_user')
       commit('reset_token')
       commit('reset_flags')
-
-      // TODO: work on these commits to eliminate extra commits
-
-
       if (data.error) {
         reject(data.error)
       } else {

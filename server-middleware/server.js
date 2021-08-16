@@ -37,6 +37,18 @@ const userSchema = new Schema({
   onboarded: Boolean,
   school: String,
   assignments: [userAssignmentSchema],
+  subjects: {
+    type: Array,
+    default: [
+      ["Math", "red"],
+      ["English", "indigo"],
+      ["Science", "yellow"],
+      ["Social Studies", "blue"],
+      ["Foreign Language", "green"],
+      ["Related Arts", "purple"],
+      ["Random Things", ""],
+    ],
+  },
 });
 const User = models.users || model("users", userSchema);
 let sessions = [];
@@ -227,6 +239,7 @@ function cleanFormatUser(user) {
     name: user.name,
     id: user._id,
     onboarded: user.onboarded,
+    subjects: user.subjects,
   };
 }
 
@@ -279,13 +292,10 @@ app.post("/schools/lookup", async (req, res) => {
     res.json({});
   }
 });
-app.post(
-  "/schools/new",
-  checkLoggedIn(), async (req, res) => {
-    new School({ url: req.body.url, name: req.body.name }).save();
-    res.json({});
-  }
-);
+app.post("/schools/new", checkLoggedIn(), async (req, res) => {
+  new School({ url: req.body.url, name: req.body.name }).save();
+  res.json({});
+});
 app.post("/onboard", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
 
@@ -309,6 +319,26 @@ app.post("/assignments/new", checkLoggedIn(), async (req, res) => {
   dbUser = temp;
   await dbUser.save();
   res.json({});
+});
+app.post("/subjects/update", checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+  let body = req.body;
+  dbUser.subjects = body.subjects;
+  // validate subject array
+  let valid = true;
+  for (subject of dbUser.subjects) {
+    if (typeof subject[0] !== "string" && typeof subject[1] !== "string") {
+      valid = false;
+      break;
+    }
+  }
+  if (valid) {
+    await dbUser.save();
+    res.json({});
+  } else {
+    res.json({ error: "invalid subject list" });
+  }
 });
 app.get("/assignments/:subject", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;

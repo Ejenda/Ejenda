@@ -3,11 +3,11 @@
   <main class="min-h-screen flex items-center justify-center py-12 px-4 bg-gray-100">
     <div class="bg-white shadow p-8 rounded-xl max-w-lg w-full">
       <div class="text-center">
-        <img class="mx-auto h-10 w-auto" src="/brand/logo-invert.svg" alt="wasteof.money" />
+        <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
         <h2 class="font-bold text-2xl my-2">Sign in to your account</h2>
         <p class="my-2 text-gray-500">
           Or
-          
+          <nuxt-link to="/join">create an account</nuxt-link>
         </p>
       </div>
       <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-2 rounded" v-if="error">
@@ -22,12 +22,9 @@
 
         <label class="text-gray-500 font-medium text-sm" for="password">Password</label>
         <input type="password" id="password" name="password" v-model="form.password" class="border-2 p-1 my-1 w-full rounded-md block" />
-        <button type="submit" class="bg-primary-500 text-white w-full text-center font-bold p-2 mt-2 rounded-lg cursor-pointer">Sign in</button>
+        <button type="submit" class="bg-red-500 text-white w-full text-center font-bold p-2 mt-2 rounded-lg cursor-pointer">Sign in</button>
       </form>
 
-      <div class="my-2 text-gray-500 w-full">
-        <div class="text-center block my-2">or</div>
-      </div>
     </div>
   </main>
 </template>

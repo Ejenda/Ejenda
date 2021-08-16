@@ -118,15 +118,7 @@ export default {
   watch: {},
   async fetch() {
     // TODO: Make this variable
-    let subjects = [
-      ["Math", "red"],
-      ["English", "indigo"],
-      ["Science", "yellow"],
-      ["Social Studies", "blue"],
-      ["Foreign Language", "green"],
-      ["Related Arts", "purple"],
-      ["Random Things", ""],
-    ];
+    let subjects = this.$auth.user.subjects;
     let built = [];
     for (let subject of subjects) {
       let assignments = await (

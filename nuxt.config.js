@@ -27,9 +27,9 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 
   plugins: [
-    { src: "~/plugins/date-picker.js" },
+    { src: "~/plugins/modules.js" },
+    { src: "~/plugins/cmodules.client.js" },
     { src: "~/plugins/auth.js" },
-    { src: "~/plugins/calendar.client.js" },
   ],
   colorMode: {
     classSuffix: "",
@@ -53,7 +53,7 @@ export default {
   },
   serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/pwa", "@nuxtjs/svg"],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/svg",],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {transpile: ['vue-final-modal']},
