@@ -32,7 +32,10 @@ const userAssignmentSchema = new Schema({
   subject: String,
 });
 const userSchema = new Schema({
-  name: String,
+  name: {
+    type: String,
+    unique: true, // `email` must be unique
+  },
   password: String,
   onboarded: Boolean,
   school: String,
@@ -130,6 +133,7 @@ app.use(cors(strictCors));
 connect(process.env.URL ?? require("../env.json").URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 function checkLoggedIn(cb) {
   const callback =
@@ -180,15 +184,21 @@ app.post(
         new User({
           name: username,
           password: hashed,
-        }).save();
-        res.json({ ok: "created user" });
+        }).save(function (error) {
+          if (error) {
+            if (error.code == 11000) {
+              res.status(409).json({ error: "username already taken" });
+            } else {
+              console.log(error);
+              res.status(500).json({ error: "internal server error" });
+            }
+          } else {
+            res.json({ ok: "created user" });
+          }
+        });
       } catch (error) {
-        if (error.code == 11000) {
-          res.status(409).json({ error: "username already taken" });
-        } else {
-          console.log(error);
-          res.status(500).json({ error: "internal server error" });
-        }
+        console.log(error);
+        res.status(500).json({ error: "internal server error" });
       }
     } else {
       res.status(415).json({ error: "must send json data" });

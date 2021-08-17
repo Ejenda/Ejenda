@@ -24,7 +24,7 @@
         "
         v-if="error"
       >
-        <strong class="font-bold">Error logging in!</strong>
+        <strong class="font-bold">Error creating account!</strong>
         <span class="block sm:inline">
           {{ error }}
         </span>
@@ -173,7 +173,7 @@ export default {
         try {
           await this.$store.dispatch("auth/login", data.token);
           this.$router.push({
-            path: `/app`,
+            path: `/onboarding`,
           });
         } catch (err) {
           console.error(`login failed: ${err}`);
