@@ -11,6 +11,6 @@
 </template>
 <script>
 export default {
-  props: ['q'],
-}
+  props: ["q"],
+};
 </script>

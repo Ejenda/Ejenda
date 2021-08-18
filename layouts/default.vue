@@ -86,31 +86,34 @@
           >FAQ</nuxt-link
         >
         <div class="flex flex-col ml-2">
-        <div v-if="$auth.loggedIn" class="flex justify-center content-center flex-col">
-          <div>
-          <span class="text-base">Hi, {{ $auth.user.name }}</span>
-          <button @click="logout">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-              ></path>
-            </svg>
-          </button>
+          <div
+            v-if="$auth.loggedIn"
+            class="flex justify-center content-center flex-col"
+          >
+            <div>
+              <span class="text-base">Hi, {{ $auth.user.name }}</span>
+              <button @click="logout">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  ></path>
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-        <div v-else>
-          <nuxt-link to="/login">Login</nuxt-link>
-          <nuxt-link to="/join">Join</nuxt-link>
-        </div>
+          <div v-else>
+            <nuxt-link to="/login">Login</nuxt-link>
+            <nuxt-link to="/join">Join</nuxt-link>
+          </div>
         </div>
       </div>
     </div>
@@ -234,27 +237,27 @@
   </div>
 </template>
 <script>
-import { version } from '~/package.json'
+import { version } from "~/package.json";
 export default {
   data() {
-    return { version, hide: true }
+    return { version, hide: true };
   },
   mounted() {
-    this.hide = localStorage.getItem('hide') ?? false
+    this.hide = localStorage.getItem("hide") ?? false;
   },
   methods: {
     hideComingSoonPopup() {
-      this.hide = true
-      localStorage.setItem('hide', 'true')
+      this.hide = true;
+      localStorage.setItem("hide", "true");
     },
     async logout() {
-      await this.$store.dispatch('auth/logout')
+      await this.$store.dispatch("auth/logout");
       this.$router.push({
-        path: '/',
-      })
+        path: "/",
+      });
     },
   },
-}
+};
 </script>
 <style lang="postcss">
 .mx-input {

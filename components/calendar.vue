@@ -32,40 +32,40 @@
 
 <script>
 export default {
-  props: ['subjects'],
+  props: ["subjects"],
   data() {
-    const month = new Date().getMonth()
-    const year = new Date().getFullYear()
+    const month = new Date().getMonth();
+    const year = new Date().getFullYear();
     return {
       masks: {
-        weekdays: 'WWW',
+        weekdays: "WWW",
       },
       attributes: [],
-    }
+    };
   },
   mounted() {
-    let allItems = []
+    let allItems = [];
     for (let subject of this.subjects) {
-      let subjectItems = []
-      console.log(subject)
+      let subjectItems = [];
+      console.log(subject);
       for (let assignment of subject.assignments) {
         let item = {
           key: 1,
           customData: {
             title: assignment.name,
-            class: 'bg-red-600 text-white',
+            class: "bg-red-600 text-white",
           },
           dates: assignment.date,
-        }
-        subjectItems.push(item)
+        };
+        subjectItems.push(item);
       }
-      allItems.push(subjectItems)
+      allItems.push(subjectItems);
     }
-    console.log(allItems)
-    this.attributes.push(...allItems)
-    console.log(this.attributes[0])
+    console.log(allItems);
+    this.attributes.push(...allItems);
+    console.log(this.attributes[0]);
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>

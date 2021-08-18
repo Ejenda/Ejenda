@@ -1,9 +1,9 @@
 <template>
   <!-- keep this in sync with join.vue -->
   <main
-    class="min-h-screen flex items-center justify-center py-12 px-4 bg-gray-100"
+    class="min-h-screen flex  bg-red-300 bg-gradient-to-r from-red-500"
   >
-    <div class="bg-white shadow p-8 rounded-xl max-w-lg w-full">
+    <div class="bg-white  p-8  max-w-lg w-full h-screen">
       <div class="text-center">
         <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
         <h2 class="font-bold text-2xl my-2">Join Ejenda</h2>
@@ -44,19 +44,17 @@
         <label class="text-gray-500 font-medium text-sm" for="password"
           >Password</label
         >
-          <input
-            type="password"
-            id="password"
-            name="password"
-            v-model="form.password"
-            class="border-2 p-1 my-1 w-full rounded-md block"
-            v-popover:foo
-          />
-
- 
+        <input
+          type="password"
+          id="password"
+          name="password"
+          v-model="form.password"
+          class="border-2 p-1 my-1 w-full rounded-md block"
+        />
 
         <div v-if="zxcvbnResults.feedback" class="text-sm text-gray-300">
-          <span v-show="zxcvbnResults.feedback.warning" class="text-red-300">{{
+          <span class="inline">Password strength:</span> <span class="rounded-full h-8 w-8 inline-flex items-center justify-center" :class="pillSwitcher">{{zxcvbnResults.score}}/4</span>
+          <span v-show="zxcvbnResults.feedback.warning" class="text-red-300 block">{{
             zxcvbnResults.feedback.warning
           }}</span>
           <div v-show="zxcvbnResults.score < 3">
@@ -116,6 +114,16 @@ export default {
     return {
       title: `join`,
     };
+  },
+  computed: {
+  pillSwitcher: function () {
+    return {
+      'bg-red-500': this.zxcvbnResults.score < 2,
+      'bg-yellow-500': this.zxcvbnResults.score == 2,
+      'bg-green-300 text-white': this.zxcvbnResults.score == 3,
+      'bg-green-500': this.zxcvbnResults.score == 4
+    }
+  }
   },
   data() {
     return {

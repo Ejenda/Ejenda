@@ -1,7 +1,7 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: "server",
-
+telemetry: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "E-jenda",
@@ -38,7 +38,9 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
   env: {
-    backendURL: process.env.GITPOD_WORKSPACE_URL?.replace('https://','https://3000-') || "https://ejenda.org",
+    backendURL:
+      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") ||
+      "https://ejenda.org",
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -48,15 +50,15 @@ export default {
     config: {
       mode: "jit",
       darkMode: "class",
-      plugins:[require('@tailwindcss/forms'),    ]
+      plugins: [require("@tailwindcss/forms")],
     },
   },
   serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/pwa", "@nuxtjs/svg",],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/svg"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {transpile: ['vue-final-modal']},
+  build: { transpile: ["vue-final-modal"] },
   generate: {
     fallback: true,
   },
