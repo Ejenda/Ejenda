@@ -38,7 +38,7 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
   env: {
-    backendURL: process.env.BACKENDURL || "http://localhost:8000",
+    backendURL: process.env.GITPOD_WORKSPACE_URL?.replace('https://','https://3000-') || "https://ejenda.org",
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
