@@ -100,7 +100,8 @@ export default {
         });
         let data = await res.json();
         if (data.ok) {
-          this.$router.push("/app");
+          this.$store.dispatch("auth/login",this.$auth.token)
+          this.$router.replace("/app");
         }
       }
     },

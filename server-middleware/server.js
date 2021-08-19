@@ -291,7 +291,7 @@ app.post("/get", (req, res) => {
   }
 });
 app.get("/add/:str", async (req, res) => {
-  data = await Assignment.findOne({ id: req.params.str });
+  let data = await Assignment.findOne({ id: req.params.str });
   res.redirect(`/app#${JSON.stringify(data)}`);
 });
 app.post("/schools/lookup", async (req, res) => {

@@ -180,9 +180,7 @@ export default {
         });
         try {
           await this.$store.dispatch("auth/login", data.token);
-          this.$router.push({
-            path: `/onboarding`,
-          });
+          this.$router.replace(`/onboarding`,);
         } catch (err) {
           console.error(`login failed: ${err}`);
         }

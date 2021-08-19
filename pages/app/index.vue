@@ -1,10 +1,14 @@
 <template>
   <div class="dark:bg-gray-700">
+    <p v-if="$fetchState.pending">Loading...</p>
+    <p v-else-if="$fetchState.error">An error occurred :(</p>
+
     <ul
       class="dark:bg-opacity-50 w-full p-6"
       v-for="subject of subjects"
       :key="subject.name"
       :class="parseColor(subject.color)"
+      v-else
     >
       <h1 class="font-serif font-bold text-4xl">{{ subject.name }}</h1>
       <p v-show="!subject.assignments.length > 0" class="py-2 italic">
@@ -80,7 +84,6 @@
                   class="
                     bg-white
                     text-gray-700
-                    w-full
                     p-2
                     appearance-none
                     border
@@ -102,6 +105,7 @@
 <script>
 import { version } from "~/package.json";
 export default {
+  middleware: "authenticated",
   mounted() {
     if (window.location.hash) {
       let data = JSON.parse(decodeURI(window.location.hash.split("#")[1]));
@@ -115,7 +119,13 @@ export default {
       window.location.href = "";
     }
   },
-  watch: {},
+  activated() {
+    // Call fetch again if last fetch more than 30 sec ago
+    if (this.$fetchState.timestamp <= Date.now() - 60000) {
+      this.$fetch();
+    }
+  },
+
   async fetch() {
     // TODO: Make this variable
     let subjects = this.$auth.user.subjects;

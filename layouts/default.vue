@@ -63,62 +63,8 @@
       </div>
     </div>
 
-    <div class="p-1 flex justify-between">
-      <div class="font-serif font-bold">
-        <img
-          class="rounded-full h-10 w-10 inline align-text-bottom"
-          src="~/static/logo.svg"
-        />
-        <nuxt-link to="/" class="text-4xl">E-jenda</nuxt-link>
-        <span class="text-base">v{{ version }}</span>
-      </div>
-      <div class="flex flex-row">
-        <nuxt-link
-          to="/faq"
-          class="
-            bg-red-300
-            text-red-100
-            hover:bg-red-700 hover:text-white
-            px-3
-            py-2
-            rounded-md
-          "
-          >FAQ</nuxt-link
-        >
-        <div class="flex flex-col ml-2">
-          <div
-            v-if="$auth.loggedIn"
-            class="flex justify-center content-center flex-col"
-          >
-            <div>
-              <span class="text-base">Hi, {{ $auth.user.name }}</span>
-              <button @click="logout">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div v-else>
-            <nuxt-link to="/login">Login</nuxt-link>
-            <nuxt-link to="/join">Join</nuxt-link>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <Nuxt />
+    <Nav />
+    <Nuxt keep-alive :keep-alive-props="{ max: 10 }"/>
     <footer class="bg-red-50 p-4 dark:bg-gray-800 dark:text-white">
       <span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahamSH</span>
       <select
@@ -250,12 +196,6 @@ export default {
       this.hide = true;
       localStorage.setItem("hide", "true");
     },
-    async logout() {
-      await this.$store.dispatch("auth/logout");
-      this.$router.push({
-        path: "/",
-      });
-    },
   },
 };
 </script>
@@ -264,8 +204,5 @@ export default {
   @apply !h-[40px];
   border: none !important;
   box-shadow: none !important;
-}
-.link {
-  @apply text-red-400;
 }
 </style>
