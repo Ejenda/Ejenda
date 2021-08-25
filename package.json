@@ -2,11 +2,13 @@
   "name": "E-jenda",
   "version": "2.0.0-beta",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "dependencies": {
     "@nuxtjs/color-mode": "^2.0.10",
@@ -34,9 +36,12 @@
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
+    "@nuxt/test-utils": "^0.2.2",
     "@nuxtjs/tailwindcss": "^4.0.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^27.0.6",
+    "playwright": "^1.14.0",
     "postcss": "^8.3.6",
     "prettier": "^2.3.2"
   }
