@@ -75,6 +75,8 @@
         <option value="light">Light</option>
         <option value="dark">Dark</option>
       </select>
+
+      <span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahamSH</span> <span class="text-base text-red-600 font-bold p-4">Proudly OS on <a href="https://github.com/Ejenda/Ejenda">GitHub</a> and hosted by <a href="https://fosshost.org">Fosshost</a></span>
     </footer>
     <div class="inset-x-0 bottom-0 rounded sticky" v-show="!hide">
       <div
