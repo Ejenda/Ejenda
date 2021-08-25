@@ -39,7 +39,7 @@ telemetry: false,
   components: true,
   env: {
     backendURL:
-      /*process.env.GITPOD_WORKSPACE_URL*/'https://blush-swift-41hbpvff.ws-us16.gitpod.io'?.replace("https://", "https://3000-") ||
+      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") ||
       "https://ejenda.org",
   },
 
