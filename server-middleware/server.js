@@ -59,15 +59,7 @@ let sessions = [];
   sessions = await Session.find({});
 })();
 
-const strictCors = {
-  origin: "*" /*function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },*/,
-};
+const strictCors = {};
 function findSession(token) {
   const session = sessions.find((f) => f.token == token);
   return session;
@@ -173,9 +165,9 @@ app.post(
     // create account
     if (req.is("application/json")) {
       if (typeof req.body.username !== "string")
-        return res.json({ error: "invalid username" });
+        return res.json({ error: "Invalid username" });
       if (typeof req.body.password !== "string")
-        return res.json({ error: "invalid password" });
+        return res.json({ error: "Invalid password" });
 
       var username = req.body.username.toLowerCase();
       var password = req.body.password;
@@ -187,10 +179,10 @@ app.post(
         }).save(function (error) {
           if (error) {
             if (error.code == 11000) {
-              res.status(409).json({ error: "username already taken" });
+              res.status(409).json({ error: "Username already taken" });
             } else {
               console.log(error);
-              res.status(500).json({ error: "internal server error" });
+              res.status(500).json({ error: "Internal server error" });
             }
           } else {
             res.json({ ok: "created user" });
@@ -198,10 +190,10 @@ app.post(
         });
       } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "internal server error" });
+        res.status(500).json({ error: "Internal server error" });
       }
     } else {
-      res.status(415).json({ error: "must send json data" });
+      res.status(415).json({ error: "Must send json data" });
     }
   }
 );
@@ -214,9 +206,9 @@ app.post(
     // create a new session
     if (req.is("application/json")) {
       if (typeof req.body.username !== "string")
-        return res.json({ error: "invalid username" });
+        return res.json({ error: "Invalid username" });
       if (typeof req.body.password !== "string")
-        return res.json({ error: "invalid password" });
+        return res.json({ error: "Invalid password" });
 
       var username = req.body.username.toLowerCase();
       var password = req.body.password;
@@ -232,11 +224,11 @@ app.post(
             res.json({ token });
           });
         } else {
-          //password was incorrect
-          res.status(401).json({ error: "incorrect username or password" });
+          //password was Incorrect
+          res.status(401).json({ error: "Incorrect username or password" });
         }
       } else {
-        res.status(403).json({ error: "incorrect username or password" });
+        res.status(403).json({ error: "Incorrect username or password" });
       }
     } else {
       res.status(415).json({ error: "must send json data" });
@@ -336,19 +328,14 @@ app.post("/subjects/update", checkLoggedIn(), async (req, res) => {
   let body = req.body;
   dbUser.subjects = body.subjects;
   // validate subject array
-  let valid = true;
-  for (subject of dbUser.subjects) {
+  for (let subject of dbUser.subjects) {
     if (typeof subject[0] !== "string" && typeof subject[1] !== "string") {
-      valid = false;
-      break;
+      return res.json({ error: "Invalid subject list" });
     }
   }
-  if (valid) {
-    await dbUser.save();
-    res.json({});
-  } else {
-    res.json({ error: "invalid subject list" });
-  }
+  await dbUser.save();
+  res.json({});
+
 });
 app.get("/assignments/:subject", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
