@@ -39,13 +39,13 @@
             p-2
             h-10
             rounded-lg
-            cursor-poi
+            cursor-pointer
           "
           @click="$emit('confirm', close)"
         >
-          post
+          Submit
         </button>
-        <button @click="$emit('cancel', close)">cancel</button>
+        <button @click="$emit('cancel', close)">Cancel</button>
       </div>
     </div>
     <button class="absolute top-0 right-0 mt-2 mr-2 text-white" @click="close">
@@ -58,4 +58,6 @@
 export default {
   props: ["showButtons"],
 };
+// h-5 w-5
+// Force jit to add those classes
 </script>

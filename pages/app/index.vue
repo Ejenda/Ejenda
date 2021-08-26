@@ -99,12 +99,16 @@
         </client-only>
       </div>
     </ul>
+    <Modal v-model="subjectModalOpen" :name="'subjectModal'"><edit-subjects/><template slot="title">Edit subjects</template></Modal>
+    <CustomButton @click="$vfm.show('subjectModal')">Edit your subjects</CustomButton>
   </div>
 </template>
 
 <script>
+import EditSubjects from '~/components/EditSubjects.vue';
 import { version } from "~/package.json";
 export default {
+  components: { EditSubjects },
   middleware: "authenticated",
   mounted() {
     if (window.location.hash) {
@@ -127,7 +131,6 @@ export default {
   },
 
   async fetch() {
-    // TODO: Make this variable
     let subjects = this.$auth.user.subjects;
     let built = [];
     for (let subject of subjects) {
@@ -144,6 +147,7 @@ export default {
     return {
       subjects: [],
       currentEntry: "",
+      subjectModalOpen: false,
     };
   },
   methods: {

@@ -5,7 +5,7 @@
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
       />
-      <nuxt-link to="/" class="text-4xl">E-jenda</nuxt-link>
+      <nuxt-link to="/" class="text-4xl font-black font-sans">ejenda<span class="text-red-600">.</span></nuxt-link>
       <span class="text-base">v{{ version }}</span>
     </div>
     <div class="flex flex-row">
