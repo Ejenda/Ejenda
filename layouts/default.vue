@@ -66,8 +66,7 @@
     <Nav />
     <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
 
-    <!-- Section 1 -->
-    <section class="text-gray-700 bg-white body-font">
+    <section class="text-gray-700 bg-white body-font dark:bg-gray-600 dark:text-white">
       <div
         class="
           container
@@ -80,10 +79,10 @@
           sm:flex-row
         "
       >
-        <a
-          href="#_"
+        <nuxt-link
+          to="/"
           class="text-xl font-black leading-none text-gray-900 select-none logo"
-          >ejenda<span class="text-red-600">.</span></a
+          >ejenda<span class="text-red-600">.</span></nuxt-link
         >
         <p
           class="
@@ -139,15 +138,6 @@
       </div>
     </section>
 
-    <footer class="bg-red-50 p-4 dark:bg-gray-800 dark:text-white">
-      <span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahamSH</span>
-
-      <span class="text-1xl text-red-600 font-bold p-4">© 2021 GrahamSH</span>
-      <span class="text-base text-red-600 font-bold p-4"
-        >Proudly OS on <a href="https://github.com/Ejenda/Ejenda">GitHub</a> and
-        hosted by <a href="https://fosshost.org">Fosshost</a></span
-      >
-    </footer>
     <div class="inset-x-0 bottom-0 rounded sticky" v-show="!hide">
       <div
         class="
