@@ -48,22 +48,25 @@
             tracking-tight
           "
         >
-          Talk, post resources, and see upcoming events <span class="text-red-600">with your class</span>
+          Talk, post resources, and see upcoming events
+          <span class="text-red-600">with your class</span>
         </h1>
 
-        <p class="mt-5 text-gray-800  leading-relaxed">
-            Ejenda Blocks lets you chat with your class, share Ejenda assignments, and post resources for the rest of your class to use.
+        <p class="mt-5 text-gray-800 leading-relaxed">
+          Ejenda Blocks lets you chat with your class, share Ejenda assignments,
+          and post resources for the rest of your class to use.
         </p>
         <div class="mt-8">
           <h2 class="font-semibold leading-relaxed mb-3 flex items-center">
             <span class="sm:hidden">Get notified when it’s ready</span>
             <div>
-            <span class="hidden sm:inline"
-              >Get behind-the-scenes updates and find out when it’s ready</span
-            >
-            <p class="italic font-normal">
+              <span class="hidden sm:inline"
+                >Get behind-the-scenes updates and find out when it’s
+                ready</span
+              >
+              <p class="italic font-normal">
                 Just send me a way to contact you on the link below
-            </p>
+              </p>
             </div>
             <svg
               width="12"
@@ -76,10 +79,7 @@
               ></path>
             </svg>
           </h2>
-          <div
-            class="sm:flex"
-          >
-   
+          <div class="sm:flex">
             <a
               type="submit"
               class="
@@ -87,7 +87,7 @@
                 w-full
                 sm:w-auto sm:flex-none
                 mt-3
-                sm:mt-0 
+                sm:mt-0
                 rounded-lg
                 px-6
                 h-12
@@ -138,11 +138,7 @@
         </defs>
         <g mask="url(#mask)">
           <rect width="500" height="500" fill="white"></rect>
-          <image
-            xlink:href="/logo.svg"
-            width="500"
-            height="500"
-          ></image>
+          <image xlink:href="/logo.svg" width="500" height="500"></image>
         </g>
       </svg>
     </div>

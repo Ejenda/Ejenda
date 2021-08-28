@@ -69,58 +69,58 @@
 export default {
   data() {
     return {
-      subject: 'math',
+      subject: "math",
       assignments: [],
-      entry: '',
-      link: '',
-      dateEntry: '',
+      entry: "",
+      link: "",
+      dateEntry: "",
       shortcuts: [
         {
-          text: 'Today',
+          text: "Today",
           onClick() {
-            const date = new Date()
+            const date = new Date();
             // return a Date
-            return date
+            return date;
           },
         },
         {
-          text: 'Tommorrow',
+          text: "Tommorrow",
           onClick() {
-            const date = new Date()
-            date.setTime(date.getTime() + 3600 * 1000 * 24)
-            return date
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24);
+            return date;
           },
         },
       ],
-    }
+    };
   },
   methods: {
     notBeforeToday(date) {
-      return date < new Date(new Date().setHours(0, 0, 0, 0))
+      return date < new Date(new Date().setHours(0, 0, 0, 0));
     },
     async send() {
-      let toSend = { subject: this.subject, assignments: this.assignments }
+      let toSend = { subject: this.subject, assignments: this.assignments };
       let data = await (
-        await fetch('/get', {
+        await fetch("/get", {
           body: JSON.stringify(toSend),
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         })
-      ).text()
-      this.link = `https://${window.location.hostname}/add/${data}`
+      ).text();
+      this.link = `https://${window.location.hostname}/add/${data}`;
     },
     push() {
-      if (this.entry?.trim() == '' || !this.entry) return
+      if (this.entry?.trim() == "" || !this.entry) return;
       this.assignments.push({
         name: this.entry,
         id: `${new Date()}`,
         date: this.dateEntry,
-      })
+      });
 
-      this.entry = ''
+      this.entry = "";
     },
   },
-}
+};
 </script>

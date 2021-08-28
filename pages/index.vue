@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="bg-white py-16 bg-opacity-25 my-1">
+    <div class="bg-white py-16 bg-opacity-25 mt-1">
       <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div class="col-span-6">
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="py-12 bg-white">
+    <div class="py-12 bg-white dark:bg-gray-400 dark:text-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2
@@ -242,7 +242,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50">
+    <div class="bg-gray-50 dark:bg-gray-200">
       <div
         class="
           max-w-7xl
@@ -250,7 +250,7 @@
           py-12
           px-4
           sm:px-6
-          lg:py-16 lg:px-8  lg:items-center
+          lg:py-16 lg:px-8 lg:items-center
         "
       >
         <h2
@@ -282,7 +282,6 @@
                 text-white
                 bg-red-600
                 hover:bg-red-700
-                
               "
             >
               Get started
@@ -291,17 +290,8 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50 text-right">
-      <div
-        class="
-          max-w-7xl
-          mx-auto
-          py-12
-          px-4
-          sm:px-6
-          lg:justify-end
-        "
-      >
+    <div class="bg-gray-50 dark:bg-gray-200 text-right">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:justify-end">
         <h2
           class="
             text-3xl
@@ -312,7 +302,9 @@
           "
         >
           <span class="block">Are you a teacher?</span>
-          <span class="block text-red-600">Generate a link for your students!</span>
+          <span class="block text-red-600"
+            >Generate a link for your students!</span
+          >
         </h2>
         <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0 justify-end">
           <div class="inline-flex rounded-md shadow my-2">
@@ -340,5 +332,4 @@
       </div>
     </div>
   </div>
-
 </template>
