@@ -18,7 +18,7 @@
     "@zxcvbn-ts/language-en": "^1.0.0-beta.0",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
-    "core-js": "^3.16.0",
+    "core-js": "^3.16.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "js-cookie": "^3.0.0",
