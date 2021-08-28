@@ -78,7 +78,7 @@ async function addSession(token, id, time) {
 }
 
 async function removeSession(token) {
-  Session.deleteOne({ token });
+  await Session.deleteOne({ token });
   sessions = sessions.filter((obj) => {
     return obj.token !== token;
   });

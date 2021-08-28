@@ -111,9 +111,8 @@ export default {
         try {
           await this.$store.dispatch("auth/login", data.token);
           this.$router.push({
-            path: "/",
+            path: "/app",
           });
-          this.$socket.emit("updateUser", data.token);
         } catch (err) {
           console.error(`login failed: ${err}`);
         }
