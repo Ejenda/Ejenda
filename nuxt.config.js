@@ -1,7 +1,7 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: "server",
-telemetry: false,
+  telemetry: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "E-jenda",
@@ -44,8 +44,11 @@ telemetry: false,
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/color-mode" /*"nuxt-vite"*/],
-
+  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/color-mode", "vue-plausible"],
+  plausible: {
+    domain: "ejenda.org",
+    apiHost: "https://analytics.ejenda.org",
+  },
   tailwindcss: {
     config: {
       mode: "jit",
@@ -55,7 +58,7 @@ telemetry: false,
   },
   serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/pwa", "@nuxtjs/svg"],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/svg", "@nuxtjs/sitemap"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: { transpile: ["vue-final-modal"] },

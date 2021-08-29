@@ -70,7 +70,7 @@
           </div>
         </div>
         <div v-else>
-          <nuxt-link to="/login">Login</nuxt-link>
+          <nuxt-link to="/login" class="px-2">Login</nuxt-link>
           <nuxt-link to="/join">Join</nuxt-link>
         </div>
       </div>
