@@ -14,9 +14,9 @@ export default async function ({ $auth, redirect, req, store }) {
     token = clientCookie.get("token");
   }
 
-  await store.dispatch("auth/login", token); // reload just incase logged out on another tab or something
+  await store.dispatch("auth/login", token); // Reload auth state (to help prevent weird edge-cases)
 
   if ($auth.loggedIn) {
-    return redirect("/");
+    return redirect("/app");
   }
 }

@@ -52,7 +52,7 @@
           class="border-2 p-1 my-1 w-full rounded-md block"
         />
 
-        <div v-if="zxcvbnResults.feedback" class="text-sm text-gray-300">
+        <div v-if="zxcvbnResults.feedback" class="text-sm text-gray-600">
           <span class="inline">Password strength:</span> <span class="rounded-full h-8 w-8 inline-flex items-center justify-center" :class="pillSwitcher">{{zxcvbnResults.score}}/4</span>
           <span v-show="zxcvbnResults.feedback.warning" class="text-red-300 block">{{
             zxcvbnResults.feedback.warning

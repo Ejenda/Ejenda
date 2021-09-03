@@ -125,7 +125,6 @@ app.use(cors(strictCors));
 connect(process.env.URL ?? require("../env.json").URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
 });
 function checkLoggedIn(cb) {
   const callback =
