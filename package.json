@@ -27,7 +27,7 @@
     "monk": "^7.3.4",
     "nuxt": "^2.15.8",
     "nuxt-socket-io": "^1.1.23",
-    "nuxt-vite": "^0.1.1",
+    "nuxt-vite": "^0.2.2",
     "socket.io": "^4.2.0",
     "v-calendar": "^2.3.2",
     "vue-final-modal": "^2.4.1",
