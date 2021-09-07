@@ -1,0 +1,24 @@
+name: Deploy to Wiki Server
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run deployment webhook
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref }}
+        run: |
+          echo "Running webhook, see result below..."
+          echo "Repo: $REPO"
+          wget --content-on-error -q -O - "https://deploy.ejenda.org/" --method POST --header 'content-type: application/json --body-data '{\n  "id": 1,\n  "token": "$TOKEN"\n}''
