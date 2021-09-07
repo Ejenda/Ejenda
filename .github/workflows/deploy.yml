@@ -21,4 +21,5 @@ jobs:
         run: |
           echo "Running webhook, see result below..."
           echo "Repo: $REPO"
-          wget --content-on-error -q -O - "https://deploy.ejenda.org/" --method POST --header 'content-type: application/json' --body-data '{"token": "$TOKEN"}'
+          wget --content-on-error -q -O - "https://deploy.ejenda.org/" --method POST --header 'content-type: application/json' --body-data "{\"token\": \"$TOKEN\"}"
+
