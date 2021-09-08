@@ -149,8 +149,8 @@
         v-model="subjectModalOpen"
         :name="'subjectModal'"
         :show-buttons="true"
-        @confirm="refresh"
-        @cancel="refresh"
+        @confirm="$nuxt.refresh()"
+        @cancel="$nuxt.refresh()"
         ><edit-subjects /><template slot="title">Edit subjects</template></Modal
       >
       <CustomButton class="m-1" @click="$vfm.show('subjectModal')"
