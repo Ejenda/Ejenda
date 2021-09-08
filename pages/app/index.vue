@@ -78,7 +78,7 @@
           :key="`${assignment.id}`"
           :class="{
             '!bg-yellow-400 !text-white': isToday(new Date(assignment.date)),
-            '!bg-red-800': isLate(assignment.date),
+            '!bg-red-800': isLate(new Date(assignment.date)),
           }"
         >
           <div class="block">
@@ -260,6 +260,7 @@ export default {
       );
     },
     isLate(date) {
+      
       return new Date(date.toDateString()) < new Date(new Date().toDateString());
     },
 
