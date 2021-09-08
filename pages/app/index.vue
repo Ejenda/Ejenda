@@ -185,7 +185,6 @@ export default {
   },
   fetchOnServer: true,
   async fetch() {
-    this.$nuxt.$loading.start();
     var opts = {
       method: "GET",
       headers: {
@@ -205,7 +204,6 @@ export default {
       built.push(this.generateSubject(subject[0], subject[1], assignments));
     }
     this.subjects = [...built];
-    this.$nuxt.$loading.finish()
   },
   data() {
     return {
