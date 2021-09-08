@@ -185,13 +185,13 @@ export default {
   },
   fetchOnServer: true,
   async fetch() {
-    var headers = new Headers();
-    headers.append("pragma", "no-cache");
-    headers.append("cache-control", "no-cache");
 
     var opts = {
       method: "GET",
-      headers: headers,
+      headers: {
+        "pragma": "no-cache",
+        "cache-control": "no-cache"
+      },
     };
 
     let subjects = await (await this.$auth.fetch("/subjects", opts)).json();

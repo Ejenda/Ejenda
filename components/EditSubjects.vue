@@ -53,13 +53,12 @@ export default {
   components: { draggable },
   middleware: "authenticated",
   async fetch() {
-    var headers = new Headers();
-    myHeaders.append("pragma", "no-cache");
-    myHeaders.append("cache-control", "no-cache");
-
     var opts = {
       method: "GET",
-      headers: myHeaders,
+      headers: {
+        "pragma": "no-cache",
+        "cache-control": "no-cache"
+      },
     };
 
     this.subjects = await (await this.$auth.fetch("/subjects",opts)).json();
