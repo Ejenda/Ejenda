@@ -1,6 +1,12 @@
 <template>
   <div>
-    <Modal v-model="modalOpen" :name="'createSubject'" :showButtons="true" @confirm="add" @cancel="$vfm.hide('createSubject')">
+    <Modal
+      v-model="modalOpen"
+      :name="'createSubject'"
+      :showButtons="true"
+      @confirm="add"
+      @cancel="$vfm.hide('createSubject')"
+    >
       <template slot="title">Add subject</template>
       Name: <input v-model="newName" /> Color:
       <select v-model="newColor">
@@ -46,8 +52,17 @@ import draggable from "vuedraggable";
 export default {
   components: { draggable },
   middleware: "authenticated",
-  async fetch(){
-    this.subjects = await (await this.$auth.fetch("/subjects")).json();
+  async fetch() {
+    var headers = new Headers();
+    myHeaders.append("pragma", "no-cache");
+    myHeaders.append("cache-control", "no-cache");
+
+    var opts = {
+      method: "GET",
+      headers: myHeaders,
+    };
+
+    this.subjects = await (await this.$auth.fetch("/subjects",opts)).json();
   },
   data() {
     return { subjects: [], modalOpen: false, newColor: "", newName: "" };

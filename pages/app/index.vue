@@ -149,6 +149,8 @@
         v-model="subjectModalOpen"
         :name="'subjectModal'"
         :show-buttons="true"
+        @confirm="refresh"
+        @cancel="refresh"
         ><edit-subjects /><template slot="title">Edit subjects</template></Modal
       >
       <CustomButton class="m-1" @click="$vfm.show('subjectModal')"
@@ -183,7 +185,16 @@ export default {
   },
   fetchOnServer: true,
   async fetch() {
-    let subjects = await (await this.$auth.fetch("/subjects")).json();
+    var headers = new Headers();
+    headers.append("pragma", "no-cache");
+    headers.append("cache-control", "no-cache");
+
+    var opts = {
+      method: "GET",
+      headers: headers,
+    };
+
+    let subjects = await (await this.$auth.fetch("/subjects", opts)).json();
     let built = [];
     for (let subject of subjects) {
       let assignments = await (
