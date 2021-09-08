@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to E-jenda 👋</h1>
+<h1 align="center">Welcome to Ejenda 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-2.0.0--beta-blue.svg?cacheSeconds=2592000" />
   <a href="ejenda.org" target="_blank">
@@ -9,7 +9,7 @@
   </a>
 </p>
 
-> E-jenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as E-jenda is in beta.
+> Ejenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as Ejenda is in beta.
 
 ### 🏠 [Homepage](ejenda.org)
 

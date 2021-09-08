@@ -4,7 +4,7 @@ export default {
   telemetry: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "E-jenda",
+    title: "Ejenda",
     htmlAttrs: {
       lang: "en",
     },
@@ -15,7 +15,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "E-jenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as E-jenda is in beta.",
+          "Ejenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as Ejenda is in beta.",
       },
     ],
     link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
@@ -67,7 +67,7 @@ export default {
   },
   pwa: {
     manifest: {
-      name: "E-jenda",
+      name: "Ejenda",
       start_url: "/app",
     },
   },
