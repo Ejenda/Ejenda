@@ -195,7 +195,7 @@ export default {
       },
     };
 
-    let subjects = await (await this.$auth.fetch("${process.env.backendURL}/subjects", opts)).json();
+    let subjects = await (await this.$auth.fetch(`${process.env.backendURL}/subjects`, opts)).json();
     let built = [];
     for (let subject of subjects) {
       let assignments = await (
