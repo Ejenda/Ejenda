@@ -336,6 +336,11 @@ app.post("/subjects/update", checkLoggedIn(), async (req, res) => {
   res.json({});
 
 });
+app.get("/subjects", checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+  res.send(dbUser.subjects)
+})
 app.get("/assignments/:subject", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });

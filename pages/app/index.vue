@@ -145,7 +145,10 @@
           </client-only>
         </div>
       </ul>
-      <Modal v-model="subjectModalOpen" :name="'subjectModal'" :show-buttons="true"
+      <Modal
+        v-model="subjectModalOpen"
+        :name="'subjectModal'"
+        :show-buttons="true"
         ><edit-subjects /><template slot="title">Edit subjects</template></Modal
       >
       <CustomButton class="m-1" @click="$vfm.show('subjectModal')"
@@ -178,9 +181,9 @@ export default {
       this.$fetch();
     }
   },
-
+  fetchOnServer: true,
   async fetch() {
-    let subjects = this.$auth.user.subjects;
+    let subjects = await (await this.$auth.fetch("/subjects")).json();
     let built = [];
     for (let subject of subjects) {
       let assignments = await (

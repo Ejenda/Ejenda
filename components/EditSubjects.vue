@@ -46,9 +46,11 @@ import draggable from "vuedraggable";
 export default {
   components: { draggable },
   middleware: "authenticated",
+  async fetch(){
+    this.subjects = await (await this.$auth.fetch("/subjects")).json();
+  },
   data() {
-    let subjects = [...this.$auth.user.subjects]; // without this hack vue yells at me for mutating vuex
-    return { subjects, modalOpen: false, newColor: "", newName: "" };
+    return { subjects: [], modalOpen: false, newColor: "", newName: "" };
   },
   watch: {
     async subjects() {
