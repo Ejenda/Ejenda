@@ -56,7 +56,10 @@
         :key="subject.name"
         :class="parseColor(subject.color)"
       >
-        <h1 class="font-serif font-bold text-4xl">{{ subject.name }}</h1>
+        <h1 class="font-serif font-bold text-4xl">{{ subject.name }}</h1>  <div class="flex justify-center items-center m-1 px-2 py-1 border border-gray-300 rounded-full bg-gray-200 text-base text-gray-700 font-medium">
+    <div class="flex-initial max-w-full leading-none text-xs font-normal">名称</div>
+  </div>
+
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
           Nothing yet, add a new assignment
         </p>
@@ -74,8 +77,8 @@
           v-for="(assignment, i) of subject.assignments"
           :key="`${assignment.id}`"
           :class="{
-            '!bg-red-800 !text-white': isToday(new Date(assignment.date)),
-            '!bg-yellow-400': isLate(assignment.date),
+            '!bg-yellow-400 !text-white': isToday(new Date(assignment.date)),
+            '!bg-red-800': isLate(assignment.date),
           }"
         >
           <div class="block">
@@ -149,8 +152,8 @@
         v-model="subjectModalOpen"
         :name="'subjectModal'"
         :show-buttons="true"
-        @confirm="$nuxt.refresh()"
-        @cancel="$nuxt.refresh()"
+        @confirm="$nuxt.refresh() && $vfm.hide('subjectModal')"
+        @cancel="$nuxt.refresh() && $vfm.hide('subjectModal')"
         ><edit-subjects /><template slot="title">Edit subjects</template></Modal
       >
       <CustomButton class="m-1" @click="$vfm.show('subjectModal')"
@@ -161,7 +164,6 @@
 </template>
 
 <script>
-import { version } from "~/package.json";
 export default {
   middleware: "authenticated",
   mounted() {
@@ -193,7 +195,7 @@ export default {
       },
     };
 
-    let subjects = await (await this.$auth.fetch("/subjects", opts)).json();
+    let subjects = await (await this.$auth.fetch("${process.env.backendURL}/subjects", opts)).json();
     let built = [];
     for (let subject of subjects) {
       let assignments = await (
@@ -213,9 +215,6 @@ export default {
     };
   },
   methods: {
-    notBeforeToday(date) {
-      return date < new Date(new Date().setHours(0, 0, 0, 0));
-    },
     async push(subject) {
       if (subject.entry?.trim() == "" || !subject.entry) return;
       let obj = {
@@ -261,7 +260,7 @@ export default {
       );
     },
     isLate(date) {
-      return new Date(date).valueOf() < new Date().valueOf();
+      return new Date(date.toDateString()) < new Date(new Date().toDateString());
     },
 
     parseColor(color) {
