@@ -56,10 +56,19 @@
         :key="subject.name"
         :class="parseColor(subject.color)"
       >
-        <h1 class="font-serif font-bold text-4xl">{{ subject.name }}</h1>  <div class="flex justify-center items-center m-1 px-2 py-1 border border-gray-300 rounded-full bg-gray-200 text-base text-gray-700 font-medium">
-    <div class="flex-initial max-w-full leading-none text-xs font-normal">名称</div>
-  </div>
-
+        <h1 class="font-serif font-bold text-4xl inline-block">
+          {{ subject.name }}
+        </h1>
+        <span
+          class="
+            inline-block
+            border border-blue
+            rounded-full
+            px-3
+            bg-blue
+            text-white
+          "
+        >{{subject.assignments.length}}</span>
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
           Nothing yet, add a new assignment
         </p>
@@ -195,7 +204,9 @@ export default {
       },
     };
 
-    let subjects = await (await this.$auth.fetch(`${process.env.backendURL}/subjects`, opts)).json();
+    let subjects = await (
+      await this.$auth.fetch(`${process.env.backendURL}/subjects`, opts)
+    ).json();
     let built = [];
     for (let subject of subjects) {
       let assignments = await (
@@ -260,8 +271,9 @@ export default {
       );
     },
     isLate(date) {
-      
-      return new Date(date.toDateString()) < new Date(new Date().toDateString());
+      return (
+        new Date(date.toDateString()) < new Date(new Date().toDateString())
+      );
     },
 
     parseColor(color) {
