@@ -5,12 +5,10 @@
         <h1 class="font-bold text-5xl py-1">FAQ</h1>
         <FAQ q="Is it free?">Yes. Ejenda is, and always will be free.</FAQ>
         <FAQ q="Can I use this offline?"
-          >Absolutely! Ejenda works perfectly offline.</FAQ
+          >Somewhat. Currently, it will load but error out. This is a WIP.</FAQ
         >
         <FAQ q="Can you see what I have to do?"
-          >Unless you add assignments via our Teacher link feature, which stores
-          them on a database for access by students, no. By default, everything
-          is stored on your computer.</FAQ
+          >Your items are stored on our servers. We do not look at them.</FAQ
         >
         <FAQ q="Can I send my students a link to import assignments?"
           >Yes. Go to our
@@ -18,13 +16,13 @@
           get started.</FAQ
         >
         <FAQ q="Is Ejenda safe?"
-          >Yes. It is engineered to not save any of your data and is open-source
-          so that you can read over the source code.</FAQ
+          >Yes. It is engineered to not save any of your identifying data and is open-source
+          so that you can read over the source code. (If you feel like it, no pressure)</FAQ
         >
         <FAQ q="How can I help?"
           >You can show Ejenda to other students, or show your teachers it. If
           you know how to code, you can contribute at
-          https://github.com/GrahamSH-LLK/Ejenda</FAQ
+          https://github.com/Ejenda/Ejenda</FAQ
         >
       </div>
     </div>

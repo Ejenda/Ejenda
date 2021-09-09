@@ -1,3 +1,4 @@
+
 ports:
   - port: 3000
     onOpen: open-browser
@@ -5,3 +6,12 @@ ports:
 tasks:
   - command: BACKENDURL=$(gp url 3000) npm run dev
   - init: npm ci
+
+vscode:
+  extensions:
+    - vtrois.gitmoji-vscode
+    - esbenp.prettier-vscode
+    - octref.vetur
+    - bradlc.vscode-tailwindcss
+    - github.github-vscode-theme
+    - eamodio.gitlens

@@ -57,7 +57,57 @@
           <button @click="$vfm.show('createSchool')">Add a new school</button>
           <Modal :name="'createSchool'" v-model="openModal">
             <template v-slot:title>Add a new school</template>
-            <template>Enter your domain: <input v-model="domain" /></template
+            <template
+              >Enter your domain:
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <span
+                  class="
+                    inline-flex
+                    items-center
+                    px-3
+                    rounded-l-md
+                    border border-r-0 border-gray-300
+                    bg-gray-50
+                    text-gray-500 text-sm
+                  "
+                >
+                  https://
+                </span>
+                <input
+                  type="text"
+                  name="school-website"
+                  id="school-website"
+                  class="
+                    focus:ring-red-500 focus:border-red-500
+                    flex-1
+                    block
+                    w-full
+                    rounded-none rounded-r-md
+                    sm:text-sm
+                    border-gray-300
+                  "
+                  placeholder="www.example.k12.x.us"
+                  v-model="domain"
+                />
+              </div>
+              Enter the school name:
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <input
+                  type="text"
+                  name="school-website"
+                  id="school-website"
+                  class="
+                    focus:ring-red-500 focus:border-red-500
+                    flex-1
+                    block
+                    w-full
+                    rounded-md
+                    sm:text-sm
+                    border-gray-300
+                  "
+                  placeholder="Your School"
+                  v-model="name"
+                /></div><custom-button class="" v-show="domain.length > 0 && name.length > 0" @click="createSchool">Add</custom-button></template
           ></Modal>
         </div>
         <button
@@ -85,7 +135,7 @@
 export default {
   middleware: ["authenticated", "not-onboarded"],
   data() {
-    return { domain: "", school: {}, openModal: false };
+    return { domain: "", school: {}, openModal: false, name: '' };
   },
   methods: {
     async onboard() {
@@ -100,10 +150,20 @@ export default {
         });
         let data = await res.json();
         if (data.ok) {
-          this.$store.dispatch("auth/login",this.$auth.token)
+          this.$store.dispatch("auth/login", this.$auth.token);
           this.$router.replace("/app");
         }
       }
+    },
+    async createSchool() {
+      await this.$auth.fetch('/schools/new', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({name: this.name, url: this.domain})
+      })
+      this.domain = this.domain + ''
     },
   },
 

@@ -21,7 +21,10 @@ const sessionSchema = new Schema({
 });
 const Session = models.sessions || model("sessions", sessionSchema);
 const schoolSchema = new Schema({
-  url: String,
+  url: {
+    type: String,
+    unique: true,
+  },
   name: String,
 });
 const School = models.schools || model("schools", schoolSchema);
@@ -34,7 +37,7 @@ const userAssignmentSchema = new Schema({
 const userSchema = new Schema({
   name: {
     type: String,
-    unique: true, // `email` must be unique
+    unique: true,
   },
   password: String,
   onboarded: Boolean,
