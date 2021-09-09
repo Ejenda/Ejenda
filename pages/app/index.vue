@@ -245,6 +245,7 @@ export default {
         body: JSON.stringify(obj),
       });
       subject.entry = "";
+      subject.dateEntry = ""
     },
     async deleteItem(subject, i) {
       await this.$auth.fetch(`${process.env.backendURL}/assignments/delete`, {
