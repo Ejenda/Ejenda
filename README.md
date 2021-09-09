@@ -11,9 +11,9 @@
 
 > Ejenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as Ejenda is in beta.
 
-### 🏠 [Homepage](ejenda.org)
+### 🏠 [Homepage](https://ejenda.org)
 
-### ✨ [Demo](ejenda.org)
+### ✨ [Demo](https://ejenda.org)
 
 ## Install
 
