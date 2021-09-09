@@ -54,6 +54,14 @@ export default {
       mode: "jit",
       darkMode: "class",
       plugins: [require("@tailwindcss/forms")],
+      theme: {
+        extend: {
+          screens: {
+            'print': {'raw': 'print'},
+          }
+        }
+      },
+    
     },
   },
   serverMiddleware: ["~/server-middleware/server.js"],

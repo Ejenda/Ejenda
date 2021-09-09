@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col bg-red-100 dark:bg-gray-500 min-h-screen">
 
-    <Nav />
+    <Nav class="print:hidden"/>
     <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
 
-    <section class="text-gray-700 bg-white body-font dark:bg-gray-600 dark:text-white">
+    <section class="text-gray-700 bg-white body-font dark:bg-gray-600 dark:text-white print:hidden">
       <div
         class="
           container

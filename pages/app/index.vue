@@ -86,8 +86,8 @@
           v-for="(assignment, i) of subject.assignments"
           :key="`${assignment.id}`"
           :class="{
-            '!bg-yellow-400 !text-white': isToday(new Date(assignment.date)),
-            '!bg-red-800': isLate(new Date(assignment.date)),
+            '!bg-yellow-500': isToday(new Date(assignment.date)),
+            '!bg-red-800 !text-white': isLate(new Date(assignment.date)),
           }"
         >
           <div class="block">
@@ -99,12 +99,13 @@
             <p v-else class="italic text-gray-400">No due date</p>
           </div>
           <button
-            class="px-2 py-1 m-1 bg-white rounded-md text-gray-800"
+            class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
             @click="deleteItem(subject, i)"
           >
             Delete
           </button>
         </li>
+        <div class="print:hidden">
         <button
           class="rounded-l-sm bg-white text-gray-800 p-2"
           @click="push(subject)"
@@ -156,6 +157,7 @@
             </v-date-picker>
           </client-only>
         </div>
+        </div>
       </ul>
       <Modal
         v-model="subjectModalOpen"
@@ -165,7 +167,7 @@
         @cancel="$nuxt.refresh() && $vfm.hide('subjectModal')"
         ><edit-subjects /><template slot="title">Edit subjects</template></Modal
       >
-      <CustomButton class="m-1" @click="$vfm.show('subjectModal')"
+      <CustomButton class="m-1 print:hidden" @click="$vfm.show('subjectModal')"
         >Edit your subjects</CustomButton
       >
     </div>
