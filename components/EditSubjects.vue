@@ -61,7 +61,7 @@ export default {
       },
     };
 
-    this.subjects = await (await this.$auth.fetch("/subjects",opts)).json();
+    this.subjects = await (await this.$auth.fetch(`${process.env.backendURL}/subjects`,opts)).json();
   },
   data() {
     return { subjects: [], modalOpen: false, newColor: "", newName: "" };

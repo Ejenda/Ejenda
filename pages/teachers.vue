@@ -40,7 +40,6 @@
     <ul class="m-1">
       <li
         class="
-          font-serif
           rounded-sm
           bg-white bg-opacity-75
           text-gray-800

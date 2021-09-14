@@ -1,6 +1,6 @@
 <template>
   <div class="p-1 flex justify-between">
-    <div class="font-serif font-bold">
+    <div class=" font-bold">
       <img
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"

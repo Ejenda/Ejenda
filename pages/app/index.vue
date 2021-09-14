@@ -56,7 +56,7 @@
         :key="subject.name"
         :class="parseColor(subject.color)"
       >
-        <h1 class="font-serif font-bold text-4xl inline-block">
+        <h1 class="font-bold text-4xl inline-block">
           {{ subject.name }}
         </h1>
         <span
@@ -68,13 +68,13 @@
             bg-blue
             text-white
           "
-        >{{subject.assignments.length}}</span>
+          >{{ subject.assignments.length }}</span
+        >
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
           Nothing yet, add a new assignment
         </p>
         <li
           class="
-            font-serif
             rounded-sm
             bg-white bg-opacity-75
             text-gray-800
@@ -83,7 +83,7 @@
             flex
             justify-between
           "
-          v-for="(assignment, i) of subject.assignments"
+          v-for="(assignment, i) of sortAssignments(subject.assignments)"
           :key="`${assignment.id}`"
           :class="{
             '!bg-yellow-500': isToday(new Date(assignment.date)),
@@ -92,7 +92,7 @@
         >
           <div class="block">
             <p>{{ assignment.name }}</p>
-
+            
             <p v-if="assignment.date" class="italic text-gray-400">
               Due: {{ new Date(assignment.date).toLocaleDateString() }}
             </p>
@@ -102,61 +102,74 @@
             class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
             @click="deleteItem(subject, i)"
           >
-            Delete
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
           </button>
         </li>
         <div class="print:hidden">
-        <button
-          class="rounded-l-sm bg-white text-gray-800 p-2"
-          @click="push(subject)"
-        >
-          +</button
-        ><input
-          placeholder="Add a new assignment"
-          class="text-gray-800 rounded-r-sm p-2"
-          v-model="subject.entry"
-          @keydown.enter="push(subject)"
-        />
-        <div class="mt-1">
-          <client-only>
-            <v-date-picker
-              class="block h-full w-72"
-              v-model="subject.dateEntry"
-              :min-date="new Date()"
-            >
-              <template v-slot="{ inputValue, togglePopover }">
-                <div class="flex items-center">
-                  <div
-                    class="
-                      p-2
-                      bg-red-100
-                      border border-red-200
-                      text-red-600
-                      rounded-l
-                    "
-                    @click="togglePopover()"
-                  >
-                    <span>Due</span>
+          <button
+            class="rounded-l-sm bg-white text-gray-800 p-2"
+            @click="push(subject)"
+          >
+            +</button
+          ><input
+            placeholder="Add a new assignment"
+            class="text-gray-800 rounded-r-sm p-2"
+            v-model="subject.entry"
+            @keydown.enter="push(subject)"
+          />
+          <div class="mt-1">
+            <client-only>
+              <v-date-picker
+                class="block h-full w-72"
+                v-model="subject.dateEntry"
+                :min-date="new Date()"
+              >
+                <template v-slot="{ inputValue, togglePopover }">
+                  <div class="flex items-center">
+                    <div
+                      class="
+                        p-2
+                        bg-red-100
+                        border border-red-200
+                        text-red-600
+                        rounded-l
+                      "
+                      @click="togglePopover()"
+                    >
+                      <span>Due</span>
+                    </div>
+                    <input
+                      :value="inputValue"
+                      class="
+                        bg-white
+                        text-gray-700
+                        p-2
+                        appearance-none
+                        border
+                        rounded-r
+                        focus:outline-none focus:border-f-500
+                      "
+                      @click="togglePopover()"
+                      readonly
+                    />
                   </div>
-                  <input
-                    :value="inputValue"
-                    class="
-                      bg-white
-                      text-gray-700
-                      p-2
-                      appearance-none
-                      border
-                      rounded-r
-                      focus:outline-none focus:border-f-500
-                    "
-                    @click="togglePopover()"
-                    readonly
-                  />
-                </div>
-              </template>
-            </v-date-picker>
-          </client-only>
-        </div>
+                </template>
+              </v-date-picker>
+            </client-only>
+          </div>
         </div>
       </ul>
       <Modal
@@ -228,6 +241,11 @@ export default {
     };
   },
   methods: {
+    sortAssignments(assignments) {
+      return assignments
+        .slice()
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+    },
     async push(subject) {
       if (subject.entry?.trim() == "" || !subject.entry) return;
       let obj = {
@@ -245,7 +263,7 @@ export default {
         body: JSON.stringify(obj),
       });
       subject.entry = "";
-      subject.dateEntry = ""
+      subject.dateEntry = "";
     },
     async deleteItem(subject, i) {
       await this.$auth.fetch(`${process.env.backendURL}/assignments/delete`, {
