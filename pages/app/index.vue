@@ -56,6 +56,13 @@
         :key="subject.name"
         :class="parseColor(subject.color)"
       >
+        <div>
+          <a 
+          href="/google/auth"
+          v-show="!googleClassroomState" >
+            Sign in with Google to import
+          </a>
+        </div>
         <h1 class="font-bold text-4xl inline-block">
           {{ subject.name }}
         </h1>
@@ -232,12 +239,15 @@ export default {
       built.push(this.generateSubject(subject[0], subject[1], assignments));
     }
     this.subjects = [...built];
+    this.fetchGCI()
   },
   data() {
     return {
       subjects: [],
       currentEntry: "",
       subjectModalOpen: false,
+      googleClassroomState: false,
+      googleClassroomAssignments:[],
     };
   },
   methods: {
@@ -245,6 +255,17 @@ export default {
       return assignments
         .slice()
         .sort((a, b) => new Date(a.date) - new Date(b.date));
+    },
+    async fetchGCI() {
+      console.log(`${process.env.backendURL}/google/assignments/`)
+      let res = await this.$auth.fetch(new URL('/google/assignments', process.env.backendURL));
+      let data = await res.json();
+      if (!res.ok == "logged out") {
+        this.googleClassroomState = false;
+        return;
+      }
+      this.googleClassroomState = true;
+      this.googleClassroomAssignments = data;
     },
     async push(subject) {
       if (subject.entry?.trim() == "" || !subject.entry) return;

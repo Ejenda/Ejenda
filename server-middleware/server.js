@@ -5,6 +5,17 @@ import bcrypt from "bcrypt";
 import cors from "cors";
 import { json } from "body-parser";
 import { connect, connection, Schema, model, models } from "mongoose";
+import { google, oauth2_v2 } from "googleapis"; 
+import web from "./credentials.js";
+import cookieParser from 'cookie-parser';
+app.use(cookieParser());
+const { client_secret, client_id, redirect_uris } = web;
+const SCOPES = [
+  "https://www.googleapis.com/auth/classroom.courses.readonly",
+  "https://www.googleapis.com/auth/classroom.coursework.me.readonly",
+  "https://www.googleapis.com/auth/classroom.coursework.students.readonly"
+];
+
 const whitelist = ["https://3000-plum-lizard-545djgei.ws-us13.gitpod.io"];
 
 let saltRounds = 10;
@@ -55,6 +66,7 @@ const userSchema = new Schema({
       ["Random Things", ""],
     ],
   },
+  classroomToken: Object
 });
 const User = models.users || model("users", userSchema);
 let sessions = [];
@@ -105,7 +117,7 @@ function findUser(id) {
 
 app.use(async (req, res, next) => {
   // get user
-  const token = req.headers.authorization;
+  const token = req.headers.authorization || req.cookies.token;
   let user = findSession(token);
   if (user) {
     res.locals.requester = await findUser(user.id);
@@ -364,4 +376,80 @@ app.delete("/assignments/delete", checkLoggedIn(), async (req, res) => {
   await dbUser.save();
   res.json({ ok: true });
 });
+app.get("/google/auth", (req, res) => {
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+  
+  const authUrl = oAuth2Client.generateAuthUrl({
+    access_type: "offline",
+    scope: SCOPES,
+  });
+
+  res.redirect(authUrl);
+});
+app.get("/google/auth/callback", checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+  
+  let {tokens} = await oAuth2Client.getToken(req.query.code);
+  
+  oAuth2Client.setCredentials(tokens);
+  dbUser.classroomToken = tokens
+  dbUser.save()
+  res.redirect('/google/assignments')
+});
+app.get('/google/assignments', async (req, res)=> {
+  let user = res.locals.requester;
+  console.log(user)
+  let dbUser = await User.findOne({ _id: user._id });
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+  
+  if (!dbUser.classroomToken) {
+    res.send({'ok': 'logged out'})
+    return
+  }
+  let assignments = [];
+  const tokens = dbUser.classroomToken
+  oAuth2Client.setCredentials(tokens);
+  const classroom = google.classroom({ version: "v1", auth: oAuth2Client });
+
+  let {data} = await classroom.courses.list({
+    pageSize: 100,
+    auth: oAuth2Client,
+  });
+  const courses = data.courses;
+  if (courses && courses.length) {
+    for (let course of courses) {
+
+      if (course.courseState == "ACTIVE") {
+      let { data } = await classroom.courses.courseWork.list({
+        pageSize: 100,
+        courseId: course.id,
+        auth: oAuth2Client
+      });
+      if (data.courseWork) {
+        assignments.push(...data.courseWork)
+      }
+      
+    }
+  }
+  } else {
+    console.log("No courses found.");
+  }
+  res.send(assignments);
+})
+
 export default app;
