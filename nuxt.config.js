@@ -53,7 +53,7 @@ export default {
     config: {
       mode: "jit",
       darkMode: "class",
-      plugins: [require("@tailwindcss/forms")],
+      plugins: [require("@tailwindcss/forms"), require('@tailwindcss/typography')],
       theme: {
         extend: {
           screens: {
