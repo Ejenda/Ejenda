@@ -56,13 +56,6 @@
         :key="subject.name"
         :class="parseColor(subject.color)"
       >
-        <div>
-          <a 
-          href="/google/auth"
-          v-show="!googleClassroomState" >
-            Sign in with Google to import
-          </a>
-        </div>
         <h1 class="font-bold text-4xl inline-block">
           {{ subject.name }}
         </h1>
@@ -77,6 +70,28 @@
           "
           >{{ subject.assignments.length }}</span
         >
+                <div>
+          <a href="/google/auth" v-show="!googleClassroomState">
+            Sign in with Google to import
+          </a>
+          <custom-button @click="$vfm.show('importModal-'+subject.name)">Import assignments</custom-button>
+          <Modal :name="'importModal-'+subject.name" v-model="importModalOpen[subject.name]">
+            <template slot="title">Import from Google Classroom</template>
+          <select class="text-gray-800" v-model="subject.importing">
+            <option
+              v-for="assignment of googleClassroomAssignments"
+              :key="assignment.id"
+              :value="assignment.id"
+              
+            >
+              {{ assignment.title }}
+            </option>
+            
+          </select>
+          <custom-button @click="importAssignment(subject)"></custom-button>
+          </Modal>
+        </div>
+
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
           Nothing yet, add a new assignment
         </p>
@@ -99,7 +114,7 @@
         >
           <div class="block">
             <p>{{ assignment.name }}</p>
-            
+
             <p v-if="assignment.date" class="italic text-gray-400">
               Due: {{ new Date(assignment.date).toLocaleDateString() }}
             </p>
@@ -218,6 +233,7 @@ export default {
   },
   fetchOnServer: true,
   async fetch() {
+
     var opts = {
       method: "GET",
       headers: {
@@ -239,7 +255,8 @@ export default {
       built.push(this.generateSubject(subject[0], subject[1], assignments));
     }
     this.subjects = [...built];
-    this.fetchGCI()
+    await this.fetchGCI(); // Sadly this has to be async even though it takes FOREVER
+    // So I have to run it last
   },
   data() {
     return {
@@ -247,7 +264,8 @@ export default {
       currentEntry: "",
       subjectModalOpen: false,
       googleClassroomState: false,
-      googleClassroomAssignments:[],
+      googleClassroomAssignments: [],
+      importModalOpen: {}
     };
   },
   methods: {
@@ -257,10 +275,13 @@ export default {
         .sort((a, b) => new Date(a.date) - new Date(b.date));
     },
     async fetchGCI() {
-      console.log(`${process.env.backendURL}/google/assignments/`)
-      let res = await this.$auth.fetch(new URL('/google/assignments', process.env.backendURL));
+      console.log(`${process.env.backendURL}/google/assignments/`);
+      let res = await this.$auth.fetch(
+        new URL("/google/assignments", process.env.backendURL)
+      );
       let data = await res.json();
-      if (!res.ok == "logged out") {
+      if (data.ok == "logged out") {
+        console.log("returning");
         this.googleClassroomState = false;
         return;
       }
@@ -273,6 +294,7 @@ export default {
         name: subject.entry,
         id: new Date(),
         date: subject.dateEntry,
+      
       };
       subject.assignments.push(obj);
       obj.subject = subject.id;
@@ -297,12 +319,30 @@ export default {
       subject.assignments.splice(i, 1);
     },
     generateSubject(name, color, assignments) {
+      this.importModalOpen[name] = false
       return {
         name: name,
         id: name.toLowerCase(),
         color: color,
         assignments,
+        importing: ''
       };
+    },
+    importAssignment(subject){
+      let assignment = this.googleClassroomAssignments.find((item)=> {
+        return item.id === subject.importing
+      })
+      let date;
+      if (assignment.dueDate) {
+         date = new Date(assignment.dueDate.year, assignment.dueDate.month -1, assignment.dueDate.day)
+      } else {
+        date = undefined
+      }
+      subject.assignments.push({
+        name: assignment.title,
+        id: new Date(),
+        date
+      })
     },
     isToday(someDate) {
       const today = new Date();

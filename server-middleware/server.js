@@ -385,6 +385,7 @@ app.get("/google/auth", (req, res) => {
   
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
+    prompt: "consent",
     scope: SCOPES,
   });
 
@@ -405,11 +406,10 @@ app.get("/google/auth/callback", checkLoggedIn(), async (req, res) => {
   oAuth2Client.setCredentials(tokens);
   dbUser.classroomToken = tokens
   dbUser.save()
-  res.redirect('/google/assignments')
+  res.redirect('/app')
 });
 app.get('/google/assignments', async (req, res)=> {
   let user = res.locals.requester;
-  console.log(user)
   let dbUser = await User.findOne({ _id: user._id });
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
