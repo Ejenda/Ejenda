@@ -75,7 +75,7 @@
             Sign in with Google to import
           </a>
           <custom-button @click="$vfm.show('importModal-'+subject.name)">Import assignments</custom-button>
-          <Modal :name="'importModal-'+subject.name" v-model="importModalOpen[subject.name]">
+          <Modal :name="'importModal'+subject.name" v-model="subject.importModalOpen">
             <template slot="title">Import from Google Classroom</template>
           <select class="text-gray-800" v-model="subject.importing">
             <option
@@ -99,6 +99,8 @@
           class="
             rounded-sm
             bg-white bg-opacity-75
+            dark:bg-opacity-50
+            dark:bg-gray-300
             text-gray-800
             my-2
             p-1
@@ -114,11 +116,11 @@
         >
           <div class="block">
             <p>{{ assignment.name }}</p>
-
-            <p v-if="assignment.date" class="italic text-gray-400">
+            
+            <p v-if="assignment.date" class="italic text-gray-400 dark:text-gray-600">
               Due: {{ new Date(assignment.date).toLocaleDateString() }}
             </p>
-            <p v-else class="italic text-gray-400">No due date</p>
+            <p v-else class="italic text-gray-400 dark:text-gray-600">No due date</p>
           </div>
           <button
             class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
@@ -325,7 +327,8 @@ export default {
         id: name.toLowerCase(),
         color: color,
         assignments,
-        importing: ''
+        importing: '',
+        importModalOpen: false
       };
     },
     importAssignment(subject){

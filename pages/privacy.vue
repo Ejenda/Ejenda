@@ -43,7 +43,7 @@
         </p>
       </li>
       <li>
-        <p><strong>Country</strong> refers to: Massachusetts, United States</p>
+        <p><strong>Country</strong> refers to: United States</p>
       </li>
       <li>
         <p>

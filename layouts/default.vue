@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-red-100 dark:bg-gray-500 min-h-screen">
+  <div class="flex flex-col bg-red-100 dark:bg-gray-600 min-h-screen">
 
     <Nav class="print:hidden"/>
     <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />

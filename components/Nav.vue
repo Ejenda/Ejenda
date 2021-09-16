@@ -1,26 +1,13 @@
 <template>
-  <div class="p-1 flex justify-between">
+  <div class="p-2 flex justify-between ">
     <div class=" font-bold">
       <img
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
       />
       <nuxt-link to="/" class="text-4xl font-black font-sans">ejenda<span class="text-red-600">.</span></nuxt-link>
-      <span class="text-base">v{{ version }}</span>
     </div>
     <div class="flex flex-row">
-      <nuxt-link
-        to="/faq"
-        class="
-          bg-red-300
-          text-red-100
-          hover:bg-red-700 hover:text-white
-          px-3
-          py-2
-          rounded-md
-        "
-        >FAQ</nuxt-link
-      >
       <div class="flex flex-col ml-2 items-center justify-center">
         <div
           v-if="$auth.loggedIn"

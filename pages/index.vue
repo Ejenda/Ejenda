@@ -33,9 +33,10 @@
           <div class="col-span-6">
             <img
               alt="Ejenda logo"
-              src="~/static/logo.svg"
-              height="300px"
-              width="300px"
+              src="~/static/screenshot.png"
+              height="999px"
+              width="572px"
+              class="rounded-sm shadow-lg rotate-3 hidden md:block"
             />
           </div>
         </div>
