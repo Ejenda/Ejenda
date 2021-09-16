@@ -21,7 +21,7 @@
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
-    "core-js": "^3.17.2",
+    "core-js": "^3.17.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "googleapis": "^86.1.0",
