@@ -3,7 +3,7 @@
     <main
     class="min-h-screen flex justify-center items-center w-screen bg-red-300 bg-gradient-to-r from-red-500"
   >
-    <div class="bg-white p-8  max-w-lg w-full h-auto rounded-r-lg bg-opacity-30 backdrop-blur-lg">
+    <div class="bg-white p-8  max-w-lg w-full h-auto rounded-lg bg-opacity-30 backdrop-blur-lg">
       <div class="text-center">
         <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
         <h2 class="font-bold text-2xl my-2 text-red-900">Sign in to your account</h2>
