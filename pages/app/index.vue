@@ -70,26 +70,13 @@
           "
           >{{ subject.assignments.length }}</span
         >
-                <div>
-          <a href="/google/auth" v-show="!googleClassroomState">
-            Sign in with Google to import
-          </a>
-          <custom-button @click="$vfm.show('importModal-'+subject.name)">Import assignments</custom-button>
-          <Modal :name="'importModal'+subject.name" v-model="subject.importModalOpen">
-            <template slot="title">Import from Google Classroom</template>
-          <select class="text-gray-800" v-model="subject.importing">
-            <option
-              v-for="assignment of googleClassroomAssignments"
-              :key="assignment.id"
-              :value="assignment.id"
-              
-            >
-              {{ assignment.title }}
-            </option>
-            
-          </select>
-          <custom-button @click="importAssignment(subject)"></custom-button>
-          </Modal>
+        <div>
+          <ImportGC
+            :subject="subject"
+            :googleClassroomState="googleClassroomState"
+            :googleClassroomAssignments="googleClassroomAssignments"
+            :importAssignment="importAssignment"
+          ></ImportGC>
         </div>
 
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
@@ -99,8 +86,7 @@
           class="
             rounded-sm
             bg-white bg-opacity-75
-            dark:bg-opacity-50
-            dark:bg-gray-300
+            dark:bg-opacity-50 dark:bg-gray-300
             text-gray-800
             my-2
             p-1
@@ -116,11 +102,16 @@
         >
           <div class="block">
             <p>{{ assignment.name }}</p>
-            
-            <p v-if="assignment.date" class="italic text-gray-400 dark:text-gray-600">
+
+            <p
+              v-if="assignment.date"
+              class="italic text-gray-400 dark:text-gray-600"
+            >
               Due: {{ new Date(assignment.date).toLocaleDateString() }}
             </p>
-            <p v-else class="italic text-gray-400 dark:text-gray-600">No due date</p>
+            <p v-else class="italic text-gray-400 dark:text-gray-600">
+              No due date
+            </p>
           </div>
           <button
             class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
@@ -235,7 +226,6 @@ export default {
   },
   fetchOnServer: true,
   async fetch() {
-
     var opts = {
       method: "GET",
       headers: {
@@ -267,7 +257,6 @@ export default {
       subjectModalOpen: false,
       googleClassroomState: false,
       googleClassroomAssignments: [],
-      importModalOpen: {}
     };
   },
   methods: {
@@ -296,7 +285,6 @@ export default {
         name: subject.entry,
         id: new Date(),
         date: subject.dateEntry,
-      
       };
       subject.assignments.push(obj);
       obj.subject = subject.id;
@@ -321,31 +309,33 @@ export default {
       subject.assignments.splice(i, 1);
     },
     generateSubject(name, color, assignments) {
-      this.importModalOpen[name] = false
       return {
         name: name,
         id: name.toLowerCase(),
         color: color,
         assignments,
-        importing: '',
-        importModalOpen: false
+        importing: "",
       };
     },
-    importAssignment(subject){
-      let assignment = this.googleClassroomAssignments.find((item)=> {
-        return item.id === subject.importing
-      })
+    importAssignment(subject) {
+      let assignment = this.googleClassroomAssignments.find((item) => {
+        return item.id === subject.importing;
+      });
       let date;
       if (assignment.dueDate) {
-         date = new Date(assignment.dueDate.year, assignment.dueDate.month -1, assignment.dueDate.day)
+        date = new Date(
+          assignment.dueDate.year,
+          assignment.dueDate.month - 1,
+          assignment.dueDate.day
+        );
       } else {
-        date = undefined
+        date = undefined;
       }
       subject.assignments.push({
         name: assignment.title,
         id: new Date(),
-        date
-      })
+        date,
+      });
     },
     isToday(someDate) {
       const today = new Date();
