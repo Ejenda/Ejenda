@@ -113,7 +113,7 @@
               </dt>
               <dd class="mt-2 ml-16 text-base text-gray-500">
                 Teachers can give you links that add assignments right into your
-                ajenda.
+                agenda.
               </dd>
             </div>
 
