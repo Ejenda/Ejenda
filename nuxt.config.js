@@ -66,7 +66,7 @@ export default {
   },
   serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/pwa", "@nuxtjs/svg", "@nuxtjs/sitemap"],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/svg", "@nuxtjs/sitemap", '@nuxtjs/sentry'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: { transpile: ["vue-final-modal"] },
@@ -79,4 +79,7 @@ export default {
       start_url: "/app",
     },
   },
+  sentry: {
+    dsn: 'https://e8d5aaf6e8f04f6bb312b3dd2a356e2a@o1005541.ingest.sentry.io/5966204'
+  }
 };
