@@ -7,8 +7,8 @@
     <div class="p-4 rounded-r-lg flex-1">
       <section id="danger">
         <h1 class="text-2xl font-bold">Danger zone</h1>
-        <p>Delete account: Email us at graham(at)ejenda.org</p>
-        Change username: Email us at graham(at)ejenda.org
+        <p>Delete account: Email us at support@ejenda.org</p>
+        Change username: Email us at support@ejenda.org
       </section>
     </div>
   </div>
