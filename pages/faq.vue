@@ -19,6 +19,10 @@
           >Yes. It is engineered to not save any of your identifying data and is open-source
           so that you can read over the source code. (If you feel like it, no pressure)</FAQ
         >
+         <FAQ q="I found a bug, what do I do?"
+          >If you found a bug, you can either make an issue on our github at https://github.com/Ejenda/Ejenda, 
+          contact our support at support@ejenda.org, or contact us directly on discord at https://discord.gg/jKFpRHDu5Z</FAQ
+        >
         <FAQ q="How can I help?"
           >You can show Ejenda to other students, or show your teachers it. If
           you know how to code, you can contribute at
