@@ -18,7 +18,7 @@
             <nuxt-link :to="'/settings'" class="mx-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 cursor-pointer hover:text-red-700 transition-colors duration-300 p-1 ring-1 ring-gray-300 rounded hover:ring-red-500"
+                class="h-8 w-8 cursor-pointer hover:text-red-700 transition-colors duration-300 p-1 ring-1 ring-gray-300 dark:ring-gray-600 rounded hover:ring-red-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -41,7 +41,7 @@
             <button @click="logout" class="mx-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 cursor-pointer hover:text-red-700 transition-colors duration-300 p-1 ring-1 ring-gray-300 rounded hover:ring-red-500"
+                class="h-8 w-8 cursor-pointer hover:text-red-700 transition-colors duration-300 p-1 ring-1 ring-gray-300 dark:ring-gray-600 rounded hover:ring-red-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
