@@ -265,7 +265,7 @@
       contact us:
     </p>
     <ul>
-      <li>By email: graham@ejenda.org</li>
+      <li>By email: support@ejenda.org</li>
     </ul>
   </div>
 </template>
