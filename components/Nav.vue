@@ -1,6 +1,6 @@
 <template>
-  <div class="p-2 py-3 flex justify-between shadow-lg bg-white">
-    <div class=" font-bold">
+  <div class="p-2 py-3 flex justify-between shadow-lg dark:bg-black dark:text-white">
+    <div class="font-bold">
       <img
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
@@ -57,8 +57,8 @@
           </div>
         </div>
         <div v-else>
-          <nuxt-link to="/login" class="p-2 px-4 bg-white cursor-pointer ring-2 hover:ring-transparent ring-red-500 transition-all duration-300 text-red-700 rounded hover:bg-red-500 hover:text-white">Login</nuxt-link>
-          <nuxt-link class="p-2 px-4 hover:bg-white cursor-pointer ring-2 ring-red-500 mx-2 hover:ring-red-500 transition-all duration-300 hover:text-red-700 rounded bg-red-500 text-white" to="/join">Join</nuxt-link>
+          <nuxt-link to="/login" class="p-2 px-4 bg-transparent cursor-pointer ring-2 hover:ring-transparent ring-red-500 transition-all duration-300 text-red-500 rounded hover:bg-red-500 hover:text-white">Login</nuxt-link>
+          <nuxt-link class="p-2 px-4 hover:bg-transparent cursor-pointer ring-2 ring-red-500 mx-2 hover:ring-red-500 transition-all duration-300 hover:text-red-500 rounded bg-red-500 text-white" to="/join">Join</nuxt-link>
         </div>
       </div>
     </div>
