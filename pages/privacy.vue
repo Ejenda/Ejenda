@@ -1,7 +1,7 @@
 <template>
   <div class="prose m-2">
     <h1>Privacy Policy</h1>
-    <p>Last updated: September 15, 2021</p>
+    <p>Last updated: September 19, 2021</p>
     <p>
       This Privacy Policy describes Our policies and procedures on the
       collection, use and disclosure of Your information when You use the
@@ -364,6 +364,13 @@
     <p>
       We have no control over and assume no responsibility for the content,
       privacy policies or practices of any third party sites or services.
+    </p>
+    <h1>Google Data</h1>
+    <p>
+      When you log in with Google, we store a token from Google to access your classes. This token is only viewable by our database admin.
+    </p>
+    <p>
+      Your Google Classroom assignments will not be accessed by us. Only you can see them through the Service and the API endpoint.
     </p>
     <h1>Changes to this Privacy Policy</h1>
     <p>
