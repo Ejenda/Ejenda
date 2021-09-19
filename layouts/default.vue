@@ -4,7 +4,7 @@
     <Nav class="print:hidden"/>
     <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
 
-    <section class="text-gray-700 bg-white body-font dark:bg-gray-600 dark:text-white print:hidden">
+    <section class="text-gray-700 bg-white body-font dark:bg-gray-900 dark:text-white print:hidden">
       <div
         class="
           container
@@ -19,7 +19,7 @@
       >
         <nuxt-link
           to="/"
-          class="text-xl font-black leading-none text-gray-900 select-none logo"
+          class="text-xl font-black leading-none text-gray-50 select-none logo"
           >ejenda<span class="text-red-600">.</span></nuxt-link
         >
         <p
@@ -70,7 +70,7 @@
 
           <a href="https://fosshost.org" class="text-white font-black ">
             <span class="sr-only">Hosted by Fosshost</span>
-            <span class="bg-gray-300 hover:bg-gray-400 rounded-md p-2">Hosted by <span class="text-red-500">Fosshost</span></span>
+            <span class="bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 darkhover:bg-grey-800 rounded-md p-2">Hosted by <span class="text-red-500">Fosshost</span></span>
           </a>
         </span>
       </div>

@@ -42,11 +42,11 @@
         </div>
       </div>
     </div>
-    <div class="py-12 bg-white dark:bg-gray-400 dark:text-gray-200">
+    <div class="py-12 bg-white dark:bg-gray-600 dark:text-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2
-            class="text-base text-red-600 font-semibold tracking-wide uppercase"
+            class="text-base text-gray-400 font-semibold tracking-wide uppercase"
           >
             Ejenda
           </h2>
@@ -63,7 +63,7 @@
           >
             A better way to keep track
           </p>
-          <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+          <p class="mt-4 max-w-2xl text-xl text-gray-400 lg:mx-auto">
             Ejenda lets you keep track of all your assignments easily.
           </p>
         </div>
@@ -111,7 +111,7 @@
                   Teacher provided links
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-500">
+              <dd class="mt-2 ml-16 text-base text-gray-400">
                 Teachers can give you links that add assignments right into your
                 agenda.
               </dd>
@@ -152,7 +152,7 @@
                   No more writing
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-500">
+              <dd class="mt-2 ml-16 text-base text-gray-400">
                 All you have to do is type in assignments!
               </dd>
             </div>
@@ -193,7 +193,7 @@
                   Fast
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-500">
+              <dd class="mt-2 ml-16 text-base text-gray-400">
                 Ejenda is engineered to be super-fast, which saves you time.
               </dd>
             </div>
@@ -234,7 +234,7 @@
                   Never miss another assignment
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-500">
+              <dd class="mt-2 ml-16 text-base text-gray-400">
                 We know it's hard to stay on top of everything, so Ejenda makes
                 late and due-that-day assignments pop out.
               </dd>
@@ -243,7 +243,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50 dark:bg-gray-200">
+    <div class="bg-gray-50 dark:bg-gray-700">
       <div
         class="
           max-w-7xl
@@ -291,7 +291,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50 dark:bg-gray-200 text-right">
+    <div class="bg-gray-50 dark:bg-gray-700 text-right">
       <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:justify-end">
         <h2
           class="
