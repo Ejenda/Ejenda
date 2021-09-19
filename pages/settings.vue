@@ -10,7 +10,7 @@
           <a href="mailto:graham@ejenda.org?subject=I%20would%20like%20to%20delete%20my%20Ejenda%20account&body=My%20username%20is%20%5Byour_username%5D" class="mx-1 flex-1 p-2 border-red-600 hover:text-red-100 hover:bg-red-900 active:scale-95 border-2 rounded text-white bg-red-600 transition-all duration-300">
             Delete account
           </a>
-          <a href="mailto:graham@ejenda.org?subject=I%20would%20like%20to%20change%20my%20Ejenda%20username&body=My%20username%20is%20%5Byour_username%5D%2C%20I%20would%20like%20to%20change%20it%20to%20%5Bnew_username%5D" class="mx-1 flex-1 p-2 border-red-600 hover:text-red-100 hover:bg-red-900 active:scale-95 border-2 rounded text-white bg-red-600 transition-all duration-300">
+          <a :href="`mailto:graham@ejenda.org?subject=I%20would%20like%20to%20change%20my%20Ejenda%20username&body=${$auth.user.name}%20is%20%5Byour_username%5D%2C%20I%20would%20like%20to%20change%20it%20to%20%5Bnew_username%5D`" class="mx-1 flex-1 p-2 border-red-600 hover:text-red-100 hover:bg-red-900 active:scale-95 border-2 rounded text-white bg-red-600 transition-all duration-300">
             Change username
           </a>
         </div>

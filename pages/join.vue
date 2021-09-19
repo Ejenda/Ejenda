@@ -1,15 +1,46 @@
 <template>
-  <!-- keep this in sync with join.vue -->
+  <!-- keep this in sync with login.vue -->
   <main
-    class="min-h-screen flex  bg-red-300 bg-gradient-to-r from-red-500"
+    class="
+      min-h-screen
+      flex
+      justify-center
+      items-center
+      bg-red-300 bg-gradient-to-r
+      from-red-500
+      dark:from-gray-800
+      dark:bg-gray-400
+    "
   >
-    <div class="bg-white  p-8  max-w-lg w-full h-screen rounded-r-lg bg-opacity-75">
+    <div
+      class="
+        bg-white
+        p-8
+        max-w-lg
+        w-full
+        h-auto
+        rounded-lg
+        bg-opacity-30
+        backdrop-blur-lg
+      "
+    >
       <div class="text-center">
         <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
-        <h2 class="font-bold text-2xl my-2">Join Ejenda</h2>
-        <p class="my-2 text-gray-500">
+        <h2 class="font-bold text-2xl my-2 text-red-900">Join Ejenda</h2>
+        <p class="my-2 text-gray-700">
           Or
-          <nuxt-link to="/login">login to an existing account</nuxt-link>
+          <nuxt-link
+            to="/login"
+            class="
+              text-red-700
+              border-b-2 border-transparent
+              hover:border-red-600
+              cursor-pointer
+              transition-all
+              duration-500
+            "
+            >login to an existing account</nuxt-link
+          >
         </p>
       </div>
       <div
@@ -29,34 +60,89 @@
           {{ error }}
         </span>
       </div>
-      <form @submit.prevent="signup">
-        <label class="text-gray-500 font-medium text-sm" for="username"
-          >Username</label
-        >
-        <input
-          type="text"
-          id="username"
-          name="username"
-          v-model="form.username"
-          class="border-2 p-1 my-1 w-full rounded-md block"
-        />
+      <form @submit.prevent="signup" class="flex items-center flex-col">
+        <label
+          class="
+            my-2
+            w-full
+            cursor-pointer
+            text-gray-800
+            font-medium
+            transition-colors
+            text-sm
+            focus-within:text-red-700
+          "
+          for="username"
+          >Username
+          <input
+            type="text"
+            id="username"
+            name="username"
+            v-model="form.username"
+            class="
+              p-2
+              my-1
+              w-full
+              outline-none
+              transition-all
+              shadow-md
+              duration-300
+              rounded
+              focus:ring-4
+              hover:ring-2 hover:ring-red-500 hover:ring-opacity-20
+              focus:ring-red-500 focus:ring-opacity-50
+              block
+              focus:outline-none
+            "
+        /></label>
 
-        <label class="text-gray-500 font-medium text-sm" for="password"
-          >Password</label
-        >
-        <input
-          type="password"
-          id="password"
-          name="password"
-          v-model="form.password"
-          class="border-2 p-1 my-1 w-full rounded-md block"
-        />
-
-        <div v-if="zxcvbnResults.feedback" class="text-sm text-gray-600">
-          <span class="inline">Password strength:</span> <span class="rounded-full h-8 w-8 inline-flex items-center justify-center" :class="pillSwitcher">{{zxcvbnResults.score}}/4</span>
-          <span v-show="zxcvbnResults.feedback.warning" class="text-red-300 block">{{
-            zxcvbnResults.feedback.warning
-          }}</span>
+        <label
+          class="
+            my-2
+            w-full
+            cursor-pointer
+            text-gray-800
+            font-medium
+            transition-colors
+            text-sm
+            focus-within:text-red-700
+          "
+          for="password"
+          >Password
+          <input
+            type="password"
+            id="password"
+            name="password"
+            v-model="form.password"
+            class="
+              p-2
+              my-1
+              w-full
+              outline-none
+              transition-all
+              shadow-md
+              duration-300
+              rounded
+              focus:ring-4
+              hover:ring-2 hover:ring-red-500 hover:ring-opacity-20
+              focus:ring-red-500 focus:ring-opacity-50
+              block
+              focus:outline-none
+            "
+          />
+        </label>
+        <div v-if="zxcvbnResults.feedback" class="text-sm text-gray-600 w-full my-2">
+          <span class="inline">Password strength:</span>
+          <span
+            class="rounded-full h-8 w-8 inline-flex items-center justify-center"
+            :class="pillSwitcher"
+            >{{ zxcvbnResults.score }}/4</span
+          >
+          <span
+            v-show="zxcvbnResults.feedback.warning"
+            class="text-red-300 block"
+            >{{ zxcvbnResults.feedback.warning }}</span
+          >
           <div v-show="zxcvbnResults.score < 3">
             <ul>
               <li
@@ -116,14 +202,14 @@ export default {
     };
   },
   computed: {
-  pillSwitcher: function () {
-    return {
-      'bg-red-500': this.zxcvbnResults.score < 2,
-      'bg-yellow-500': this.zxcvbnResults.score == 2,
-      'bg-green-300 text-white': this.zxcvbnResults.score == 3,
-      'bg-green-500': this.zxcvbnResults.score == 4
-    }
-  }
+    pillSwitcher: function () {
+      return {
+        "bg-red-500": this.zxcvbnResults.score < 2,
+        "bg-yellow-500": this.zxcvbnResults.score == 2,
+        "bg-green-300 text-white": this.zxcvbnResults.score == 3,
+        "bg-green-500": this.zxcvbnResults.score == 4,
+      };
+    },
   },
   data() {
     return {
@@ -180,7 +266,7 @@ export default {
         });
         try {
           await this.$store.dispatch("auth/login", data.token);
-          this.$router.replace(`/onboarding`,);
+          this.$router.replace(`/onboarding`);
         } catch (err) {
           console.error(`Login failed: ${err}`);
         }

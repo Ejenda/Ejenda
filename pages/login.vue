@@ -1,15 +1,49 @@
 <template>
   <!-- keep this in sync with join.vue -->
-    <main
-    class="min-h-screen flex justify-center items-center w-screen bg-red-300 bg-gradient-to-r from-red-500"
+  <main
+    class="
+      min-h-screen
+      flex
+      justify-center
+      items-center
+      bg-red-300 bg-gradient-to-r
+      from-red-500
+      dark:from-gray-800
+      dark:bg-gray-400
+    "
   >
-    <div class="bg-white p-8  max-w-lg w-full h-auto rounded-lg bg-opacity-30 backdrop-blur-lg">
+    <div
+      class="
+        bg-white
+        p-8
+        max-w-lg
+        w-full
+        h-auto
+        rounded-lg
+        bg-opacity-30
+        backdrop-blur-lg
+      "
+    >
       <div class="text-center">
         <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
-        <h2 class="font-bold text-2xl my-2 text-red-900">Sign in to your account</h2>
+        <h2 class="font-bold text-2xl my-2 text-red-900 dark:text-gray-900">
+          Sign in to your account
+        </h2>
         <p class="my-2 text-gray-700">
           Or
-          <nuxt-link to="/join" class="text-red-700 border-b-2 border-transparent hover:border-red-600 cursor-pointer transition-all duration-500">create an account</nuxt-link>
+          <nuxt-link
+            to="/join"
+            class="
+              text-red-700
+              border-b-2 border-transparent
+              hover:border-red-600
+              cursor-pointer
+              transition-all
+              duration-500
+              dark:text-gray-700
+            "
+            >create an account</nuxt-link
+          >
         </p>
       </div>
       <div
@@ -30,28 +64,76 @@
         </span>
       </div>
       <form @submit.prevent="login" class="flex items-center flex-col">
-        <label class="my-2 w-full cursor-pointer text-gray-800 font-medium transition-colors text-sm focus-within:text-red-700"
+        <label
+          class="
+            my-2
+            w-full
+            cursor-pointer
+            text-gray-800
+            font-medium
+            transition-colors
+            text-sm
+            focus-within:text-red-700
+          "
           >Username
-        <input
-          type="text"
-          id="username"
-          name="username"
-          v-model="form.username"
-          placeholder="Username"
-          class="p-2 my-1 w-full outline-none transition-all shadow-md duration-300 rounded focus:ring-4 hover:ring-2 hover:ring-red-500 hover:ring-opacity-20 focus:ring-red-500 focus:ring-opacity-50 block focus:outline-none"
-        />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            v-model="form.username"
+            placeholder="Username"
+            class="
+              p-2
+              my-1
+              w-full
+              outline-none
+              transition-all
+              shadow-md
+              duration-300
+              rounded
+              focus:ring-4
+              hover:ring-2 hover:ring-red-500 hover:ring-opacity-20
+              focus:ring-red-500 focus:ring-opacity-50
+              block
+              focus:outline-none
+            "
+          />
         </label>
 
-        <label class="my-2 w-full cursor-pointer text-gray-800 font-medium transition-colors text-sm focus-within:text-red-700"
+        <label
+          class="
+            my-2
+            w-full
+            cursor-pointer
+            text-gray-800
+            font-medium
+            transition-colors
+            text-sm
+            focus-within:text-red-700
+          "
           >Password
-        <input
-          type="text"
-          id="password"
-          name="password"
-          v-model="form.password"
-          placeholder="Password"
-          class="p-2 my-1 w-full outline-none transition-all shadow-md duration-300 rounded focus:ring-4 hover:ring-2 hover:ring-red-500 hover:ring-opacity-20 focus:ring-red-500 focus:ring-opacity-50 block focus:outline-none"
-        />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            v-model="form.password"
+            placeholder="Password"
+            class="
+              p-2
+              my-1
+              w-full
+              outline-none
+              transition-all
+              shadow-md
+              duration-300
+              rounded
+              focus:ring-4
+              hover:ring-2 hover:ring-red-500 hover:ring-opacity-20
+              focus:ring-red-500 focus:ring-opacity-50
+              block
+              focus:outline-none
+            "
+          />
         </label>
         <button
           type="submit"
@@ -66,7 +148,10 @@
             rounded-lg
             cursor-pointer
             hover:bg-red-600
-            active:scale-95 transition-all duration-300 focus:ring-4 focus:ring-red-600 focus:ring-opacity-50
+            active:scale-95
+            transition-all
+            duration-300
+            focus:ring-4 focus:ring-red-600 focus:ring-opacity-50
           "
         >
           Sign in
