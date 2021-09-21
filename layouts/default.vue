@@ -19,7 +19,7 @@
       >
         <nuxt-link
           to="/"
-          class="text-xl font-black leading-none text-gray-50 select-none logo"
+          class="text-xl font-black leading-none text-gray-900 dark:text-gray-50 select-none logo"
           >ejenda<span class="text-red-600">.</span></nuxt-link
         >
         <p
