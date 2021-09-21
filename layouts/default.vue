@@ -188,7 +188,8 @@ export default {
     return { version, hide: true };
   },
   mounted() {
-    this.hide = localStorage.getItem("hide") ?? false;
+    //this.hide = localStorage.getItem("hide") ?? false;
+    console.log("Hello Ejenda console reader. The person writing this is GrahamSH, the creator of Ejenda. I'm fine with you playing around in the console as long as you try not to break the app! As always, if you find any security vulnerabilities, directly email me at graham@ejenda.org." )
   },
   methods: {
     hideComingSoonPopup() {
