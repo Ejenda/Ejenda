@@ -396,3 +396,10 @@
     </ul>
   </div>
 </template>
+<script>
+export default {
+  head() {
+    return { title: "Privacy Policy - Ejenda" };
+  },
+}
+</script>

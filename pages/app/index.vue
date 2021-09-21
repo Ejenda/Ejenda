@@ -205,6 +205,9 @@
 <script>
 export default {
   middleware: "authenticated",
+  head() {
+    return { title: "App - Ejenda" };
+  },
   mounted() {
     if (window.location.hash) {
       let data = JSON.parse(decodeURI(window.location.hash.split("#")[1]));

@@ -79,7 +79,7 @@ export default {
   layout: "custom",
   head() {
     return {
-      title: `login`,
+      title: `Login - Ejenda`,
     };
   },
   data() {

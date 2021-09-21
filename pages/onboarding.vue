@@ -134,6 +134,9 @@
 <script>
 export default {
   middleware: ["authenticated", "not-onboarded"],
+  head() {
+    return { title: "Get started - Ejenda" };
+  },
   data() {
     return { domain: "", school: {}, openModal: false, name: '' };
   },

@@ -16,12 +16,14 @@
           get started.</FAQ
         >
         <FAQ q="Is Ejenda safe?"
-          >Yes. It is engineered to not save any of your identifying data and is open-source
-          so that you can read over the source code. (If you feel like it, no pressure)</FAQ
+          >Yes. It is engineered to not save any of your identifying data and is
+          open-source so that you can read over the source code. (If you feel
+          like it, no pressure)</FAQ
         >
-         <FAQ q="I found a bug, what do I do?"
-          >If you found a bug, you can either make an issue on our github at https://github.com/Ejenda/Ejenda, 
-          contact our support at support@ejenda.org.</FAQ
+        <FAQ q="I found a bug, what do I do?"
+          >If you found a bug, you can either make an issue on our github at
+          https://github.com/Ejenda/Ejenda, contact our support at
+          support@ejenda.org.</FAQ
         >
         <FAQ q="How can I help?"
           >You can show Ejenda to other students, or show your teachers it. If
@@ -32,3 +34,10 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  head() {
+    return { title: "FAQ - Ejenda" };
+  },
+};
+</script>

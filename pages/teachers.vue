@@ -66,6 +66,11 @@
 </template>
 <script>
 export default {
+  head() {
+    return {
+      title: 'Teachers - Ejenda'
+    };
+  },
   data() {
     return {
       subject: "math",

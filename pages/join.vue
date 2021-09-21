@@ -112,7 +112,7 @@ export default {
   layout: "custom",
   head() {
     return {
-      title: `join`,
+      title: `Join - Ejenda`,
     };
   },
   computed: {

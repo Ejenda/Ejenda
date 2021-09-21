@@ -3,8 +3,8 @@
     <h1>Terms and Conditions</h1>
     <p>Last updated: September 16, 2021</p>
     <p>
-      Please read these terms and conditions carefully before using Our Service and creating an account.
-      
+      Please read these terms and conditions carefully before using Our Service
+      and creating an account.
     </p>
     <h1>Interpretation and Definitions</h1>
     <h2>Interpretation</h2>
@@ -269,3 +269,12 @@
     </ul>
   </div>
 </template>
+<script>
+export default {
+  head() {
+    return {
+      title: "Terms and Condition - Ejenda",
+    };
+  },
+};
+</script>
