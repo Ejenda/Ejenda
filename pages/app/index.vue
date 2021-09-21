@@ -269,13 +269,11 @@ export default {
         .sort((a, b) => new Date(a.date) - new Date(b.date));
     },
     async fetchGCI() {
-      console.log(`${process.env.backendURL}/google/assignments/`);
       let res = await this.$auth.fetch(
         new URL("/google/assignments", process.env.backendURL)
       );
       let data = await res.json();
       if (data.ok == "logged out") {
-        console.log("returning");
         this.googleClassroomState = false;
         return;
       }
