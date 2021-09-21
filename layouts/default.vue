@@ -76,7 +76,7 @@
       </div>
     </section>
 
-    <div class="inset-x-0 bottom-0 rounded sticky" v-show="!hide">
+    <div class="inset-x-0 bottom-0 rounded sticky" v-if="false">
       <div
         class="
           max-w-7xl
@@ -93,7 +93,6 @@
         <div class="flex items-center justify-between flex-wrap">
           <div class="w-0 flex-1 flex items-center">
             <span class="flex p-2 rounded-lg bg-red-800">
-              <!-- Heroicon name: outline/speakerphone -->
               <svg
                 class="h-6 w-6 text-white"
                 xmlns="http://www.w3.org/2000/svg"

@@ -15,7 +15,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "Ejenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as Ejenda is in beta.",
+          "Ejenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments.",
       },
     ],
     link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
