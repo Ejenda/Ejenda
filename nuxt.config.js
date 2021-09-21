@@ -53,9 +53,43 @@ export default {
     config: {
       mode: "jit",
       darkMode: "class",
-      plugins: [require("@tailwindcss/forms"), require('@tailwindcss/typography')],
+      plugins: [require("@tailwindcss/forms"), require('@tailwindcss/typography')({
+        modifiers: [],
+    }),],
       theme: {
-        extend: {
+        extend:{typography: (theme) => ({
+          default: {
+              css: {
+                  color: theme('colors.gray.900'),
+  
+                  a: {
+                      color: theme('colors.red.500'),
+                      '&:hover': {
+                          color: theme('colors.red.700'),
+                      },
+                  },
+              },
+          },
+  
+          dark: {
+              css: {
+                  color: theme('colors.gray.100'),
+  
+                  a: {
+                      color: theme('colors.red.100'),
+                      '&:hover': {
+                          color: theme('colors.red.100'),
+                      },
+                  },
+              },
+              variants: {
+                extend: {
+                  typography: ['dark'],
+                },
+              },
+            
+          },
+      }),
           screens: {
             'print': {'raw': 'print'},
           }
