@@ -20,6 +20,10 @@
           open-source so that you can read over the source code. (If you feel
           like it, no pressure)</FAQ
         >
+       <FAQ q="I signed in with Google on the wrong account, how do I change it?"
+          >Don't worry! You can go to
+          <nuxt-link class="link" to="/google/auth">this link</nuxt-link> and select a new account.</FAQ
+        > 
         <FAQ q="I found a bug, what do I do?"
           >If you found a bug, you can either make an issue on our github at
           https://github.com/Ejenda/Ejenda, contact our support at
