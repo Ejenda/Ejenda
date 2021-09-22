@@ -370,7 +370,7 @@
       When you log in with Google, we store a token from Google to access your classes. This token is only viewable by our database admin.
     </p>
     <p>
-      Your Google Classroom assignments will not be accessed by us. Only you can see them through the Service and the API endpoint.
+      Your Google Classroom classes and assignments will not be accessed by us. We only request read-only access. Only you can see them through the Service and the API endpoint.
     </p>
     <h1>Changes to this Privacy Policy</h1>
     <p>
