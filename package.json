@@ -36,7 +36,7 @@
     "v-calendar": "^2.3.2",
     "vue-final-modal": "^2.4.1",
     "vue-plausible": "^1.2.1",
-    "vue2-datepicker": "^3.10.1",
+    "vue2-datepicker": "^3.10.2",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
