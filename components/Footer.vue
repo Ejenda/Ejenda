@@ -60,6 +60,15 @@
         "
         >Privacy Policy</nuxt-link
       >
+       <nuxt-link
+        to="/faq"
+        class="
+          mt-4
+          text-sm text-gray-500
+          sm:mx-0 sm:px-4 sm:border-l sm:border-gray-200 sm:mt-0
+        "
+        >Freqently Asked Questions</nuxt-link
+      >
 
       <select
         class="p-2 rounded dark:bg-gray-700 w-24"
