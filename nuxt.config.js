@@ -44,7 +44,7 @@ export default {
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/color-mode", "vue-plausible"],
+  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/color-mode", "vue-plausible", '@nuxt/content'],
   plausible: {
     domain: "ejenda.org",
     apiHost: "https://analytics.ejenda.org",
