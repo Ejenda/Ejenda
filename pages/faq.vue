@@ -22,7 +22,7 @@
         >
        <FAQ q="I signed in with Google on the wrong account, how do I change it?"
           >Don't worry! You can go to
-          <nuxt-link class="link" to="https://ejenda.org/google/auth/">this link</nuxt-link> and select a new account.</FAQ
+          <a class="link" href="https://ejenda.org/google/auth/">this link</nuxt-link> and select a new account.</FAQ
         > 
         <FAQ q="I found a bug, what do I do?"
           >If you found a bug, you can either make an issue on our github at
