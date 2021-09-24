@@ -39,7 +39,7 @@ export default {
   components: true,
   env: {
     backendURL:
-      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") ||
+      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") || process.env.BACKENDURL ||
       "https://ejenda.org",
   },
 
