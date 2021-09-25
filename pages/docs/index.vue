@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  beforeMount() {
+  created() {
     this.$router.push("/docs/home");
   },
 
