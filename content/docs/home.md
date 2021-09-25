@@ -1,7 +1,6 @@
 ---
-title: 'hi'
+title: Home
 ---
-# Hi
 Hello darkness
 ```js
 alert('hi')
