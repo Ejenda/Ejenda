@@ -451,5 +451,12 @@ app.get('/google/assignments', async (req, res)=> {
   }
   res.send(assignments);
 })
+// Redirects
+app.get('/docs', (req,res)=> {
+  res.redirect('/docs/home')
+})
+app.get('/faq', (req,res)=> {
+  res.redirect('/docs/faq')
+})
 
 export default app;
