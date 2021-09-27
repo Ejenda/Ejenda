@@ -30,21 +30,6 @@
         <h1 class="text-2xl font-bold">Ejenda Docs</h1>
         <ul>
           <li class="mt-8">
-            <h5
-              class="
-                px-3
-                mb-3
-                lg:mb-3
-                uppercase
-                tracking-wide
-                font-semibold
-                text-sm
-                lg:text-xs
-                text-gray-900
-              "
-            >
-              Docs
-            </h5>
             <ul>
               <li v-for="doc of content" :key="doc.slug">
                 <nuxt-link

@@ -16,8 +16,7 @@ Yes. Go to our
           get started.</f-a-q
         >
         <f-a-q q="Is Ejenda safe?"
-          >Yes. It is engineered to not save any of your identifying data and is
-          open-source so that you can read over the source code. (If you feel
+          >Yes. It is engineered to not save any of your identifying data and is open-source so that you can read over the source code. (If you feel
           like it, no pressure)</f-a-q
         >
        <f-a-q q="I signed in with Google on the wrong account, how do I change it?"
