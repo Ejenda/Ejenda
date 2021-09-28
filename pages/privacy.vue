@@ -1,5 +1,5 @@
 <template>
-  <div class="prose m-2 dark:prose-dark">
+  <div class="prose m-2 dark:prose-dark dark:bg-gray-800">
     <h1>Privacy Policy</h1>
     <p>Last updated: September 19, 2021</p>
     <p>

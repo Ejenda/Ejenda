@@ -57,7 +57,11 @@ export default {
         modifiers: [],
     }),],
       theme: {
-        extend:{typography: (theme) => ({
+        extend:{
+          colors: {
+            orange: require('tailwindcss/colors').orange
+          },
+          typography: (theme) => ({
           default: {
               css: {
                   color: theme('colors.gray.900'),
@@ -73,7 +77,7 @@ export default {
   
           dark: {
               css: {
-                  color: theme('colors.gray.100'),
+                  color: theme('colors.gray.700'),
   
                   a: {
                       color: theme('colors.red.100'),

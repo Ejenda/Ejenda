@@ -5,7 +5,7 @@
         class="py-4 lg:py-8 lg:pl-8 lg:pr-2 lg:px-8"
       >
         <p
-          class="mb-3 lg:mb-2 text-gray-500 uppercase tracking-wider font-bold text-sm lg:text-xs"
+          class="mb-3 lg:mb-2 text-gray-700 uppercase tracking-wider font-bold text-sm lg:text-xs"
         >Table of Contents</p>
         <scrollactive highlight-first-item active-class="text-red-500" :offset="0" tag="ul">
           <li

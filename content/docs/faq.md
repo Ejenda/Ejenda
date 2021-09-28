@@ -2,7 +2,8 @@
 title: FAQ
 ---
 
-
+## Is it free?
+Yes, Ejenda is, and always will be free.
 <f-a-q q="Is it free?">Yes. Ejenda is, and always will be free.</f-a-q>
 <f-a-q q="Can I use this offline?">
 Somewhat. Currently, it will load but error out. This is a WIP.
