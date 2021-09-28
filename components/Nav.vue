@@ -1,11 +1,13 @@
 <template>
-  <div class="p-2 flex justify-between ">
-    <div class=" font-bold">
+  <div class="p-2 flex justify-between">
+    <div class="font-bold">
       <img
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
       />
-      <nuxt-link to="/" class="text-4xl font-black font-sans">ejenda<span class="text-red-600">.</span></nuxt-link>
+      <nuxt-link to="/" class="text-4xl font-black font-sans"
+        >ejenda<span class="text-red-600">.</span></nuxt-link
+      >
     </div>
     <div class="flex flex-row">
       <div class="flex flex-col ml-2 items-center justify-center">

@@ -60,7 +60,7 @@
         "
         >Privacy Policy</nuxt-link
       >
-       <nuxt-link
+      <nuxt-link
         to="/docs/home"
         class="
           mt-4

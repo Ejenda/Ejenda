@@ -39,12 +39,18 @@ export default {
   components: true,
   env: {
     backendURL:
-      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") || process.env.BACKENDURL ||
+      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") ||
+      process.env.BACKENDURL ||
       "https://ejenda.org",
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/color-mode", "vue-plausible", '@nuxt/content'],
+  buildModules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/color-mode",
+    "vue-plausible",
+    "@nuxt/content",
+  ],
   plausible: {
     domain: "ejenda.org",
     apiHost: "https://analytics.ejenda.org",
@@ -53,58 +59,59 @@ export default {
     config: {
       mode: "jit",
       darkMode: "class",
-      plugins: [require("@tailwindcss/forms"), require('@tailwindcss/typography')({
-        modifiers: [],
-    }),],
+      plugins: [
+        require("@tailwindcss/forms"),
+        require("@tailwindcss/typography")({
+          modifiers: [],
+        }),
+      ],
       theme: {
-        extend:{
+        extend: {
           colors: {
-            orange: require('tailwindcss/colors').orange
+            orange: require("tailwindcss/colors").orange,
           },
           typography: (theme) => ({
-          default: {
+            default: {
               css: {
-                  color: theme('colors.gray.900'),
-  
-                  a: {
-                      color: theme('colors.red.500'),
-                      '&:hover': {
-                          color: theme('colors.red.700'),
-                      },
+                color: theme("colors.gray.900"),
+
+                a: {
+                  color: theme("colors.red.500"),
+                  "&:hover": {
+                    color: theme("colors.red.700"),
                   },
+                },
               },
-          },
-  
-          dark: {
+            },
+
+            dark: {
               css: {
-                  color: theme('colors.gray.700'),
-  
-                  a: {
-                      color: theme('colors.red.100'),
-                      '&:hover': {
-                          color: theme('colors.red.100'),
-                      },
+                color: theme("colors.gray.700"),
+
+                a: {
+                  color: theme("colors.red.100"),
+                  "&:hover": {
+                    color: theme("colors.red.100"),
                   },
+                },
               },
               variants: {
                 extend: {
-                  typography: ['dark'],
+                  typography: ["dark"],
                 },
               },
-            
-          },
-      }),
+            },
+          }),
           screens: {
-            'print': {'raw': 'print'},
-          }
-        }
+            print: { raw: "print" },
+          },
+        },
       },
-    
     },
   },
   serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/pwa", "@nuxtjs/svg", "@nuxtjs/sitemap", '@nuxtjs/sentry'],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/svg", "@nuxtjs/sitemap", "@nuxtjs/sentry"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: { transpile: ["vue-final-modal"] },
@@ -118,6 +125,6 @@ export default {
     },
   },
   sentry: {
-    dsn: 'https://e8d5aaf6e8f04f6bb312b3dd2a356e2a@o1005541.ingest.sentry.io/5966204'
-  }
+    dsn: "https://e8d5aaf6e8f04f6bb312b3dd2a356e2a@o1005541.ingest.sentry.io/5966204",
+  },
 };

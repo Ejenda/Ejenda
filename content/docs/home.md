@@ -1,6 +1,7 @@
 ---
 title: Home
 ---
+
 # Welcome to the Ejenda docs
 
 <notice>Hi</notice>

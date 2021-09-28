@@ -68,7 +68,7 @@
 export default {
   head() {
     return {
-      title: 'Teachers - Ejenda'
+      title: "Teachers - Ejenda",
     };
   },
   data() {

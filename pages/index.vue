@@ -46,7 +46,12 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2
-            class="text-base text-gray-400 font-semibold tracking-wide uppercase"
+            class="
+              text-base text-gray-400
+              font-semibold
+              tracking-wide
+              uppercase
+            "
           >
             Ejenda
           </h2>
@@ -339,5 +344,5 @@ export default {
   head() {
     return { title: "Home - Ejenda" };
   },
-}
+};
 </script>

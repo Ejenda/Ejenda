@@ -107,8 +107,16 @@
                   "
                   placeholder="Your School"
                   v-model="name"
-                /></div><custom-button class="" v-show="domain.length > 0 && name.length > 0" @click="createSchool">Add</custom-button></template
-          ></Modal>
+                />
+              </div>
+              <custom-button
+                class=""
+                v-show="domain.length > 0 && name.length > 0"
+                @click="createSchool"
+                >Add</custom-button
+              ></template
+            ></Modal
+          >
         </div>
         <button
           type="submit"
@@ -138,7 +146,7 @@ export default {
     return { title: "Get started - Ejenda" };
   },
   data() {
-    return { domain: "", school: {}, openModal: false, name: '' };
+    return { domain: "", school: {}, openModal: false, name: "" };
   },
   methods: {
     async onboard() {
@@ -159,14 +167,14 @@ export default {
       }
     },
     async createSchool() {
-      await this.$auth.fetch('/schools/new', {
-        method: 'POST',
+      await this.$auth.fetch("/schools/new", {
+        method: "POST",
         headers: {
-          'content-type': 'application/json'
+          "content-type": "application/json",
         },
-        body: JSON.stringify({name: this.name, url: this.domain})
-      })
-      this.domain = this.domain + ''
+        body: JSON.stringify({ name: this.name, url: this.domain }),
+      });
+      this.domain = this.domain + "";
     },
   },
 

@@ -1,9 +1,8 @@
 <template>
   <div class="flex flex-col bg-red-100 dark:bg-gray-600 min-h-screen">
-
-    <Nav class="print:hidden"/>
+    <Nav class="print:hidden" />
     <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
-    <Footer/>
+    <Footer />
     <div class="inset-x-0 bottom-0 rounded sticky" v-if="false">
       <div
         class="
@@ -117,7 +116,9 @@ export default {
   },
   mounted() {
     //this.hide = localStorage.getItem("hide") ?? false;
-    console.log("Hello Ejenda console reader. The person writing this is GrahamSH, the creator of Ejenda. I'm fine with you playing around in the console as long as you try not to break the app! As always, if you find any security vulnerabilities, directly email me at graham@ejenda.org." )
+    console.log(
+      "Hello Ejenda console reader. The person writing this is GrahamSH, the creator of Ejenda. I'm fine with you playing around in the console as long as you try not to break the app! As always, if you find any security vulnerabilities, directly email me at graham@ejenda.org."
+    );
   },
   methods: {
     hideComingSoonPopup() {

@@ -1,6 +1,27 @@
 <template>
-  <div class="bg-white flex dark:bg-gray-400 rounded-r-xl flex-row sm:flex-col lg:flex-row xl:flex-row">
-    <div class="p-4 h-[75vh] bg-red-300 text-white flex-1 lg:flex-none rounded-r-xl">
+  <div
+    class="
+      bg-white
+      flex
+      dark:bg-gray-400
+      rounded-r-xl
+      flex-row
+      sm:flex-col
+      lg:flex-row
+      xl:flex-row
+    "
+  >
+    <div
+      class="
+        p-4
+        h-[75vh]
+        bg-red-300
+        text-white
+        flex-1
+        lg:flex-none
+        rounded-r-xl
+      "
+    >
       <h1 class="text-3xl font-bold">Settings</h1>
       <a href="#danger">Danger zone</a>
     </div>
@@ -18,5 +39,5 @@ export default {
   head() {
     return { title: "Settings - Ejenda" };
   },
-}
+};
 </script>

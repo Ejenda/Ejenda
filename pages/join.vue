@@ -1,9 +1,9 @@
 <template>
   <!-- keep this in sync with join.vue -->
-  <main
-    class="min-h-screen flex  bg-red-300 bg-gradient-to-r from-red-500"
-  >
-    <div class="bg-white  p-8  max-w-lg w-full h-screen rounded-r-lg bg-opacity-75">
+  <main class="min-h-screen flex bg-red-300 bg-gradient-to-r from-red-500">
+    <div
+      class="bg-white p-8 max-w-lg w-full h-screen rounded-r-lg bg-opacity-75"
+    >
       <div class="text-center">
         <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
         <h2 class="font-bold text-2xl my-2">Join Ejenda</h2>
@@ -53,10 +53,17 @@
         />
 
         <div v-if="zxcvbnResults.feedback" class="text-sm text-gray-600">
-          <span class="inline">Password strength:</span> <span class="rounded-full h-8 w-8 inline-flex items-center justify-center" :class="pillSwitcher">{{zxcvbnResults.score}}/4</span>
-          <span v-show="zxcvbnResults.feedback.warning" class="text-red-300 block">{{
-            zxcvbnResults.feedback.warning
-          }}</span>
+          <span class="inline">Password strength:</span>
+          <span
+            class="rounded-full h-8 w-8 inline-flex items-center justify-center"
+            :class="pillSwitcher"
+            >{{ zxcvbnResults.score }}/4</span
+          >
+          <span
+            v-show="zxcvbnResults.feedback.warning"
+            class="text-red-300 block"
+            >{{ zxcvbnResults.feedback.warning }}</span
+          >
           <div v-show="zxcvbnResults.score < 3">
             <ul>
               <li
@@ -116,14 +123,14 @@ export default {
     };
   },
   computed: {
-  pillSwitcher: function () {
-    return {
-      'bg-red-500': this.zxcvbnResults.score < 2,
-      'bg-yellow-500': this.zxcvbnResults.score == 2,
-      'bg-green-300 text-white': this.zxcvbnResults.score == 3,
-      'bg-green-500': this.zxcvbnResults.score == 4
-    }
-  }
+    pillSwitcher: function () {
+      return {
+        "bg-red-500": this.zxcvbnResults.score < 2,
+        "bg-yellow-500": this.zxcvbnResults.score == 2,
+        "bg-green-300 text-white": this.zxcvbnResults.score == 3,
+        "bg-green-500": this.zxcvbnResults.score == 4,
+      };
+    },
   },
   data() {
     return {
@@ -180,7 +187,7 @@ export default {
         });
         try {
           await this.$store.dispatch("auth/login", data.token);
-          this.$router.replace(`/onboarding`,);
+          this.$router.replace(`/onboarding`);
         } catch (err) {
           console.error(`Login failed: ${err}`);
         }

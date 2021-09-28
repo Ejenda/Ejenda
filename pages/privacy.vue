@@ -11,7 +11,9 @@
     <p>
       We use Your Personal data to provide and improve the Service. By using the
       Service, You agree to the collection and use of information in accordance
-      with this Privacy Policy. 
+      with this Privacy Policy.
+    </p>
+
     <h1>Interpretation and Definitions</h1>
     <h2>Interpretation</h2>
     <p>
@@ -118,10 +120,9 @@
     </p>
     <p>
       When You access the Service by or through a mobile device, We may collect
-      certain information automatically, including, but not limited to, the IP address of
-      Your mobile device, Your mobile operating system, the type of mobile
-      Internet browser You use,and other diagnostic
-      data.
+      certain information automatically, including, but not limited to, the IP
+      address of Your mobile device, Your mobile operating system, the type of
+      mobile Internet browser You use,and other diagnostic data.
     </p>
     <p>
       We may also collect information that Your browser sends whenever You visit
@@ -367,10 +368,13 @@
     </p>
     <h1>Google Data</h1>
     <p>
-      When you log in with Google, we store a token from Google to access your classes. This token is only viewable by our database admin.
+      When you log in with Google, we store a token from Google to access your
+      classes. This token is only viewable by our database admin.
     </p>
     <p>
-      Your Google Classroom classes and assignments will not be accessed by us. We only request read-only access. Only you can see them through the Service and the API endpoint.
+      Your Google Classroom classes and assignments will not be accessed by us.
+      We only request read-only access. Only you can see them through the
+      Service and the API endpoint.
     </p>
     <h1>Changes to this Privacy Policy</h1>
     <p>
@@ -401,5 +405,5 @@ export default {
   head() {
     return { title: "Privacy Policy - Ejenda" };
   },
-}
+};
 </script>

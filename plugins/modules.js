@@ -7,6 +7,6 @@ Vue.use(DatePicker);
 // I'm too lazy to make a new file
 
 Vue.use(vfmPlugin);
-import VueScrollactive from 'vue-scrollactive'
+import VueScrollactive from "vue-scrollactive";
 
-Vue.use(VueScrollactive)
+Vue.use(VueScrollactive);

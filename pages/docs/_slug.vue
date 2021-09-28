@@ -22,7 +22,7 @@ export default {
   },
   async fetch() {
     this.article = await this.$content("docs", this.$route.params.slug).fetch();
-    console.log(this.article.toc)
+    console.log(this.article.toc);
   },
   fetchOnServer: true,
 };

@@ -1,5 +1,8 @@
 <template>
-  <div class="alert border-l-4 p-4 mb-4 mt-4 rounded-sm" :class="`alert-${type}`">
+  <div
+    class="alert border-l-4 p-4 mb-4 mt-4 rounded-sm"
+    :class="`alert-${type}`"
+  >
     <div class="flex items-start">
       <div class="flex-shrink-0">
         <Icon :name="icon" class="alert-icon mt-px w-6 h-6" />
@@ -16,23 +19,23 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'info',
-      validator (value) {
-        return ['info', 'success', 'warning', 'danger'].includes(value)
-      }
-    }
+      default: "info",
+      validator(value) {
+        return ["info", "success", "warning", "danger"].includes(value);
+      },
+    },
   },
   computed: {
-    icon () {
-      return ({
-        info: 'information-circle',
-        success: 'check-circle',
-        warning: 'exclamation-circle',
-        danger: 'x-circle'
-      })[this.type]
-    }
-  }
-}
+    icon() {
+      return {
+        info: "information-circle",
+        success: "check-circle",
+        warning: "exclamation-circle",
+        danger: "x-circle",
+      }[this.type];
+    },
+  },
+};
 </script>
 
 <style>

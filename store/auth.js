@@ -64,7 +64,6 @@ export const actions = {
         method: "DELETE",
         headers: {
           Authorization: token,
-          "User-Agent": "ANYTHING_WILL_WORK_HERE",
         },
       });
       let data = await res.json();

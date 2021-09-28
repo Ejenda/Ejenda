@@ -6,10 +6,7 @@
     <custom-button @click="$vfm.show('importModal' + subject.name)"
       >Import assignments</custom-button
     >
-    <Modal
-      :name="'importModal' + subject.name"
-      v-model="importModalOpen"
-    >
+    <Modal :name="'importModal' + subject.name" v-model="importModalOpen">
       <template slot="title">Import from Google Classroom</template>
       <select class="text-gray-800" v-model="subject.importing">
         <option
@@ -20,17 +17,24 @@
           {{ assignment.title }}
         </option>
       </select>
-      <custom-button @click="importAssignment(subject)">Add assignment</custom-button>
+      <custom-button @click="importAssignment(subject)"
+        >Add assignment</custom-button
+      >
     </Modal>
   </div>
 </template>
 <script>
 export default {
-  props: ["subject", "googleClassroomState", "googleClassroomAssignments", "importAssignment"],
-  data(){
-      return {
-          importModalOpen: false
-      }
-  }
+  props: [
+    "subject",
+    "googleClassroomState",
+    "googleClassroomAssignments",
+    "importAssignment",
+  ],
+  data() {
+    return {
+      importModalOpen: false,
+    };
+  },
 };
 </script>

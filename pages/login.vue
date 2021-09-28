@@ -1,9 +1,9 @@
 <template>
   <!-- keep this in sync with join.vue -->
-  <main
-    class="min-h-screen flex bg-red-300 bg-gradient-to-r from-red-500"
-  >
-    <div class="bg-white p-8  max-w-lg w-full h-screen rounded-r-lg bg-opacity-75">
+  <main class="min-h-screen flex bg-red-300 bg-gradient-to-r from-red-500">
+    <div
+      class="bg-white p-8 max-w-lg w-full h-screen rounded-r-lg bg-opacity-75"
+    >
       <div class="text-center">
         <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
         <h2 class="font-bold text-2xl my-2">Sign in to your account</h2>

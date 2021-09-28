@@ -31,12 +31,13 @@ npm run start
 
 👤 **GrahamSH**
 
-* Website: https://grahamsh.com
-* Github: [@GrahamSH-LLK](https://github.com/GrahamSH-LLK)
+- Website: https://grahamsh.com
+- Github: [@GrahamSH-LLK](https://github.com/GrahamSH-LLK)
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
