@@ -25,7 +25,7 @@
     "core-js": "^3.18.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "googleapis": "^87.0.0",
+    "googleapis": "^88.2.0",
     "js-cookie": "^3.0.1",
     "mongoose": "^6.0.8",
     "monk": "^7.3.4",
