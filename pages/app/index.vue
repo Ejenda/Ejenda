@@ -327,7 +327,7 @@ export default {
         date = new Date(
           assignment.dueDate.year,
           assignment.dueDate.month - 1,
-          assignment.dueDate.day
+          assignment.dueDate.day -1
         );
       } else {
         date = undefined;
