@@ -133,6 +133,9 @@
 </template>
 <script>
 export default {
+  mounted() {
+    console.log(this);
+  },
   middleware: ["authenticated", "not-onboarded"],
   head() {
     return { title: "Get started - Ejenda" };
@@ -164,14 +167,12 @@ export default {
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({name: this.name, url: this.domain})
-      })
-      this.domain = this.domain + ''
-    },
-  },
+        body: JSON.stringify({ name: this.name, url: this.domain }),
+      });
+      await this.syncData()
 
-  watch: {
-    async domain() {
+    },
+    async syncData() {
       let res = await fetch("/schools/lookup", {
         method: "POST",
         body: JSON.stringify({
@@ -181,8 +182,15 @@ export default {
           "Content-Type": "application/json",
         },
       });
+
       let data = await res.json();
       this.school = data;
+    },
+  },
+
+  watch: {
+    async domain() {
+      await this.syncData()
     },
   },
 };
