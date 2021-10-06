@@ -137,6 +137,9 @@ app.set("trust proxy", 1);
 
 // default rate limit is 100 requests per second
 app.use(cors(strictCors));
+console.log('ENV', process.env.URL)
+console.log(require("../env.json").URL)
+
 connect(process.env.URL ?? require("../env.json").URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
