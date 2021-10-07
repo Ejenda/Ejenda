@@ -33,7 +33,7 @@
     "nuxt-socket-io": "^1.1.24",
     "nuxt-vite": "^0.3.4",
     "socket.io": "^4.2.0",
-    "v-calendar": "^2.3.2",
+    "v-calendar": "^2.3.4",
     "vue-final-modal": "^2.4.1",
     "vue-plausible": "^1.2.1",
     "vue2-datepicker": "^3.10.2",
