@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="bg-white py-16 bg-opacity-25 mt-1">
+    <div class="bg-white dark:bg-gray-600 bg-opacity-25 dark:bg-opacity-100 py-16 mt-1">
       <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div class="col-span-6">
@@ -11,21 +11,23 @@
                 md:text-5xl
                 max-w-xl
                 text-gray-900
+                dark:text-white
+                dark:text-opacity-87
                 leading-tight
               "
             >
               Ejenda
             </h1>
-            <hr class="w-12 h-1 bg-red-400 rounded-full mt-8" />
+            <hr class="w-12 h-1 bg-red-400 dark:bg-gray-400 rounded-full mt-8" />
             <p
-              class="text-gray-700 text-2xl leading-relaxed mt-8 font-semibold"
+              class="text-gray-700 dark:text-white dark:text-opacity-80 text-2xl leading-relaxed mt-8 font-semibold"
             >
               The digital agenda
             </p>
             <div class="my-4">
               <nuxt-link
                 to="/app"
-                class="bg-red-300 p-3 rounded text-white font-bold"
+                class="bg-red-500 p-3 rounded text-white font-bold"
                 >Use the app</nuxt-link
               >
             </div>
@@ -42,11 +44,11 @@
         </div>
       </div>
     </div>
-    <div class="py-12 bg-white dark:bg-gray-600 dark:text-gray-200">
+    <div class="py-12 bg-white dark:bg-gray-700">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:text-center">
           <h2
-            class="text-base text-gray-400 font-semibold tracking-wide uppercase"
+            class="text-base text-gray-400 dark:text-white dark:text-opacity-40 font-semibold tracking-wide uppercase"
           >
             Ejenda
           </h2>
@@ -58,12 +60,14 @@
               font-extrabold
               tracking-tight
               text-gray-900
+              dark:text-white
+              dark:text-opacity-87
               sm:text-4xl
             "
           >
             A better way to keep track
           </p>
-          <p class="mt-4 max-w-2xl text-xl text-gray-400 lg:mx-auto">
+          <p class="mt-4 max-w-2xl text-xl text-gray-400 dark:text-white dark:text-opacity-60 lg:mx-auto">
             Ejenda lets you keep track of all your assignments easily.
           </p>
         </div>
@@ -88,11 +92,12 @@
                     rounded-md
                     bg-red-500
                     text-white
+                    shadow-xl
                   "
                 >
                   <!-- Heroicon name: outline/globe-alt -->
                   <svg
-                    class="h-6 w-6"
+                    class="h-6 w-6 "
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -107,11 +112,11 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
                   Teacher provided links
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-400">
+              <dd class="mt-2 ml-16 text-base text-gray-400 dark:text-white dark:text-opacity-60">
                 Teachers can give you links that add assignments right into your
                 agenda.
               </dd>
@@ -130,6 +135,7 @@
                     rounded-md
                     bg-red-500
                     text-white
+                    shadow-xl
                   "
                 >
                   <!-- Heroicon name: outline/scale -->
@@ -148,11 +154,11 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
                   No more writing
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-400">
+              <dd class="mt-2 ml-16 text-base text-gray-400 dark:text-white dark:text-opacity-60">
                 All you have to do is type in assignments!
               </dd>
             </div>
@@ -170,6 +176,7 @@
                     rounded-md
                     bg-red-500
                     text-white
+                    shadow-xl
                   "
                 >
                   <!-- Heroicon name: outline/lightning-bolt -->
@@ -189,11 +196,11 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
                   Fast
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-400">
+              <dd class="mt-2 ml-16 text-base text-gray-400 dark:text-white dark:text-opacity-60">
                 Ejenda is engineered to be super-fast, which saves you time.
               </dd>
             </div>
@@ -211,6 +218,7 @@
                     rounded-md
                     bg-red-500
                     text-white
+                    shadow-xl
                   "
                 >
                   <!-- Heroicon name: outline/annotation -->
@@ -230,11 +238,11 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
                   Never miss another assignment
                 </p>
               </dt>
-              <dd class="mt-2 ml-16 text-base text-gray-400">
+              <dd class="mt-2 ml-16 text-base text-gray-400 dark:text-white dark:text-opacity-60">
                 We know it's hard to stay on top of everything, so Ejenda makes
                 late and due-that-day assignments pop out.
               </dd>
@@ -243,7 +251,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50 dark:bg-gray-700">
+    <div class="bg-gray-50 dark:bg-gray-800">
       <div
         class="
           max-w-7xl
@@ -263,7 +271,7 @@
             sm:text-4xl
           "
         >
-          <span class="block">Ready to dive in?</span>
+          <span class="block dark:text-white dark:text-opacity-87">Ready to dive in?</span>
           <span class="block text-red-600">Start using it today.</span>
         </h2>
         <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
@@ -291,7 +299,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-50 dark:bg-gray-700 text-right">
+    <div class="bg-gray-50 dark:bg-gray-800 text-right">
       <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:justify-end">
         <h2
           class="
@@ -302,7 +310,7 @@
             sm:text-4xl
           "
         >
-          <span class="block">Are you a teacher?</span>
+          <span class="block dark:text-white dark:text-opacity-87">Are you a teacher?</span>
           <span class="block text-red-600"
             >Generate a link for your students!</span
           >
