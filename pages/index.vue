@@ -12,7 +12,7 @@
                 max-w-xl
                 text-gray-900
                 dark:text-white
-                dark:text-opacity-87
+                dark:text-opacity-90
                 leading-tight
               "
             >
@@ -61,7 +61,7 @@
               tracking-tight
               text-gray-900
               dark:text-white
-              dark:text-opacity-87
+              dark:text-opacity-90
               sm:text-4xl
             "
           >
@@ -112,7 +112,7 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-90">
                   Teacher provided links
                 </p>
               </dt>
@@ -154,7 +154,7 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-90">
                   No more writing
                 </p>
               </dt>
@@ -196,7 +196,7 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-90">
                   Fast
                 </p>
               </dt>
@@ -238,7 +238,7 @@
                     />
                   </svg>
                 </div>
-                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-87">
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white dark:text-opacity-90">
                   Never miss another assignment
                 </p>
               </dt>
@@ -271,7 +271,7 @@
             sm:text-4xl
           "
         >
-          <span class="block dark:text-white dark:text-opacity-87">Ready to dive in?</span>
+          <span class="block dark:text-white dark:text-opacity-90">Ready to dive in?</span>
           <span class="block text-red-600">Start using it today.</span>
         </h2>
         <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
@@ -310,7 +310,7 @@
             sm:text-4xl
           "
         >
-          <span class="block dark:text-white dark:text-opacity-87">Are you a teacher?</span>
+          <span class="block dark:text-white dark:text-opacity-90">Are you a teacher?</span>
           <span class="block text-red-600"
             >Generate a link for your students!</span
           >

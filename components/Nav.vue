@@ -1,11 +1,20 @@
 <template>
-  <div class="p-2 flex justify-between dark:bg-gray-900 ">
-    <div class=" font-bold">
+  <div class="p-2 flex justify-between dark:bg-gray-900">
+    <div class="font-bold">
       <img
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
       />
-      <nuxt-link  to="/" class="text-4xl font-black dark:text-white dark:text-opacity-87 font-sans">ejenda<span class="text-red-600">.</span></nuxt-link>
+      <nuxt-link
+        to="/"
+        class="
+          text-4xl
+          font-black
+          dark:text-white dark:text-opacity-90
+          font-sans
+        "
+        >ejenda<span class="text-red-600">.</span></nuxt-link
+      >
     </div>
     <div class="flex flex-row">
       <div class="flex flex-col ml-2 items-center justify-center">
@@ -14,11 +23,27 @@
           class="flex justify-center content-center flex-col"
         >
           <div class="flex flex-row">
-            <span class="text-base dark:text-white dark:text-opacity-87">Hi, {{ $auth.user.name }}</span>
-            <nuxt-link :to="'/settings'" class="dark:text-white dark:text-opacity-87 mx-1">
+            <span class="p-1 text-base dark:text-white dark:text-opacity-90"
+              >Hi, <span class="font-semibold text-red-700">{{ $auth.user.name }}</span></span
+            >
+            <nuxt-link
+              :to="'/settings'"
+              class="dark:text-white dark:text-opacity-90 mx-1"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                class="
+                  h-8
+                  w-8
+                  cursor-pointer
+                  hover:text-red-700
+                  transition-colors
+                  duration-300
+                  p-1
+                  ring-1 ring-gray-300
+                  rounded
+                  hover:ring-red-500
+                "
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -38,10 +63,24 @@
               </svg>
             </nuxt-link>
 
-            <button @click="logout" class="mx-1 dark:text-white dark:text-opacity-87">
+            <button
+              @click="logout"
+              class="mx-1 dark:text-white dark:text-opacity-90"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                class="
+                  h-8
+                  w-8
+                  cursor-pointer
+                  hover:text-red-700
+                  transition-colors
+                  duration-300
+                  p-1
+                  ring-1 ring-gray-300
+                  rounded
+                  hover:ring-red-500
+                "
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -57,8 +96,8 @@
           </div>
         </div>
         <div v-else>
-          <nuxt-link  to="/login" class="px-2 dark:text-white">Login</nuxt-link>
-          <nuxt-link  to="/join" class="dark:text-white">Join</nuxt-link>
+          <nuxt-link to="/login" class="px-2 dark:text-white">Login</nuxt-link>
+          <nuxt-link to="/join" class="dark:text-white">Join</nuxt-link>
         </div>
       </div>
     </div>
