@@ -158,8 +158,11 @@
                       class="
                         p-2
                         bg-red-100
+                        dark:bg-gray-200
                         border border-red-200
+                        dark:border-gray-300
                         text-red-600
+                        dark:text-gray-800
                         rounded-l
                       "
                       @click="togglePopover()"
@@ -207,19 +210,6 @@ export default {
   middleware: "authenticated",
   head() {
     return { title: "App - Ejenda" };
-  },
-  mounted() {
-    if (window.location.hash) {
-      let data = JSON.parse(decodeURI(window.location.hash.split("#")[1]));
-      let assignments = this.subjects.find((item) => {
-        return item.id == data.subject;
-      }).assignments;
-      assignments.push(...data.assignments);
-      this.subjects.find((item) => {
-        return item.id == data.subject;
-      }).assignments = assignments;
-      window.location.href = "";
-    }
   },
   activated() {
     // Call fetch again if last fetch more than 30 sec ago
@@ -327,7 +317,7 @@ export default {
         date = new Date(
           assignment.dueDate.year,
           assignment.dueDate.month - 1,
-          assignment.dueDate.day
+          assignment.dueDate.day - 1
         );
       } else {
         date = undefined;

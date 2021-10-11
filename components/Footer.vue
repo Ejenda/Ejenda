@@ -60,14 +60,14 @@
         "
         >Privacy Policy</nuxt-link
       >
-       <nuxt-link
-        to="/faq"
+       <a
+        href="https://docs.ejenda.org"
         class="
           mt-4
           text-sm text-gray-500
           sm:mx-0 sm:px-4 sm:border-l sm:border-gray-200 sm:mt-0
         "
-        >Freqently Asked Questions</nuxt-link
+        >Documentation</a
       >
 
       <select

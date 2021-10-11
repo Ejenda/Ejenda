@@ -298,9 +298,21 @@ app.post("/get", (req, res) => {
   }
 });
 app.get("/add/:str", async (req, res) => {
-  let data = await Assignment.findOne({ id: req.params.str });
-  res.redirect(`/app#${JSON.stringify(data)}`);
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+  if (dbUser) {
+    let data = await Assignment.findOne({ id: req.params.str });
+    dbUser.assignments.push(...data);
+    await dbUser.save();
+    res.redirect(`/app`);
+  } else {
+    res.redirect('/login')
+  }
+  
 });
+app.get("/faq", (req, res) => {
+  res.redirect("https://docs.ejenda.org/faq")
+})
 app.post("/schools/lookup", async (req, res) => {
   let school = await School.findOne({ url: req.body.url });
   if (school) {
