@@ -1,6 +1,6 @@
 <template>
-  <div class="p-2 flex justify-between dark:bg-gray-900">
-    <div class="font-bold">
+  <div class="p-2 flex justify-between dark:bg-gray-900 shadow-lg ">
+    <div class=" font-bold">
       <img
         class="rounded-full h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
