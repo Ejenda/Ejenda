@@ -5,15 +5,15 @@ import bcrypt from "bcrypt";
 import cors from "cors";
 import { json } from "body-parser";
 import { connect, connection, Schema, model, models } from "mongoose";
-import { google, oauth2_v2 } from "googleapis"; 
+import { google, oauth2_v2 } from "googleapis";
 import web from "./credentials.js";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 app.use(cookieParser());
 const { client_secret, client_id, redirect_uris } = web;
 const SCOPES = [
   "https://www.googleapis.com/auth/classroom.courses.readonly",
   "https://www.googleapis.com/auth/classroom.coursework.me.readonly",
-  "https://www.googleapis.com/auth/classroom.coursework.students.readonly"
+  "https://www.googleapis.com/auth/classroom.coursework.students.readonly",
 ];
 
 const whitelist = ["https://3000-plum-lizard-545djgei.ws-us13.gitpod.io"];
@@ -66,7 +66,7 @@ const userSchema = new Schema({
       ["Random Things", ""],
     ],
   },
-  classroomToken: Object
+  classroomToken: Object,
 });
 const User = models.users || model("users", userSchema);
 let sessions = [];
@@ -137,8 +137,6 @@ app.set("trust proxy", 1);
 
 // default rate limit is 100 requests per second
 app.use(cors(strictCors));
-console.log('ENV', process.env.URL)
-console.log(require("../env.json").URL)
 
 connect(process.env.URL ?? require("../env.json").URL, {
   useNewUrlParser: true,
@@ -339,6 +337,19 @@ app.post("/assignments/new", checkLoggedIn(), async (req, res) => {
   await dbUser.save();
   res.json({});
 });
+app.post("/assignments/edit", checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+  let { id, newAssignment } = req.body;
+  let index = dbUser.assignments.findIndex((item) => {
+    return item.id == id;
+  });
+  dbUser.assignments[index].date = newAssignment.date;
+  dbUser.assignments[index].name = newAssignment.name;
+  await dbUser.markModified("assignments");
+  await dbUser.save();
+  res.send("success");
+});
 app.post("/subjects/update", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
@@ -352,13 +363,12 @@ app.post("/subjects/update", checkLoggedIn(), async (req, res) => {
   }
   await dbUser.save();
   res.json({});
-
 });
 app.get("/subjects", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
-  res.send(dbUser.subjects)
-})
+  res.send(dbUser.subjects);
+});
 app.get("/assignments/:subject", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
@@ -385,7 +395,7 @@ app.get("/google/auth", (req, res) => {
     client_secret,
     redirect_uris[0]
   );
-  
+
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
     prompt: "consent",
@@ -403,15 +413,15 @@ app.get("/google/auth/callback", checkLoggedIn(), async (req, res) => {
     client_secret,
     redirect_uris[0]
   );
-  
-  let {tokens} = await oAuth2Client.getToken(req.query.code);
-  
+
+  let { tokens } = await oAuth2Client.getToken(req.query.code);
+
   oAuth2Client.setCredentials(tokens);
-  dbUser.classroomToken = tokens
-  dbUser.save()
-  res.redirect('/app')
+  dbUser.classroomToken = tokens;
+  dbUser.save();
+  res.redirect("/app");
 });
-app.get('/google/assignments', async (req, res)=> {
+app.get("/google/assignments", async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
   const oAuth2Client = new google.auth.OAuth2(
@@ -419,40 +429,38 @@ app.get('/google/assignments', async (req, res)=> {
     client_secret,
     redirect_uris[0]
   );
-  
+
   if (!dbUser.classroomToken) {
-    res.send({'ok': 'logged out'})
-    return
+    res.send({ ok: "logged out" });
+    return;
   }
   let assignments = [];
-  const tokens = dbUser.classroomToken
+  const tokens = dbUser.classroomToken;
   oAuth2Client.setCredentials(tokens);
   const classroom = google.classroom({ version: "v1", auth: oAuth2Client });
 
-  let {data} = await classroom.courses.list({
+  let { data } = await classroom.courses.list({
     pageSize: 100,
     auth: oAuth2Client,
   });
   const courses = data.courses;
   if (courses && courses.length) {
     for (let course of courses) {
-
       if (course.courseState == "ACTIVE") {
-      let { data } = await classroom.courses.courseWork.list({
-        pageSize: 100,
-        courseId: course.id,
-        auth: oAuth2Client
-      });
-      if (data.courseWork) {
-        assignments.push(...data.courseWork)
+        let { data } = await classroom.courses.courseWork.list({
+          pageSize: 100,
+          courseId: course.id,
+          auth: oAuth2Client,
+        });
+        if (data.courseWork) {
+          assignments.push(...data.courseWork);
+        }
       }
-      
     }
-  }
   } else {
     console.log("No courses found.");
   }
   res.send(assignments);
-})
+});
 
 export default app;
