@@ -1,5 +1,7 @@
 <template>
   <div class="dark:bg-gray-700">
+    <tabs/>
+      
     <div
       class="min-h-screen flex justify-center items-center"
       v-if="$fetchState.pending"

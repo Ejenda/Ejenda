@@ -5,6 +5,7 @@
       bg-white
       body-font
       dark:bg-gray-900 dark:text-white
+      shadow-lg
       print:hidden
     "
   >
