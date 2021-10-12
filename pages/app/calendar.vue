@@ -33,7 +33,7 @@
 <script>
 import parseColor from '../../lib/color.js'
 export default {
-  
+  middleware: 'authenticated',
   data() {
     return {
       key: 1,
