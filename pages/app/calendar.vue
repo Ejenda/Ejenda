@@ -1,6 +1,6 @@
 <template>
   <div class="text-center min-h-screen section">
-    <tabs/>
+    <tabs />
     <h2 class="font-black text-3xl my-2">Calendar</h2>
     <client-only>
       <v-calendar
@@ -31,9 +31,16 @@
 </template>
 
 <script>
-import parseColor from '../../lib/color.js'
+import parseColor from "../../lib/color.js";
 export default {
-  middleware: 'authenticated',
+  middleware: "authenticated",
+  activated() {
+    // Call fetch again if last fetch more than 5 sec ago
+    if (this.$fetchState.timestamp <= Date.now() - 5000) {
+      this.$fetch();
+    }
+  },
+
   data() {
     return {
       key: 1,
@@ -64,7 +71,11 @@ export default {
           `${process.env.backendURL}/assignments/${subject[0].toLowerCase()}`
         )
       ).json();
-      let builtSubject =this.generateSubject(subject[0], subject[1], assignments);
+      let builtSubject = this.generateSubject(
+        subject[0],
+        subject[1],
+        assignments
+      );
       built.push(builtSubject);
       let filtered = assignments.filter((item) => {
         return !!item.date;
