@@ -6,6 +6,6 @@
 </template>
 <style lang="postcss" scoped>
 .nuxt-link-exact-active {
-  @apply dark:text-red-400 text-gray-900 font-bold;
+  @apply dark:text-red-400 text-gray-900 border-b-2 dark:border-red-400 border-gray-900 font-bold;
 }
 </style>
