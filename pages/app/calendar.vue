@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import parseColor from "../../lib/color.js";
 export default {
   middleware: "authenticated",
   activated() {
@@ -87,7 +86,7 @@ export default {
           key: key,
           customData: {
             title: item.name,
-            class: parseColor(builtSubject.color),
+            class: this.$parseColor(builtSubject.color),
           },
           dates: new Date(item.date),
         };

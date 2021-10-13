@@ -51,12 +51,12 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else>
+    <div v-else class="bg-red-500 dark:bg-transparent ">
       <ul
-        class="dark:bg-opacity-50 w-full p-6"
+        class="dark:bg-opacity-50 bg-opacity-90 w-full p-6 dark:mix-blend-difference"
         v-for="subject of subjects"
         :key="subject.name"
-        :class="parseColor(subject.color)"
+        :class="$parseColor(subject.color)"
       >
         <h1 class="font-bold text-4xl inline-block">
           {{ subject.name }}
@@ -344,24 +344,6 @@ export default {
       );
     },
 
-    parseColor(color) {
-      switch (color) {
-        case "red":
-          return "bg-red-400 text-white";
-        case "indigo":
-          return "bg-indigo-400 text-white";
-        case "blue":
-          return "bg-blue-400 text-white";
-        case "yellow":
-          return "bg-yellow-400 dark:bg-yellow-300 text-white";
-        case "green":
-          return "bg-green-400 text-white";
-        case "purple":
-          return "bg-purple-400 text-white";
-        default:
-          return "dark:text-white text-red-700";
-      }
-    },
   },
 };
 </script>

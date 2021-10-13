@@ -1,3 +1,5 @@
+import parseColor from "~/lib/color";
+
 export default ({ store }, inject) => {
   // Inject $auth in Vue, context and store.
   let auth = {
@@ -22,4 +24,5 @@ export default ({ store }, inject) => {
     },
   };
   inject("auth", auth);
+  inject("parseColor", parseColor)
 };

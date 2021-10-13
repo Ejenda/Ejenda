@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 flex justify-between dark:bg-gray-900 shadow-lg ">
+  <div class="p-2 flex justify-between dark:bg-gray-900 shadow-lg bg-red-300">
     <div class=" font-bold">
       <img
         class="rounded-full h-10 w-10 inline align-text-bottom"
@@ -40,7 +40,7 @@
                   transition-colors
                   duration-300
                   p-1
-                  ring-1 ring-gray-300
+                  ring-1 ring-red-300
                   rounded
                   hover:ring-red-500
                 "
@@ -77,7 +77,7 @@
                   transition-colors
                   duration-300
                   p-1
-                  ring-1 ring-gray-300
+                  ring-1 ring-red-300
                   rounded
                   hover:ring-red-500
                 "
