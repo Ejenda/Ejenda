@@ -53,7 +53,7 @@
     </div>
     <div v-else class="bg-red-500 dark:bg-transparent ">
       <ul
-        class="dark:bg-opacity-50 bg-opacity-90 w-full p-6 dark:mix-blend-difference"
+        class="dark:bg-opacity-50 bg-opacity-90 w-full p-6"
         v-for="subject of subjects"
         :key="subject.name"
         :class="$parseColor(subject.color)"

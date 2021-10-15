@@ -318,7 +318,7 @@
         <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0 justify-end">
           <div class="inline-flex rounded-md shadow my-2">
             <nuxt-link
-              to="/teachers"
+              to="/app/teachers"
               class="
                 inline-flex
                 items-center

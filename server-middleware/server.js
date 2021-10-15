@@ -310,9 +310,15 @@ app.get("/add/:str", async (req, res) => {
   }
   
 });
+// Redirectors
 app.get("/faq", (req, res) => {
   res.redirect("https://docs.ejenda.org/faq")
 })
+app.get("/teachers", (req, res) => {
+  res.redirect("/app/teachers")
+})
+
+
 app.post("/schools/lookup", async (req, res) => {
   let school = await School.findOne({ url: req.body.url });
   if (school) {
