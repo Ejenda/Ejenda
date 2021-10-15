@@ -24,7 +24,7 @@
             >
               The digital agenda
             </p>
-            <div class="my-4">
+            <div class="animate-bounce my-8">
               <nuxt-link
                 to="/app"
                 class="bg-red-500 p-3 rounded text-white font-bold"
