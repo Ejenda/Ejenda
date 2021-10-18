@@ -117,6 +117,9 @@ export default {
 ::-webkit-scrollbar-track {
   display: none;
 }
+.is-today {
+  @apply !bg-red-100
+}
 /deep/ .custom-calendar.vc-container {
   --day-border: 1px solid #b8c2cc;
   --day-border-highlight: 1px solid #b8c2cc;
@@ -147,6 +150,9 @@ export default {
     background-color: white;
     &.weekday-1,
     &.weekday-7 {
+      background-color: #eff8ff;
+    }
+    &.is-today {
       background-color: #eff8ff;
     }
     &:not(.on-bottom) {
