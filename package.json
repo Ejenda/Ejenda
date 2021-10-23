@@ -32,6 +32,7 @@
     "nuxt": "^2.15.8",
     "nuxt-socket-io": "^1.1.24",
     "nuxt-vite": "^0.3.5",
+    "skeleton-loader-vue": "^1.0.10",
     "socket.io": "^4.3.0",
     "v-calendar": "^2.3.4",
     "vue-final-modal": "^2.4.1",

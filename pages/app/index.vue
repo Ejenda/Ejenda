@@ -1,34 +1,30 @@
 <template>
-  <div class="dark:bg-gray-700">
-    <tabs/>
-      
-    <div
-      class="min-h-screen flex justify-center items-center"
-      v-if="$fetchState.pending"
-    >
-      <span class="text-2xl">
-        <svg
-          class="animate-spin -ml-1 mr-3 h-10 w-10 text-black inline-block"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          ></circle>
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          ></path>
-        </svg>
-        Loading
-      </span>
+  <div
+    class="dark:bg-gray-700"
+    :class="{ 'overflow-hidden': $fetchState.pending }"
+  >
+    <tabs />
+
+    <div v-if="$fetchState.pending">
+      <div
+        v-for="item of skeleton"
+        :key="item"
+        class="w-full h-64 dark:bg-gray-400 p-4"
+      >
+        <skeleton-loader-vue
+          type="rect"
+          :width="300"
+          :height="45"
+          wave-color="#bbb"
+          class="mb-2"
+        />
+        <skeleton-loader-vue
+          type="rect"
+          :width="'100%'"
+          :height="'50px'"
+          wave-color="#bbb"
+        />
+      </div>
     </div>
     <div
       class="min-h-screen flex justify-center items-center"
@@ -51,9 +47,17 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class="bg-red-500 dark:bg-transparent ">
+    <div v-else class="bg-red-500 dark:bg-transparent">
       <ul
-        class="dark:bg-opacity-50 bg-opacity-90 w-full p-6"
+        class="
+          dark:bg-opacity-50
+          bg-opacity-90
+          w-full
+          p-6
+          dark:bg-gray-700
+          dark:border-solid dark:border-2
+          dark:mb-1
+        "
         v-for="subject of subjects"
         :key="subject.name"
         :class="$parseColor(subject.color)"
@@ -78,6 +82,7 @@
             :googleClassroomState="googleClassroomState"
             :googleClassroomAssignments="googleClassroomAssignments"
             :importAssignment="importAssignment"
+            v-if="googleClassroomState"
           ></ImportGC>
         </div>
 
@@ -180,7 +185,8 @@
                         appearance-none
                         border
                         rounded-r
-                        focus:outline-none focus:border-f-500
+                        focus:outline-none
+                        focus:border-f-500
                       "
                       @click="togglePopover()"
                       readonly
@@ -242,16 +248,19 @@ export default {
       built.push(this.generateSubject(subject[0], subject[1], assignments));
     }
     this.subjects = [...built];
-    await this.fetchGCI(); // Sadly this has to be async even though it takes FOREVER
-    // So I have to run it last
+  },
+  async created() {
+    await this.fetchGCI(); // This is a hack to speeeeeeeeeeeeeeeeddddd up loading
   },
   data() {
+    let skeleton = [...Array(10).keys()];
     return {
       subjects: [],
       currentEntry: "",
       subjectModalOpen: false,
       googleClassroomState: false,
       googleClassroomAssignments: [],
+      skeleton,
     };
   },
   methods: {
@@ -266,7 +275,7 @@ export default {
       );
       let data = await res.json();
       if (data.ok == "logged out") {
-        this.googleClassroomState = false;
+        this.googleClassroomState = 'out';
         return;
       }
       this.googleClassroomState = true;
@@ -343,7 +352,6 @@ export default {
         new Date(date.toDateString()) < new Date(new Date().toDateString())
       );
     },
-
   },
 };
 </script>
