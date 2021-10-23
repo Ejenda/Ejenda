@@ -26,9 +26,16 @@
             </p>
             <div class="animate-bounce my-8">
               <nuxt-link
+                v-if="$auth.loggedIn"
                 to="/app"
                 class="bg-red-500 p-3 rounded text-white font-bold"
                 >Use the app</nuxt-link
+              >
+              <nuxt-link
+                v-else
+                to="/join"
+                class="bg-red-500 p-3 rounded text-white font-bold"
+                >Start using today!</nuxt-link
               >
             </div>
           </div>
