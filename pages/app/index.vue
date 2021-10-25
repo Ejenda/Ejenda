@@ -47,16 +47,18 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class="bg-red-500 dark:bg-transparent">
+    <div v-else class=" dark:bg-transparent">
       <ul
         class="
           dark:bg-opacity-50
-          bg-opacity-90
           w-full
           p-6
           dark:bg-gray-700
-          dark:border-solid dark:border-2
-          dark:mb-1
+          border-solid border-2
+          mb-1
+          text-gray-600
+          bg-opacity-10
+          dark:text-white
         "
         v-for="subject of subjects"
         :key="subject.name"
@@ -71,8 +73,6 @@
             border border-blue
             rounded-full
             px-3
-            bg-blue
-            text-white
           "
           >{{ subject.assignments.length }}</span
         >
