@@ -8,6 +8,7 @@ import { connect, connection, Schema, model, models } from "mongoose";
 import { google, oauth2_v2 } from "googleapis";
 import web from "./credentials.js";
 import cookieParser from "cookie-parser";
+import fetch from 'node-fetch'
 app.use(cookieParser());
 const { client_secret, client_id, redirect_uris } = web;
 const SCOPES = [
@@ -306,18 +307,16 @@ app.get("/add/:str", async (req, res) => {
     await dbUser.save();
     res.redirect(`/app`);
   } else {
-    res.redirect('/login')
+    res.redirect("/login");
   }
-  
 });
 // Redirectors
 app.get("/faq", (req, res) => {
-  res.redirect("https://docs.ejenda.org/faq")
-})
+  res.redirect("https://docs.ejenda.org/faq");
+});
 app.get("/teachers", (req, res) => {
-  res.redirect("/app/teachers")
-})
-
+  res.redirect("/app/teachers");
+});
 
 app.post("/schools/lookup", async (req, res) => {
   let school = await School.findOne({ url: req.body.url });
@@ -480,5 +479,33 @@ app.get("/google/assignments", async (req, res) => {
   }
   res.send(assignments);
 });
+let quote = { text: "", author: "" };
+app.get("/quote", checkLoggedIn(), (req, res) => {
+  res.json(quote);
+});
+const resetQuote = async () => {
+  let res = await fetch("https://zenquotes.io/api/today");
+  let data = await res.json();
+  quote.text = data.q;
+  quote.author = data.a;
+};
+resetQuote();
+function resetAtMidnight() {
+  var now = new Date();
+  var night = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+    0,
+    0,
+    0
+  );
+  var msToMidnight = night.getTime() - now.getTime();
 
+  setTimeout(function () {
+    resetQuote();
+    resetAtMidnight();
+  }, msToMidnight);
+}
+resetAtMidnight()
 export default app;

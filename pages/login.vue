@@ -1,13 +1,13 @@
 <template>
   <!-- keep this in sync with join.vue -->
   <main
-    class="min-h-screen flex bg-red-300 bg-gradient-to-r from-red-500"
+    class="min-h-screen flex bg-red-300 dark:bg-gray-700 bg-gradient-to-r from-red-500 dark:from-gray-900 justify-center items-center"
   >
-    <div class="bg-white p-8  max-w-lg w-full h-screen rounded-r-lg bg-opacity-75">
+    <div class="bg-white dark:bg-gray-600 p-12  max-w-lg w-1/2 h-1/2 rounded-lg bg-opacity-75">
       <div class="text-center">
-        <img class="mx-auto h-10 w-auto" src="/logo.svg" alt="Ejenda" />
-        <h2 class="font-bold text-2xl my-2">Sign in to your account</h2>
-        <p class="my-2 text-gray-500">
+        <img class="mx-auto h-10 w-auto rounded-md" src="/logo.svg" alt="Ejenda" />
+        <h2 class="font-bold text-2xl my-2 dark:text-white dark:text-opacity-90">Sign in to your account</h2>
+        <p class="my-2 text-gray-500 dark:text-white dark dark:text-opacity-70">
           Or
           <nuxt-link to="/join">create an account</nuxt-link>
         </p>
@@ -30,7 +30,7 @@
         </span>
       </div>
       <form @submit.prevent="login">
-        <label class="text-gray-500 font-medium text-sm" for="username"
+        <label class="text-gray-500 dark:text-white dark dark:text-opacity-70 font-medium text-sm" for="username"
           >Username</label
         >
         <input
@@ -41,7 +41,7 @@
           class="border-2 p-1 my-1 w-full rounded-md block"
         />
 
-        <label class="text-gray-500 font-medium text-sm" for="password"
+        <label class="text-gray-500 dark:text-white dark dark:text-opacity-70 font-medium text-sm" for="password"
           >Password</label
         >
         <input

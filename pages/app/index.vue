@@ -47,7 +47,7 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class=" dark:bg-transparent">
+    <div v-else class="dark:bg-transparent bg-red-50">
       <ul
         class="
           dark:bg-opacity-50
@@ -67,15 +67,9 @@
         <h1 class="font-bold text-4xl inline-block">
           {{ subject.name }}
         </h1>
-        <span
-          class="
-            inline-block
-            border border-blue
-            rounded-full
-            px-3
-          "
-          >{{ subject.assignments.length }}</span
-        >
+        <span class="inline-block border border-blue rounded-full px-3">{{
+          subject.assignments.length
+        }}</span>
         <div>
           <ImportGC
             :subject="subject"
@@ -99,6 +93,7 @@
             p-1
             flex
             justify-between
+            shadow-sm
           "
           v-for="(assignment, i) of sortAssignments(subject.assignments)"
           :key="`${assignment.id}`"
@@ -122,7 +117,7 @@
           </div>
           <button
             class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
-            @click="deleteItem(subject, i)"
+            @click="deleteItem(subject, assignment.id)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -142,13 +137,13 @@
         </li>
         <div class="print:hidden">
           <button
-            class="rounded-l-sm bg-white text-gray-800 p-2"
+            class="rounded-l-sm bg-white text-gray-800 p-2 shadow-sm"
             @click="push(subject)"
           >
             +</button
           ><input
             placeholder="Add a new assignment"
-            class="text-gray-800 rounded-r-sm p-2"
+            class="text-gray-800 rounded-r-sm p-2 shadow-sm"
             v-model="subject.entry"
             @keydown.enter="push(subject)"
           />
@@ -185,8 +180,7 @@
                         appearance-none
                         border
                         rounded-r
-                        focus:outline-none
-                        focus:border-f-500
+                        focus:outline-none focus:border-f-500
                       "
                       @click="togglePopover()"
                       readonly
@@ -251,6 +245,7 @@ export default {
   },
   async created() {
     await this.fetchGCI(); // This is a hack to speeeeeeeeeeeeeeeeddddd up loading
+    await this.generateQuote();
   },
   data() {
     let skeleton = [...Array(10).keys()];
@@ -261,9 +256,16 @@ export default {
       googleClassroomState: false,
       googleClassroomAssignments: [],
       skeleton,
+      quote: { author: "", text: "" },
     };
   },
   methods: {
+    async generateQuote() {
+      let res = await fetch(new URL("/quote", process.env.backendURL));
+      let data = await res.json();
+      this.quote.author = data.author;
+      this.quote.text = data.text;
+    },
     sortAssignments(assignments) {
       return assignments
         .slice()
@@ -275,7 +277,7 @@ export default {
       );
       let data = await res.json();
       if (data.ok == "logged out") {
-        this.googleClassroomState = 'out';
+        this.googleClassroomState = "out";
         return;
       }
       this.googleClassroomState = true;
@@ -300,15 +302,18 @@ export default {
       subject.entry = "";
       subject.dateEntry = "";
     },
-    async deleteItem(subject, i) {
+    async deleteItem(subject, id) {
       await this.$auth.fetch(`${process.env.backendURL}/assignments/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: subject.assignments[i].id }),
+        body: JSON.stringify({ id: id }),
       });
-      subject.assignments.splice(i, 1);
+      let index = subject.assignments.findIndex((item) => {
+        return item.id === id;
+      });
+      subject.assignments.splice(index, 1);
     },
     generateSubject(name, color, assignments) {
       return {

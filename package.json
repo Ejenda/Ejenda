@@ -1,6 +1,6 @@
 {
   "name": "Ejenda",
-  "version": "2.0.0-beta",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -29,6 +29,7 @@
     "js-cookie": "^3.0.1",
     "mongoose": "^6.0.12",
     "monk": "^7.3.4",
+    "node-fetch": "^3.0.0",
     "nuxt": "^2.15.8",
     "nuxt-socket-io": "^1.1.24",
     "nuxt-vite": "^0.3.5",
