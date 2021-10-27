@@ -4,7 +4,8 @@
     :class="{ 'overflow-hidden': $fetchState.pending }"
   >
     <tabs />
-
+    <div class="flex justify-end">
+    </div>
     <div v-if="$fetchState.pending">
       <div
         v-for="item of skeleton"
@@ -62,7 +63,7 @@
         "
         v-for="subject of subjects"
         :key="subject.name"
-        :class="$parseColor(subject.color)"
+        :class="$color.parseColor(subject.color)"
       >
         <h1 class="font-bold text-4xl inline-block">
           {{ subject.name }}
@@ -95,7 +96,7 @@
             justify-between
             shadow-sm
           "
-          v-for="(assignment, i) of sortAssignments(subject.assignments)"
+          v-for="assignment of sortAssignments(subject.assignments)"
           :key="`${assignment.id}`"
           :class="{
             '!bg-yellow-500': isToday(new Date(assignment.date)),
@@ -245,7 +246,6 @@ export default {
   },
   async created() {
     await this.fetchGCI(); // This is a hack to speeeeeeeeeeeeeeeeddddd up loading
-    await this.generateQuote();
   },
   data() {
     let skeleton = [...Array(10).keys()];
@@ -256,16 +256,9 @@ export default {
       googleClassroomState: false,
       googleClassroomAssignments: [],
       skeleton,
-      quote: { author: "", text: "" },
     };
   },
   methods: {
-    async generateQuote() {
-      let res = await fetch(new URL("/quote", process.env.backendURL));
-      let data = await res.json();
-      this.quote.author = data.author;
-      this.quote.text = data.text;
-    },
     sortAssignments(assignments) {
       return assignments
         .slice()

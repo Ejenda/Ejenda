@@ -480,12 +480,12 @@ app.get("/google/assignments", async (req, res) => {
   res.send(assignments);
 });
 let quote = { text: "", author: "" };
-app.get("/quote", checkLoggedIn(), (req, res) => {
-  res.json(quote);
+app.get("/quote",  (req, res) => {
+  res.send(quote);
 });
 const resetQuote = async () => {
   let res = await fetch("https://zenquotes.io/api/today");
-  let data = await res.json();
+  let data = (await res.json())[0];
   quote.text = data.q;
   quote.author = data.a;
 };

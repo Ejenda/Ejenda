@@ -6,7 +6,7 @@
     <div class="bg-white dark:bg-gray-600 p-12  max-w-lg w-1/2 h-1/2 rounded-lg bg-opacity-75">
       <div class="text-center">
         <img class="mx-auto h-10 w-auto rounded-md" src="/logo.svg" alt="Ejenda" />
-        <h2 class="font-bold text-2xl my-2">Join Ejenda</h2>
+        <h2 class="font-bold text-2xl my-2 dark:text-white dark:text-opacity-90">Join Ejenda</h2>
         <p class="my-2 text-gray-500 dark:text-white dark:text-opacity-70">
           Or
           <nuxt-link to="/login">login to an existing account</nuxt-link>
