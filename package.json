@@ -20,6 +20,7 @@
     "@zxcvbn-ts/language-common": "^1.0.0-beta.0",
     "@zxcvbn-ts/language-en": "^1.0.0-beta.0",
     "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
     "core-js": "^3.18.3",

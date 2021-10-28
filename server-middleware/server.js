@@ -9,6 +9,9 @@ import { google, oauth2_v2 } from "googleapis";
 import web from "./credentials.js";
 import cookieParser from "cookie-parser";
 import fetch from 'node-fetch'
+import compression from 'compression'
+
+app.use(compression())
 app.use(cookieParser());
 const { client_secret, client_id, redirect_uris } = web;
 const SCOPES = [
