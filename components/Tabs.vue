@@ -28,6 +28,20 @@
           to="/app/calendar"
           >Calendar</nuxt-link
         >
+        <nuxt-link
+          class="
+            dark:text-red-200
+            border-b-2
+            dark:border-gray-900 dark:hover:border-gray-600
+            transition
+            border-white
+            hover:border-gray-500
+            mx-2
+          "
+          to="/app/todo"
+          >To Do</nuxt-link
+        >
+
       </div>
       <blockquote
         class="p-2 dark:text-white dark:text-opacity-90 font-bold italic"
