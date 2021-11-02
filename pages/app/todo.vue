@@ -1,10 +1,12 @@
 <template>
-  <div class="min-h-screen ">
+  <div class="min-h-screen">
     <tabs />
     <div class="m-2">
       <todo :name="'No date'" :assignments="assignmentsNoDate"></todo>
       <todo :name="'Missing'" :assignments="assignmentsMissing"></todo>
       <todo :name="'Due today'" :assignments="assignmentsToday"></todo>
+      <todo :name="'Due this week'" :assignments="assignmentsThisWeek"></todo>
+      <todo :name="'Due later'" :assignments="assignmentsLater"></todo>
     </div>
   </div>
 </template>
@@ -12,6 +14,14 @@
 <script>
 import date from "../../lib/date.js";
 export default {
+  middleware: "authenticated",
+  activated() {
+    // Call fetch again if last fetch more than 5 sec ago
+    if (this.$fetchState.timestamp <= Date.now() - 5000) {
+      this.$fetch();
+    }
+  },
+
   data() {
     return {
       assignmentsToday: [],
@@ -68,6 +78,10 @@ export default {
             this.assignmentsMissing.push(assignment);
           } else if (date.isToday(new Date(assignment.date))) {
             this.assignmentsToday.push(assignment);
+          } else if (date.isThisWeek(new Date(assignment.date))) {
+            this.assignmentsThisWeek.push(assignment);
+          } else {
+            this.assignmentsLater.push(assignment);
           }
         } else {
           this.assignmentsNoDate.push(assignment);
