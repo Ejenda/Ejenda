@@ -86,7 +86,7 @@ export default {
           key: key,
           customData: {
             title: item.name,
-            class: this.$parseColor(builtSubject.color),
+            class: this.$color.parseColorBackground(builtSubject.color),
           },
           dates: new Date(item.date),
         };

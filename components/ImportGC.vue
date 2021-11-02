@@ -1,9 +1,9 @@
 <template>
   <div>
-    <a href="/google/auth" v-show="!googleClassroomState">
+    <a href="/google/auth" v-show="googleClassroomState === 'bad'">
       Sign in with Google to import
     </a>
-    <custom-button @click="$vfm.show('importModal' + subject.name)"
+    <custom-button v-show="googleClassroomState" @click="$vfm.show('importModal' + subject.name)"
       >Import assignments</custom-button
     >
     <Modal

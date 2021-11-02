@@ -2,7 +2,7 @@
   <div class="p-2 flex justify-between dark:bg-gray-900 shadow-lg bg-red-300">
     <div class=" font-bold">
       <img
-        class="rounded-full h-10 w-10 inline align-text-bottom"
+        class="rounded-lg h-10 w-10 inline align-text-bottom"
         src="~/static/logo.svg"
       />
       <nuxt-link
@@ -96,8 +96,8 @@
           </div>
         </div>
         <div v-else>
-          <nuxt-link to="/login" class="px-2 dark:text-white">Login</nuxt-link>
-          <nuxt-link to="/join" class="dark:text-white">Join</nuxt-link>
+          <nuxt-link to="/login" class="py-2 px-4 dark:text-white rounded-md border-2 border-red-400 dark:border-gray-700 transition hover:border-red-600 dark:hover:border-white dark:hover:border-opacity-75">Login</nuxt-link>
+          <nuxt-link to="/join" class="py-2 px-4 dark:text-white rounded-md border-2 border-red-400 dark:border-gray-700 transition hover:border-red-600 dark:hover:border-white dark:hover:border-opacity-75">Join</nuxt-link>
         </div>
       </div>
     </div>

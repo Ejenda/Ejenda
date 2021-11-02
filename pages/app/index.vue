@@ -1,34 +1,31 @@
 <template>
-  <div class="dark:bg-gray-700">
-    <tabs/>
-      
-    <div
-      class="min-h-screen flex justify-center items-center"
-      v-if="$fetchState.pending"
-    >
-      <span class="text-2xl">
-        <svg
-          class="animate-spin -ml-1 mr-3 h-10 w-10 text-black inline-block"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          ></circle>
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          ></path>
-        </svg>
-        Loading
-      </span>
+  <div
+    class="dark:bg-gray-700"
+    :class="{ 'overflow-hidden': $fetchState.pending }"
+  >
+    <tabs />
+    <div class="flex justify-end">
+    </div>
+    <div v-if="$fetchState.pending">
+      <div
+        v-for="item of skeleton"
+        :key="item"
+        class="w-full h-64 dark:bg-gray-400 p-4"
+      >
+        <skeleton-loader-vue
+          type="rect"
+          :width="300"
+          :height="45"
+          wave-color="#bbb"
+          class="mb-2"
+        />
+        <skeleton-loader-vue
+          type="rect"
+          :width="'100%'"
+          :height="'50px'"
+          wave-color="#bbb"
+        />
+      </div>
     </div>
     <div
       class="min-h-screen flex justify-center items-center"
@@ -51,33 +48,36 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class="bg-red-500 dark:bg-transparent ">
+    <div v-else class="dark:bg-transparent bg-red-50">
       <ul
-        class="dark:bg-opacity-50 bg-opacity-90 w-full p-6"
+        class="
+          dark:bg-opacity-50
+          w-full
+          p-6
+          dark:bg-gray-700
+          border-solid border-2
+          mb-1
+          text-gray-600
+          bg-opacity-10
+          dark:text-white
+        "
         v-for="subject of subjects"
         :key="subject.name"
-        :class="$parseColor(subject.color)"
+        :class="$color.parseColor(subject.color)"
       >
         <h1 class="font-bold text-4xl inline-block">
           {{ subject.name }}
         </h1>
-        <span
-          class="
-            inline-block
-            border border-blue
-            rounded-full
-            px-3
-            bg-blue
-            text-white
-          "
-          >{{ subject.assignments.length }}</span
-        >
+        <span class="inline-block border border-blue rounded-full px-3">{{
+          subject.assignments.length
+        }}</span>
         <div>
           <ImportGC
             :subject="subject"
             :googleClassroomState="googleClassroomState"
             :googleClassroomAssignments="googleClassroomAssignments"
             :importAssignment="importAssignment"
+            v-if="googleClassroomState"
           ></ImportGC>
         </div>
 
@@ -94,8 +94,9 @@
             p-1
             flex
             justify-between
+            shadow-sm
           "
-          v-for="(assignment, i) of sortAssignments(subject.assignments)"
+          v-for="assignment of sortAssignments(subject.assignments)"
           :key="`${assignment.id}`"
           :class="{
             '!bg-yellow-500': isToday(new Date(assignment.date)),
@@ -117,7 +118,7 @@
           </div>
           <button
             class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
-            @click="deleteItem(subject, i)"
+            @click="deleteItem(subject, assignment.id)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -137,13 +138,13 @@
         </li>
         <div class="print:hidden">
           <button
-            class="rounded-l-sm bg-white text-gray-800 p-2"
+            class="rounded-l-sm bg-white text-gray-800 p-2 shadow-sm"
             @click="push(subject)"
           >
             +</button
           ><input
             placeholder="Add a new assignment"
-            class="text-gray-800 rounded-r-sm p-2"
+            class="text-gray-800 rounded-r-sm p-2 shadow-sm"
             v-model="subject.entry"
             @keydown.enter="push(subject)"
           />
@@ -242,16 +243,19 @@ export default {
       built.push(this.generateSubject(subject[0], subject[1], assignments));
     }
     this.subjects = [...built];
-    await this.fetchGCI(); // Sadly this has to be async even though it takes FOREVER
-    // So I have to run it last
+  },
+  async created() {
+    await this.fetchGCI(); // This is a hack to speeeeeeeeeeeeeeeeddddd up loading
   },
   data() {
+    let skeleton = [...Array(10).keys()];
     return {
       subjects: [],
       currentEntry: "",
       subjectModalOpen: false,
       googleClassroomState: false,
       googleClassroomAssignments: [],
+      skeleton,
     };
   },
   methods: {
@@ -266,7 +270,7 @@ export default {
       );
       let data = await res.json();
       if (data.ok == "logged out") {
-        this.googleClassroomState = false;
+        this.googleClassroomState = "out";
         return;
       }
       this.googleClassroomState = true;
@@ -291,15 +295,18 @@ export default {
       subject.entry = "";
       subject.dateEntry = "";
     },
-    async deleteItem(subject, i) {
+    async deleteItem(subject, id) {
       await this.$auth.fetch(`${process.env.backendURL}/assignments/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: subject.assignments[i].id }),
+        body: JSON.stringify({ id: id }),
       });
-      subject.assignments.splice(i, 1);
+      let index = subject.assignments.findIndex((item) => {
+        return item.id === id;
+      });
+      subject.assignments.splice(index, 1);
     },
     generateSubject(name, color, assignments) {
       return {
@@ -343,7 +350,6 @@ export default {
         new Date(date.toDateString()) < new Date(new Date().toDateString())
       );
     },
-
   },
 };
 </script>
