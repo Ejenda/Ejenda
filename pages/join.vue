@@ -120,7 +120,7 @@
               </li>
             </ul>
           </div>
-          <label class="block">I agree to the <a href="/terms" target="_blank">Terms and Conditions</a> <input type="checkbox" v-model="agreeToTOC" class="p-1 rounded-md"/></label>
+          <label class="block">I agree to the <a href="/terms" target="_blank">Terms and Conditions</a> and <a href="/privacy" target="_blank">Privacy Policy</a> <input type="checkbox" v-model="agreeToTOC" class="p-1 rounded-md"/></label>
         </div>
         <button
           type="submit"
