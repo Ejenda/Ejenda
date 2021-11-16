@@ -32,7 +32,7 @@
     "monk": "^7.3.4",
     "node-fetch": "^3.1.0",
     "nuxt": "^2.15.8",
-    "nuxt-socket-io": "^1.1.24",
+    "nuxt-socket-io": "^2.0.0",
     "nuxt-vite": "^0.3.5",
     "skeleton-loader-vue": "^1.0.10",
     "socket.io": "^4.3.1",
