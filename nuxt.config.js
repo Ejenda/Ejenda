@@ -1,3 +1,4 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: "server",
@@ -18,7 +19,10 @@ export default {
           "Ejenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments.",
       },
     ],
-    link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
+    link: [
+      { rel: "icon", type: "image/svg+xml", href: "/logo.svg" },
+      { rel: "stylesheet", href: "https://rsms.me/inter/inter.css" },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -39,7 +43,8 @@ export default {
   components: true,
   env: {
     backendURL:
-      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") || process.env.BACKENDURL ||
+      process.env.GITPOD_WORKSPACE_URL?.replace("https://", "https://3000-") ||
+      process.env.BACKENDURL ||
       "https://ejenda.org",
   },
 
@@ -53,54 +58,59 @@ export default {
     config: {
       mode: "jit",
       darkMode: "class",
-      plugins: [require("@tailwindcss/forms"), require('@tailwindcss/typography')({
-        modifiers: [],
-    }),],
+      plugins: [
+        require("@tailwindcss/forms"),
+        require("@tailwindcss/typography")({
+          modifiers: [],
+        }),
+      ],
       theme: {
-        extend:{typography: (theme) => ({
-          default: {
-              css: {
-                  color: theme('colors.gray.900'),
-  
-                  a: {
-                      color: theme('colors.red.500'),
-                      '&:hover': {
-                          color: theme('colors.red.700'),
-                      },
-                  },
-              },
+        extend: {
+          fontFamily: {
+            sans: ["Inter var", ...defaultTheme.fontFamily.sans],
           },
-  
-          dark: {
+          typography: (theme) => ({
+            default: {
               css: {
-                  color: theme('colors.gray.100'),
-  
-                  a: {
-                      color: theme('colors.red.100'),
-                      '&:hover': {
-                          color: theme('colors.red.100'),
-                      },
+                color: theme("colors.gray.900"),
+
+                a: {
+                  color: theme("colors.red.500"),
+                  "&:hover": {
+                    color: theme("colors.red.700"),
                   },
+                },
+              },
+            },
+
+            dark: {
+              css: {
+                color: theme("colors.gray.100"),
+
+                a: {
+                  color: theme("colors.red.100"),
+                  "&:hover": {
+                    color: theme("colors.red.100"),
+                  },
+                },
               },
               variants: {
                 extend: {
-                  typography: ['dark'],
+                  typography: ["dark"],
                 },
               },
-            
-          },
-      }),
+            },
+          }),
           screens: {
-            'print': {'raw': 'print'},
-          }
-        }
+            print: { raw: "print" },
+          },
+        },
       },
-    
     },
   },
   serverMiddleware: ["~/server-middleware/server.js"],
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/pwa", "@nuxtjs/svg", "@nuxtjs/sitemap", '@nuxtjs/sentry'],
+  modules: ["@nuxtjs/pwa", "@nuxtjs/svg", "@nuxtjs/sitemap", "@nuxtjs/sentry"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: { transpile: ["vue-final-modal"] },
@@ -114,6 +124,6 @@ export default {
     },
   },
   sentry: {
-    dsn: 'https://e8d5aaf6e8f04f6bb312b3dd2a356e2a@o1005541.ingest.sentry.io/5966204'
-  }
+    dsn: "https://e8d5aaf6e8f04f6bb312b3dd2a356e2a@o1005541.ingest.sentry.io/5966204",
+  },
 };
