@@ -4,8 +4,7 @@
     :class="{ 'overflow-hidden': $fetchState.pending }"
   >
     <tabs />
-    <div class="flex justify-end">
-    </div>
+    <div class="flex justify-end"></div>
     <div v-if="$fetchState.pending">
       <div
         v-for="item of skeleton"
@@ -65,20 +64,24 @@
         :key="subject.name"
         :class="$color.parseColor(subject.color)"
       >
-        <h1 class="font-bold text-4xl inline-block">
-          {{ subject.name }}
-        </h1>
-        <span class="inline-block border border-blue rounded-full px-3">{{
-          subject.assignments.length
-        }}</span>
-        <div>
-          <ImportGC
-            :subject="subject"
-            :googleClassroomState="googleClassroomState"
-            :googleClassroomAssignments="googleClassroomAssignments"
-            :importAssignment="importAssignment"
-            v-if="googleClassroomState"
-          ></ImportGC>
+        <div class="flex justify-between">
+          <div>
+            <h1 class="font-bold text-4xl inline-block">
+              {{ subject.name }}
+            </h1>
+            <span class="inline-block border border-blue rounded-full px-3">{{
+              subject.assignments.length
+            }}</span>
+          </div>
+          <div>
+            <ImportGC
+              :subject="subject"
+              :googleClassroomState="googleClassroomState"
+              :googleClassroomAssignments="googleClassroomAssignments"
+              :importAssignment="importAssignment"
+              v-if="googleClassroomState"
+            ></ImportGC>
+          </div>
         </div>
 
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
