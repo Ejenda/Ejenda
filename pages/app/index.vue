@@ -87,6 +87,7 @@
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
           Nothing yet, add a new assignment
         </p>
+        <transition-group name="assignments">
         <li
           class="
             rounded-sm
@@ -98,6 +99,7 @@
             flex
             justify-between
             shadow-sm
+            transition-all
           "
           v-for="assignment of sortAssignments(subject.assignments)"
           :key="`${assignment.id}`"
@@ -139,6 +141,7 @@
             </svg>
           </button>
         </li>
+        </transition-group>
         <div class="print:hidden">
           <button
             class="rounded-l-sm bg-white text-gray-800 p-2 shadow-sm"
@@ -356,3 +359,8 @@ export default {
   },
 };
 </script>
+<style>
+.assignments-enter, .assignments-leave-to {
+  @apply opacity-0 transform translate-x-8
+}
+</style>
