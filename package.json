@@ -11,7 +11,7 @@
   "dependencies": {
     "@nuxtjs/color-mode": "^2.1.1",
     "@nuxtjs/pwa": "^3.3.5",
-    "@nuxtjs/sentry": "^5.1.5",
+    "@nuxtjs/sentry": "^5.1.6",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/svg": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
@@ -23,12 +23,12 @@
     "compression": "^1.7.4",
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.6",
-    "core-js": "^3.19.1",
+    "core-js": "^3.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "googleapis": "^91.0.0",
     "js-cookie": "^3.0.1",
-    "mongoose": "^6.0.13",
+    "mongoose": "^6.0.14",
     "node-fetch": "^3.1.0",
     "nuxt": "^2.15.8",
     "skeleton-loader-vue": "^1.0.10",
@@ -41,7 +41,7 @@
     "@nuxtjs/tailwindcss": "^4.2.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "postcss": "^8.3.11",
-    "prettier": "^2.4.1"
+    "postcss": "^8.4.4",
+    "prettier": "^2.5.0"
   }
 }
