@@ -345,6 +345,7 @@ export default {
         date,
      }
       subject.assignments.push(obj);
+      obj.subject = subject.id;
       await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
         method: "POST",
         headers: {
