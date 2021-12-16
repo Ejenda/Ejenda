@@ -325,7 +325,7 @@ export default {
         importing: "",
       };
     },
-    importAssignment(subject) {
+    async importAssignment(subject) {
       let assignment = this.googleClassroomAssignments.find((item) => {
         return item.id === subject.importing;
       });
@@ -339,11 +339,20 @@ export default {
       } else {
         date = undefined;
       }
-      subject.assignments.push({
+      let obj = {
         name: assignment.title,
         id: new Date(),
         date,
+     }
+      subject.assignments.push(obj);
+      await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
       });
+
     },
     isToday(someDate) {
       const today = new Date();
