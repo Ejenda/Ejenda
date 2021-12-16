@@ -100,6 +100,7 @@
             justify-between
             shadow-sm
             transition-all
+            border border-gray-100
           "
           v-for="assignment of sortAssignments(subject.assignments)"
           :key="`${assignment.id}`"
@@ -160,6 +161,7 @@
                 class="block h-full w-72"
                 v-model="subject.dateEntry"
                 :min-date="new Date()"
+                :is-dark="$colorMode.preference == 'dark'"
               >
                 <template v-slot="{ inputValue, togglePopover }">
                   <div class="flex items-center">
@@ -323,7 +325,7 @@ export default {
         importing: "",
       };
     },
-    importAssignment(subject) {
+    async importAssignment(subject) {
       let assignment = this.googleClassroomAssignments.find((item) => {
         return item.id === subject.importing;
       });
@@ -337,11 +339,20 @@ export default {
       } else {
         date = undefined;
       }
-      subject.assignments.push({
+      let obj = {
         name: assignment.title,
         id: new Date(),
         date,
+     }
+      subject.assignments.push(obj);
+      await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
       });
+
     },
     isToday(someDate) {
       const today = new Date();
