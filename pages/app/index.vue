@@ -100,6 +100,7 @@
             justify-between
             shadow-sm
             transition-all
+            border border-gray-100
           "
           v-for="assignment of sortAssignments(subject.assignments)"
           :key="`${assignment.id}`"
@@ -160,6 +161,7 @@
                 class="block h-full w-72"
                 v-model="subject.dateEntry"
                 :min-date="new Date()"
+                :is-dark="$colorMode.preference == 'dark'"
               >
                 <template v-slot="{ inputValue, togglePopover }">
                   <div class="flex items-center">

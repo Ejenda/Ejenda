@@ -1,13 +1,13 @@
 <template>
   <div class="">
-    <div class="bg-white dark:bg-gray-600 bg-opacity-25 dark:bg-opacity-100 py-16 mt-1">
+    <div class="bg-red-300  dark:bg-gray-900 dark:bg-opacity-100 py-16 h-screen">
       <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div class="col-span-6">
             <h1
               class="
                 font-bold
-                text-4xl
+                text-5xl
                 md:text-5xl
                 max-w-xl
                 text-gray-900
@@ -16,13 +16,13 @@
                 leading-tight
               "
             >
-              Ejenda
+              The Best Online <span class="text-red-500">Agenda</span>
             </h1>
             <hr class="w-12 h-1 bg-red-400 dark:bg-gray-400 rounded-full mt-8" />
             <p
               class="text-gray-700 dark:text-white dark:text-opacity-80 text-2xl leading-relaxed mt-8 font-semibold"
             >
-              The digital agenda
+              Ejenda is the best agenda around — and it's digital
             </p>
             <div class="animate-bounce my-8">
               <nuxt-link
@@ -39,6 +39,7 @@
               >
             </div>
           </div>
+          
           <div class="col-span-6">
             <img
               alt="Ejenda logo"
