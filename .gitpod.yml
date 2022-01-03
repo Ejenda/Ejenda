@@ -5,7 +5,7 @@ ports:
     visibility: public
 tasks:
   - command: BACKENDURL=$(gp url 3000) npm run dev
-  - init: npm i npm@latest -g && npm ci && cp server-middleware/credentials.gitpod.js credentials.js
+  - init: npm i npm@latest -g && npm ci && cp server-middleware/credentials.gitpod.js server-middleware/credentials.js
 
 vscode:
   extensions:

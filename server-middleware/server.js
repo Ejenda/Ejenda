@@ -1,4 +1,5 @@
-const app = require("express")();
+import express from 'express';
+const app = express();
 import { randomBytes } from "crypto";
 import fs from "fs";
 import bcrypt from "bcrypt";
@@ -200,7 +201,7 @@ app.post(
             if (error.code == 11000) {
               res.status(409).json({ error: "Username already taken" });
             } else {
-              console.log(error);
+              console.error(error);
               res.status(500).json({ error: "Internal server error" });
             }
           } else {
@@ -208,7 +209,7 @@ app.post(
           }
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ error: "Internal server error" });
       }
     } else {
@@ -482,6 +483,7 @@ app.get("/google/assignments", async (req, res) => {
   }
   res.send(assignments);
 });
+
 let quote = { text: "", author: "" };
 app.get("/quote",  (req, res) => {
   res.send(quote);

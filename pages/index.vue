@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="bg-red-300  dark:bg-gray-900 dark:bg-opacity-100 py-16 h-screen">
+    <div class="bg-red-300  dark:bg-gray-900 dark:bg-opacity-100 py-24 ">
       <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div class="col-span-6">
