@@ -5,7 +5,7 @@ ports:
     visibility: public
 tasks:
   - command: BACKENDURL=$(gp url 3000) npm run dev
-  - init: npm ci
+  - init: npm i npm@latest -g && npm ci
 
 vscode:
   extensions:
