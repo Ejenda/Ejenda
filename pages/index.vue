@@ -44,8 +44,8 @@
             <img
               alt="Ejenda logo"
               src="~/static/screenshot.png"
-              height="999px"
-              width="572px"
+              height="311px"
+              width="544px"
               class="rounded-sm shadow-lg rotate-3 hidden md:block"
             />
           </div>

@@ -322,25 +322,26 @@ export default {
         id: name.toLowerCase(),
         color: color,
         assignments,
-        importing: "",
+        importing: [],
       };
     },
     async importAssignment(subject) {
-      let assignment = this.googleClassroomAssignments.find((item) => {
-        return item.id === subject.importing;
+      for (let assignment of subject.importing) {
+      let assignmentRich = this.googleClassroomAssignments.find((item) => {
+        return item.id === assignment;
       });
       let date;
-      if (assignment.dueDate) {
+      if (assignmentRich.dueDate) {
         date = new Date(
-          assignment.dueDate.year,
-          assignment.dueDate.month - 1,
-          assignment.dueDate.day - 1
+          assignmentRich.dueDate.year,
+          assignmentRich.dueDate.month - 1,
+          assignmentRich.dueDate.day - 1
         );
       } else {
         date = undefined;
       }
       let obj = {
-        name: assignment.title,
+        name: assignmentRich.title,
         id: new Date(),
         date,
      }
@@ -353,7 +354,8 @@ export default {
         },
         body: JSON.stringify(obj),
       });
-
+      }
+      subject.importing = []
     },
     isToday(someDate) {
       const today = new Date();
