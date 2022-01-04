@@ -43,7 +43,7 @@
           <div class="col-span-6">
             <img
               alt="Ejenda logo"
-              src="~/static/screenshot.png"
+              :src="require('~/assets/screenshot.png')"
               height="311px"
               width="544px"
               class="rounded-sm shadow-lg rotate-3 hidden md:block"
