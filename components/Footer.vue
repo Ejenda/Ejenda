@@ -41,7 +41,7 @@
           sm:ml-4 sm:px-4 sm:border-l sm:border-gray-200 sm:mt-0
         "
       >
-        © 2021 Ejenda
+        © {{new Date().getFullYear()}} Ejenda
       </p>
       <nuxt-link
         to="/terms"
