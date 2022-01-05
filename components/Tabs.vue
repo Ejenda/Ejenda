@@ -19,11 +19,11 @@
         >
         <span
           class="dark:text-red-40   mx-2"
-          >Plan <span class="font-light italic text-sm">Coming Soon</span></span
+          >Plan <span class="font-light italic text-sm hidden md:inline">Coming Soon</span></span
         >
       </div>
       <blockquote
-        class="p-2 dark:text-white dark:text-opacity-90 font-bold italic"
+        class="p-2 dark:text-white dark:text-opacity-90 font-bold italic hidden md:block"
       >
         "{{ quote.text }}" - {{ quote.author }}
       </blockquote>
