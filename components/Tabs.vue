@@ -17,9 +17,10 @@
           to="/app/todo"
           >To Do</nuxt-link
         >
-        <span
-          class="dark:text-red-40   mx-2"
-          >Plan <span class="font-light italic text-sm hidden md:inline">Coming Soon</span></span
+        <nuxt-link
+          class="dark:text-red-200 border-b-2 dark:border-gray-900 dark:hover:border-gray-600 transition border-white hover:border-gray-500 mx-2"
+          to="/app/plan"
+          >Plan</nuxt-link
         >
       </div>
       <blockquote

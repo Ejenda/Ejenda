@@ -146,14 +146,14 @@
         <div class="print:hidden">
           <button
             class="rounded-l-sm bg-white text-gray-800 p-2 shadow-sm"
-            @click="push(subject)"
+            @click="createAssignment(subject)"
           >
             +</button
           ><input
             placeholder="Add a new assignment"
             class="text-gray-800 rounded-r-sm p-2 shadow-sm"
             v-model="subject.entry"
-            @keydown.enter="push(subject)"
+            @keydown.enter="createAssignment(subject)"
           />
           <div class="mt-1">
             <client-only>
@@ -278,13 +278,13 @@ export default {
       );
       let data = await res.json();
       if (data.ok == "logged out") {
-        this.googleClassroomState = "out";
+        this.googleClassroomState = "bad";
         return;
       }
       this.googleClassroomState = true;
       this.googleClassroomAssignments = data;
     },
-    async push(subject) {
+    async createAssignment(subject) {
       if (subject.entry?.trim() == "" || !subject.entry) return;
       let obj = {
         name: subject.entry,
