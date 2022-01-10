@@ -49,6 +49,7 @@ const userAssignmentSchema = new Schema({
   date: String,
   id: String,
   subject: String,
+  tags: Array,
 });
 const userSchema = new Schema({
   name: {
@@ -359,16 +360,21 @@ app.post("/assignments/new", checkLoggedIn(), async (req, res) => {
   res.json({});
 });
 app.post("/assignments/edit", checkLoggedIn(), async (req, res) => {
-  let user = res.locals.requester;
-  let dbUser = await User.findOne({ _id: user._id });
-  let { id, newAssignment } = req.body;
-  let index = dbUser.assignments.findIndex((item) => {
-    return item.id == id;
-  });
-  dbUser.assignments[index].date = newAssignment.date;
-  dbUser.assignments[index].name = newAssignment.name;
-  await dbUser.markModified("assignments");
-  await dbUser.save();
+  try {
+    let user = res.locals.requester;
+    let dbUser = await User.findOne({ _id: user._id });
+    let { id, newAssignment } = req.body;
+    let index = dbUser.assignments.findIndex((item) => {
+      return item.id == id;
+    });
+    dbUser.assignments[index].date = newAssignment.date;
+    dbUser.assignments[index].name = newAssignment.name;
+    dbUser.assignments[index].tags = newAssignment.tags;
+    await dbUser.markModified("assignments");
+    await dbUser.save();
+  } catch {
+    res.error()
+  }
   res.send("success");
 });
 app.post("/subjects/update", checkLoggedIn(), async (req, res) => {

@@ -43,7 +43,6 @@ export default {
   async fetch() {
     let res = await fetch(new URL("/quote", process.env.backendURL));
     let data = await res.json();
-    console.log(data);
     this.quote.author = data.author;
     this.quote.text = data.text;
   },
