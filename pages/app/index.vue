@@ -49,17 +49,7 @@
     </div>
     <div v-else class="dark:bg-transparent bg-red-50">
       <ul
-        class="
-          dark:bg-opacity-50
-          w-full
-          p-6
-          dark:bg-gray-700
-          border-solid border-2
-          mb-1
-          text-gray-600
-          bg-opacity-10
-          dark:text-white
-        "
+        class="dark:bg-opacity-50 w-full p-6 dark:bg-gray-700 border-solid border-2 mb-1 text-gray-600 bg-opacity-10 dark:text-white"
         v-for="subject of subjects"
         :key="subject.name"
         :class="$color.parseColor(subject.color)"
@@ -88,60 +78,60 @@
           Nothing yet, add a new assignment
         </p>
         <transition-group name="assignments">
-        <li
-          class="
-            rounded-sm
-            bg-white bg-opacity-75
-            dark:bg-opacity-50 dark:bg-gray-300
-            text-gray-800
-            my-2
-            p-1
-            flex
-            justify-between
-            shadow-sm
-            transition-all
-            border border-gray-100
-          "
-          v-for="assignment of sortAssignments(subject.assignments)"
-          :key="`${assignment.id}`"
-          :class="{
-            '!bg-yellow-500': isToday(new Date(assignment.date)),
-            '!bg-red-800 !text-white': isLate(new Date(assignment.date)),
-          }"
-        >
-          <div class="block">
-            <p>{{ assignment.name }}</p>
-
-            <p
-              v-if="assignment.date"
-              class="italic text-gray-400 dark:text-gray-600"
-            >
-              Due: {{ new Date(assignment.date).toLocaleDateString() }}
-            </p>
-            <p v-else class="italic text-gray-400 dark:text-gray-600">
-              No due date
-            </p>
-          </div>
-          <button
-            class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
-            @click="deleteItem(subject, assignment.id)"
+          <li
+            class="rounded-sm bg-white bg-opacity-75 dark:bg-opacity-50 dark:bg-gray-300 text-gray-800 my-2 p-1 shadow-sm transition-all border border-gray-100"
+            v-for="assignment of sortAssignments(subject.assignments)"
+            :key="`${assignment.id}`"
+            :class="{
+              '!bg-yellow-500': isToday(new Date(assignment.date)),
+              '!bg-red-800 !text-white': isLate(new Date(assignment.date)),
+            }"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </button>
-        </li>
+            <div class="flex justify-between">
+              <div class="block">
+                <p>{{ assignment.name }}</p>
+
+                <p
+                  v-if="assignment.date"
+                  class="italic text-gray-400 dark:text-gray-600"
+                >
+                  Due: {{ new Date(assignment.date).toLocaleDateString() }}
+                </p>
+                <p v-else class="italic text-gray-400 dark:text-gray-600">
+                  No due date
+                </p>
+              </div>
+
+              <button
+                class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
+                @click="deleteItem(subject, assignment.id)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+              </button>
+            </div>
+            <client-only>
+            <TRichSelect
+              :options="possibleTags"
+              multiple
+              v-model="assignment.tags"
+              :close-on-select="false"
+              @input="editTags(subject, assignment)"
+            ></TRichSelect>
+            </client-only>
+          </li>
         </transition-group>
         <div class="print:hidden">
           <button
@@ -166,31 +156,14 @@
                 <template v-slot="{ inputValue, togglePopover }">
                   <div class="flex items-center">
                     <div
-                      class="
-                        p-2
-                        bg-red-100
-                        dark:bg-gray-200
-                        border border-red-200
-                        dark:border-gray-300
-                        text-red-600
-                        dark:text-gray-800
-                        rounded-l
-                      "
+                      class="p-2 bg-red-100 dark:bg-gray-200 border border-red-200 dark:border-gray-300 text-red-600 dark:text-gray-800 rounded-l"
                       @click="togglePopover()"
                     >
                       <span>Due</span>
                     </div>
                     <input
                       :value="inputValue"
-                      class="
-                        bg-white
-                        text-gray-700
-                        p-2
-                        appearance-none
-                        border
-                        rounded-r
-                        focus:outline-none focus:border-f-500
-                      "
+                      class="bg-white text-gray-700 p-2 appearance-none border rounded-r focus:outline-none focus:border-f-500"
                       @click="togglePopover()"
                       readonly
                     />
@@ -264,6 +237,7 @@ export default {
       googleClassroomState: false,
       googleClassroomAssignments: [],
       skeleton,
+      possibleTags: ["Long Term Assignment", "Physical", "Google Classroom", "Online", "Done"],
     };
   },
   methods: {
@@ -317,45 +291,63 @@ export default {
       subject.assignments.splice(index, 1);
     },
     generateSubject(name, color, assignments) {
+      let migratedAssignments = assignments.map((item) => {
+        let editing = item;
+        editing.tags = item.tags ? item.tags : [];
+        return editing;
+      });
       return {
         name: name,
         id: name.toLowerCase(),
         color: color,
-        assignments,
+        assignments: migratedAssignments,
         importing: [],
       };
     },
     async importAssignment(subject) {
       for (let assignment of subject.importing) {
-      let assignmentRich = this.googleClassroomAssignments.find((item) => {
-        return item.id === assignment;
-      });
-      let date;
-      if (assignmentRich.dueDate) {
-        date = new Date(
-          assignmentRich.dueDate.year,
-          assignmentRich.dueDate.month - 1,
-          assignmentRich.dueDate.day - 1
-        );
-      } else {
-        date = undefined;
+        let assignmentRich = this.googleClassroomAssignments.find((item) => {
+          return item.id === assignment;
+        });
+        let date;
+        if (assignmentRich.dueDate) {
+          date = new Date(
+            assignmentRich.dueDate.year,
+            assignmentRich.dueDate.month - 1,
+            assignmentRich.dueDate.day - 1
+          );
+        } else {
+          date = undefined;
+        }
+        let obj = {
+          name: assignmentRich.title,
+          id: new Date(),
+          date,
+          tags: ["Google Classroom"]
+        };
+        subject.assignments.push(obj);
+        obj.subject = subject.id;
+        await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        });
       }
-      let obj = {
-        name: assignmentRich.title,
-        id: new Date(),
-        date,
-     }
-      subject.assignments.push(obj);
-      obj.subject = subject.id;
-      await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
+      subject.importing = [];
+    },
+    async editTags(subject, assignment) {
+      await this.$auth.fetch(`${process.env.backendURL}/assignments/edit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify({
+          newAssignment: assignment,
+          id: assignment.id,
+        }),
       });
-      }
-      subject.importing = []
     },
     isToday(someDate) {
       const today = new Date();
@@ -374,7 +366,8 @@ export default {
 };
 </script>
 <style>
-.assignments-enter, .assignments-leave-to {
-  @apply opacity-0 transform translate-x-8
+.assignments-enter,
+.assignments-leave-to {
+  @apply opacity-0 transform translate-x-8;
 }
 </style>
