@@ -123,13 +123,28 @@
               </button>
             </div>
             <client-only>
-            <TRichSelect
-              :options="possibleTags"
-              multiple
-              v-model="assignment.tags"
-              :close-on-select="false"
-              @input="editTags(subject, assignment)"
-            ></TRichSelect>
+              <TRichSelect
+                :options="possibleTags"
+                multiple
+                v-model="assignment.tags"
+                :close-on-select="false"
+                @input="editTags(subject, assignment)"
+              >
+                <template
+                  slot="dropdownDown"
+                  slot-scope="{ query, selectedOption, options }"
+                >
+                  <div v-if="query" class="text-center">
+                    <button
+                      type="button"
+                      class="block w-full p-3 text-white bg-blue-500 border hover:bg-blue-600"
+                      @click="createOption(query, assignment)"
+                    >
+                      Create {{ query }}
+                    </button>
+                  </div>
+                </template>
+              </TRichSelect>
             </client-only>
           </li>
         </transition-group>
@@ -237,7 +252,13 @@ export default {
       googleClassroomState: false,
       googleClassroomAssignments: [],
       skeleton,
-      possibleTags: ["Long Term Assignment", "Physical", "Google Classroom", "Online", "Done"],
+      possibleTags: [
+        "Long Term Assignment",
+        "Physical",
+        "Google Classroom",
+        "Online",
+        "Done",
+      ],
     };
   },
   methods: {
@@ -277,6 +298,12 @@ export default {
       subject.entry = "";
       subject.dateEntry = "";
     },
+    createOption(text, assignment) {
+      if (assignment.tags.includes(text)) return
+      this.possibleTags.push(text);
+      assignment.tags.push(text);
+    },
+
     async deleteItem(subject, id) {
       await this.$auth.fetch(`${process.env.backendURL}/assignments/delete`, {
         method: "DELETE",
@@ -323,7 +350,7 @@ export default {
           name: assignmentRich.title,
           id: new Date(),
           date,
-          tags: ["Google Classroom"]
+          tags: ["Google Classroom"],
         };
         subject.assignments.push(obj);
         obj.subject = subject.id;
