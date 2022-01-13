@@ -18,7 +18,7 @@
           ref="name"
           v-model="assignment.name"
           v-show="editing"
-          class="px-2 dark:bg-transparent "
+          class="px-2 bg-transparent "
         />
 
         <p
