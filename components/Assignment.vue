@@ -18,7 +18,7 @@
           ref="name"
           v-model="assignment.name"
           v-show="editing"
-          class="px-2 bg-transparent "
+          class="px-2 bg-transparent flex-1"
         />
 
         <p
@@ -176,7 +176,6 @@ export default {
       if (!this.editing) { // This is a little confusing, but we've already changed this.editing
         this.edit();
       } else {
-        console.log(this.$refs.name)
         this.$nextTick(() => this.$refs.name.focus())
 
       }
