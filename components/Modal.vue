@@ -17,7 +17,7 @@
         bg-red-500
         text-white
         p-2
-        rounded-t-xl
+        rounded-t-lg
         font-semibold
         cursor-move
       "
@@ -25,7 +25,7 @@
     >
       <slot name="title"></slot>
     </span>
-    <div class="flex-grow overflow-y-auto bg-white p-2 flex flex-col rounded-b">
+    <div class="flex-grow overflow-y-auto bg-white p-2 flex flex-col rounded-b-lg">
       <div class="flex-1 mb-auto">
         <slot v-bind:params="params"></slot>
       </div>

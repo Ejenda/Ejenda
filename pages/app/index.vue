@@ -229,11 +229,6 @@ export default {
       subject.entry = "";
       subject.dateEntry = "";
     },
-    createOption(text, assignment) {
-      if (assignment.tags.includes(text)) return;
-      this.possibleTags.push(text);
-      assignment.tags.push(text);
-    },
     generateSubject(name, color, assignments) {
       let migratedAssignments = assignments.map((item) => {
         let editing = item;
