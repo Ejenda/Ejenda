@@ -145,7 +145,10 @@
 export default {
   middleware: "authenticated",
   head() {
-    return { title: "App - Ejenda" };
+    return {
+      title: "App - Ejenda",
+      meta: [{ hid: "robots", name: "robots", content: "noindex" }],
+    };
   },
   activated() {
     // Call fetch again if last fetch more than 30 sec ago
@@ -215,7 +218,7 @@ export default {
         name: subject.entry,
         id: new Date(),
         date: subject.dateEntry,
-        tags: []
+        tags: [],
       };
       subject.assignments.push(obj);
       obj.subject = subject.id;

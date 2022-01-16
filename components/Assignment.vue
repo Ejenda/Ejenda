@@ -120,7 +120,7 @@
             <button
               type="button"
               class="block w-full p-3 text-white bg-blue-500 border hover:bg-blue-600"
-              @click="createOption(query, assignment)"
+              @click="createOption(query)"
             >
               Create {{ query }}
             </button>
