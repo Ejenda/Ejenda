@@ -6,11 +6,11 @@
         v-model="subject"
         class="
           p-2
-          rounded-sm
+          rounded-md
           bg-white
-          dark:bg-gray-500
           border border-gray-300
           dark:border-gray-500
+          text-gray-800
         "
       >
         <option value="math">Math</option>

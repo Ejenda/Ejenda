@@ -308,7 +308,14 @@ app.get("/add/:str", async (req, res) => {
   let dbUser = await User.findOne({ _id: user._id });
   if (dbUser) {
     let data = await Assignment.findOne({ id: req.params.str });
-    dbUser.assignments.push(...data);
+    let assignments = data.assignments.map((item)=> {
+      item.subject = data.subject
+      item.tags = ["Imported"]
+      return item
+    })
+    dbUser.assignments.push(...assignments);
+    
+    await dbUser.markModified("assignments");
     await dbUser.save();
     res.redirect(`/app`);
   } else {

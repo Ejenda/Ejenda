@@ -120,7 +120,7 @@
             <button
               type="button"
               class="block w-full p-3 text-white bg-blue-500 border hover:bg-blue-600"
-              @click="createOption(query, assignment)"
+              @click="createOption(query)"
             >
               Create {{ query }}
             </button>
@@ -143,6 +143,7 @@ export default {
         "Google Classroom",
         "Online",
         "Done",
+        "Imported"
       ],
     };
   },
@@ -169,6 +170,11 @@ export default {
           id: this.assignment.id,
         }),
       });
+    },
+    createOption(text) {
+      if (this.assignment.tags.includes(text)) return;
+      this.possibleTags.push(text);
+      this.assignment.tags.push(text);
     },
 
     editAssigment() {
