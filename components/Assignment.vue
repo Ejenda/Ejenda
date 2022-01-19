@@ -143,7 +143,9 @@ export default {
         "Google Classroom",
         "Online",
         "Done",
-        "Imported"
+        "Reading",
+        "Imported",
+        "Notice"
       ],
     };
   },
