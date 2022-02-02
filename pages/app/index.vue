@@ -47,7 +47,7 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class="dark:bg-transparent bg-red-50">
+    <div v-else class="dark:bg-transparent bg-blue-50">
       <ul
         class="dark:bg-opacity-50 w-full p-6 dark:bg-gray-700 border-solid border-2 mb-1 text-gray-600 bg-opacity-10 dark:text-white"
         v-for="subject of subjects"
