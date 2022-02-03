@@ -1,7 +1,7 @@
 <template>
-  <div class="text-center min-h-screen section">
+  <div class="section min-h-screen text-center">
     <tabs />
-    <h2 class="font-black text-3xl my-2">Calendar</h2>
+    <h2 class="my-2 text-3xl font-black">Calendar</h2>
     <client-only>
       <v-calendar
         class="custom-calendar max-w-full"
@@ -11,13 +11,13 @@
         is-expanded
       >
         <template v-slot:day-content="{ day, attributes }">
-          <div class="flex flex-col h-full z-10 overflow-hidden">
+          <div class="z-10 flex h-full flex-col overflow-hidden">
             <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
-            <div class="flex-grow overflow-y-auto overflow-x-auto">
+            <div class="flex-grow overflow-x-auto overflow-y-auto">
               <p
                 v-for="attr in attributes"
                 :key="attr.key"
-                class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
+                class="mt-0 mb-1 rounded-sm p-1 text-xs leading-tight"
                 :class="attr.customData.class"
               >
                 {{ attr.customData.title }}
@@ -118,7 +118,7 @@ export default {
   display: none;
 }
 .is-today {
-  @apply !bg-red-100
+  @apply !bg-red-100;
 }
 /deep/ .custom-calendar.vc-container {
   --day-border: 1px solid #b8c2cc;

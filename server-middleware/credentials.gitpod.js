@@ -1,6 +1,5 @@
 export default {
-  client_id:
-    process.env.CLIENT_ID,
+  client_id: process.env.CLIENT_ID,
   project_id: process.env.PROJECT_ID,
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",

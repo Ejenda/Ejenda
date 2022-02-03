@@ -1,78 +1,38 @@
 <template>
   <section
-    class="
-      text-gray-700
-      bg-white
-      body-font
-      dark:bg-gray-900 dark:text-white
-      shadow-lg
-      print:hidden
-    "
+    class="body-font bg-white text-gray-700 shadow-lg dark:bg-gray-900 dark:text-white print:hidden"
   >
     <div
-      class="
-        container
-        flex flex-col
-        items-center
-        px-8
-        py-8
-        mx-auto
-        max-w-7xl
-        sm:flex-row
-      "
+      class="container mx-auto flex max-w-7xl flex-col items-center px-8 py-8 sm:flex-row"
     >
       <nuxt-link
         to="/"
-        class="
-          text-xl
-          font-black
-          leading-none
-          text-gray-900
-          dark:text-gray-50
-          select-none
-          logo
-        "
+        class="logo select-none text-xl font-black leading-none text-gray-900 dark:text-gray-50"
         >ejenda<span class="text-red-600">.</span></nuxt-link
       >
       <p
-        class="
-          mt-4
-          text-sm text-gray-500
-          sm:ml-4 sm:px-4 sm:border-l sm:border-gray-200 sm:mt-0
-        "
+        class="mt-4 text-sm text-gray-500 sm:ml-4 sm:mt-0 sm:border-l sm:border-gray-200 sm:px-4"
       >
-        © {{new Date().getFullYear()}} Ejenda
+        © {{ new Date().getFullYear() }} Ejenda
       </p>
       <nuxt-link
         to="/terms"
-        class="
-          mt-4
-          text-sm text-gray-500
-          sm:mx-0 sm:px-4 sm:border-l sm:border-gray-200 sm:mt-0
-        "
+        class="mt-4 text-sm text-gray-500 sm:mx-0 sm:mt-0 sm:border-l sm:border-gray-200 sm:px-4"
         >Terms and Conditions</nuxt-link
       >
       <nuxt-link
         to="/privacy"
-        class="
-          mt-4
-          text-sm text-gray-500
-          sm:mx-0 sm:px-4 sm:border-l sm:border-gray-200 sm:mt-0
-        "
+        class="mt-4 text-sm text-gray-500 sm:mx-0 sm:mt-0 sm:border-l sm:border-gray-200 sm:px-4"
         >Privacy Policy</nuxt-link
       >
-       <a
+      <a
         href="https://docs.ejenda.org"
-        class="
-          mt-4
-          text-sm text-gray-500
-          sm:mx-0 sm:px-4 sm:border-l sm:border-gray-200 sm:mt-0
-        "
+        class="mt-4 text-sm text-gray-500 sm:mx-0 sm:mt-0 sm:border-l sm:border-gray-200 sm:px-4"
         >Documentation</a
       >
 
       <select
-        class="p-2 rounded dark:bg-gray-700 w-24"
+        class="w-24 rounded p-2 dark:bg-gray-700"
         v-model="$colorMode.preference"
       >
         <option value="system">System‍</option>
@@ -81,13 +41,7 @@
       </select>
 
       <span
-        class="
-          inline-flex
-          justify-center
-          mt-4
-          space-x-5
-          sm:ml-auto sm:mt-0 sm:justify-start
-        "
+        class="mt-4 inline-flex justify-center space-x-5 sm:ml-auto sm:mt-0 sm:justify-start"
       >
         <a
           href="https://github.com/Ejenda"
@@ -95,7 +49,7 @@
         >
           <span class="sr-only">GitHub</span>
           <svg
-            class="w-6 h-6"
+            class="h-6 w-6"
             fill="currentColor"
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -108,17 +62,10 @@
           </svg>
         </a>
 
-        <a href="https://fosshost.org" class="text-white font-black">
+        <a href="https://fosshost.org" class="font-black text-white">
           <span class="sr-only">Hosted by Fosshost</span>
           <span
-            class="
-              bg-gray-300
-              dark:bg-gray-700
-              hover:bg-gray-400
-              dark:hover:bg-gray-800
-              rounded-md
-              p-2
-            "
+            class="rounded-md bg-gray-300 p-2 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-800"
             >Hosted by <span class="text-red-500">Fosshost</span></span
           >
         </a>

@@ -24,15 +24,15 @@
     <Modal :name="'importModal' + subject.name" v-model="importModalOpen">
       <template slot="title">Import from Google Classroom</template>
       <client-only>
-      <TRichSelect
-        class="text-gray-800"
-        :options="googleClassroomAssignments"
-        valueAttribute="id"
-        textAttribute="title"
-        multiple
-        v-model="subject.importing"
-        :close-on-select="false"
-      ></TRichSelect>
+        <TRichSelect
+          class="text-gray-800"
+          :options="googleClassroomAssignments"
+          valueAttribute="id"
+          textAttribute="title"
+          multiple
+          v-model="subject.importing"
+          :close-on-select="false"
+        ></TRichSelect>
       </client-only>
       <custom-button @click="importAssignment(subject)"
         >Add assignment</custom-button

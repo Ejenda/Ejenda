@@ -1,7 +1,6 @@
 import color from "~/lib/color";
 import date from "~/lib/date";
 
-
 export default ({ store }, inject) => {
   // Inject $auth in Vue, context and store.
   let auth = {
@@ -26,6 +25,6 @@ export default ({ store }, inject) => {
     },
   };
   inject("auth", auth);
-  inject("color", color)
-  inject("date", date)
+  inject("color", color);
+  inject("date", date);
 };

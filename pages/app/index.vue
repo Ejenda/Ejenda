@@ -9,7 +9,7 @@
       <div
         v-for="item of skeleton"
         :key="item"
-        class="w-full h-64 dark:bg-gray-400 p-4"
+        class="h-64 w-full p-4 dark:bg-gray-400"
       >
         <skeleton-loader-vue
           type="rect"
@@ -27,13 +27,13 @@
       </div>
     </div>
     <div
-      class="min-h-screen flex justify-center items-center"
+      class="flex min-h-screen items-center justify-center"
       v-else-if="$fetchState.error"
     >
-      <span class="text-2xl justify-center flex flex-col items-center">
+      <span class="flex flex-col items-center justify-center text-2xl">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-10 w-10 inline-block"
+          class="inline-block h-10 w-10"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -47,19 +47,19 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class="dark:bg-transparent bg-blue-50">
+    <div v-else class="bg-blue-50 dark:bg-transparent">
       <ul
-        class="dark:bg-opacity-50 w-full p-6 dark:bg-gray-700 border-solid border-2 mb-1 text-gray-600 bg-opacity-10 dark:text-white"
+        class="mb-1 w-full border-2 border-solid bg-opacity-10 p-6 text-gray-600 dark:bg-gray-700 dark:bg-opacity-50 dark:text-white"
         v-for="subject of subjects"
         :key="subject.name"
         :class="$color.parseColor(subject.color)"
       >
         <div class="flex justify-between">
           <div>
-            <h1 class="font-bold text-4xl inline-block">
+            <h1 class="inline-block text-4xl font-bold">
               {{ subject.name }}
             </h1>
-            <span class="inline-block border border-blue rounded-full px-3">{{
+            <span class="border-blue inline-block rounded-full border px-3">{{
               subject.assignments.length
             }}</span>
           </div>
@@ -87,13 +87,13 @@
         </transition-group>
         <div class="print:hidden">
           <button
-            class="rounded-l-sm bg-white text-gray-800 p-2 shadow-sm"
+            class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
             @click="push(subject)"
           >
             +</button
           ><input
             placeholder="Add a new assignment"
-            class="text-gray-800 rounded-r-sm p-2 shadow-sm"
+            class="rounded-r-sm p-2 text-gray-800 shadow-sm"
             v-model="subject.entry"
             @keydown.enter="push(subject)"
           />
@@ -108,14 +108,14 @@
                 <template v-slot="{ inputValue, togglePopover }">
                   <div class="flex items-center">
                     <div
-                      class="p-2 bg-red-100 dark:bg-gray-200 border border-red-200 dark:border-gray-300 text-red-600 dark:text-gray-800 rounded-l"
+                      class="rounded-l border border-red-200 bg-red-100 p-2 text-red-600 dark:border-gray-300 dark:bg-gray-200 dark:text-gray-800"
                       @click="togglePopover()"
                     >
                       <span>Due</span>
                     </div>
                     <input
                       :value="inputValue"
-                      class="bg-white text-gray-700 p-2 appearance-none border rounded-r focus:outline-none focus:border-f-500"
+                      class="focus:outline-none focus:border-f-500 appearance-none rounded-r border bg-white p-2 text-gray-700"
                       @click="togglePopover()"
                       readonly
                     />
@@ -285,6 +285,6 @@ export default {
 <style>
 .assignments-enter,
 .assignments-leave-to {
-  @apply opacity-0 transform translate-x-8;
+  @apply translate-x-8 transform opacity-0;
 }
 </style>

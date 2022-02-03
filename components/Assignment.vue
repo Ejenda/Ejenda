@@ -1,6 +1,6 @@
 <template>
   <li
-    class="rounded-sm bg-white bg-opacity-75 dark:bg-opacity-50 dark:bg-gray-300 text-gray-800 my-2 p-1 shadow-sm transition-all border border-gray-100"
+    class="my-2 rounded-sm border border-gray-100 bg-white bg-opacity-75 p-1 text-gray-800 shadow-sm transition-all dark:bg-gray-300 dark:bg-opacity-50"
     :class="{
       '!bg-yellow-500': $date.isToday(new Date(assignment.date)),
       '!bg-red-800 !text-white': $date.isLate(new Date(assignment.date)),
@@ -18,7 +18,7 @@
           ref="name"
           v-model="assignment.name"
           v-show="editing"
-          class="px-2 bg-transparent flex-1"
+          class="flex-1 bg-transparent px-2"
         />
 
         <p
@@ -33,7 +33,7 @@
       </div>
       <div class="flex">
         <button
-          class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
           @click="editAssigment"
         >
           <svg
@@ -67,7 +67,7 @@
           </svg>
         </button>
         <button
-          class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
           @click="completeAssignment"
         >
           <svg
@@ -87,7 +87,7 @@
         </button>
 
         <button
-          class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
           @click="deleteItem()"
         >
           <svg
@@ -119,7 +119,7 @@
           <div v-if="query" class="text-center">
             <button
               type="button"
-              class="block w-full p-3 text-white bg-blue-500 border hover:bg-blue-600"
+              class="block w-full border bg-blue-500 p-3 text-white hover:bg-blue-600"
               @click="createOption(query)"
             >
               Create {{ query }}
@@ -145,7 +145,7 @@ export default {
         "Done",
         "Reading",
         "Imported",
-        "Notice"
+        "Notice",
       ],
     };
   },
@@ -181,13 +181,12 @@ export default {
 
     editAssigment() {
       this.editing = !this.editing;
-      if (!this.editing) { // This is a little confusing, but we've already changed this.editing
+      if (!this.editing) {
+        // This is a little confusing, but we've already changed this.editing
         this.edit();
       } else {
-        this.$nextTick(() => this.$refs.name.focus())
-
+        this.$nextTick(() => this.$refs.name.focus());
       }
-      
     },
     async deleteItem() {
       let { id } = this.assignment;
