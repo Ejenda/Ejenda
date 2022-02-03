@@ -56,12 +56,14 @@ export default {
     var opts = {
       method: "GET",
       headers: {
-        "pragma": "no-cache",
-        "cache-control": "no-cache"
+        pragma: "no-cache",
+        "cache-control": "no-cache",
       },
     };
 
-    this.subjects = await (await this.$auth.fetch(`${process.env.backendURL}/subjects`,opts)).json();
+    this.subjects = await (
+      await this.$auth.fetch(`${process.env.backendURL}/subjects`, opts)
+    ).json();
   },
   data() {
     return { subjects: [], modalOpen: false, newColor: "", newName: "" };

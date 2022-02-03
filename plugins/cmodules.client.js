@@ -4,11 +4,10 @@ import VueTailwind from "vue-tailwind";
 import { TRichSelect } from "vue-tailwind/dist/components";
 
 const components = {
-  'TRichSelect': {
+  TRichSelect: {
     component: TRichSelect,
-    }
-  
-}
+  },
+};
 
 Vue.use(VueTailwind, components);
 

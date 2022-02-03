@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 const app = express();
 import { randomBytes } from "crypto";
 import fs from "fs";
@@ -9,10 +9,10 @@ import { connect, connection, Schema, model, models } from "mongoose";
 import { google, oauth2_v2 } from "googleapis";
 import web from "./credentials.js";
 import cookieParser from "cookie-parser";
-import fetch from 'node-fetch'
-import compression from 'compression'
+import fetch from "node-fetch";
+import compression from "compression";
 
-app.use(compression())
+app.use(compression());
 app.use(cookieParser());
 const { client_secret, client_id, redirect_uris } = web;
 const SCOPES = [
@@ -308,13 +308,13 @@ app.get("/add/:str", async (req, res) => {
   let dbUser = await User.findOne({ _id: user._id });
   if (dbUser) {
     let data = await Assignment.findOne({ id: req.params.str });
-    let assignments = data.assignments.map((item)=> {
-      item.subject = data.subject
-      item.tags = ["Imported"]
-      return item
-    })
+    let assignments = data.assignments.map((item) => {
+      item.subject = data.subject;
+      item.tags = ["Imported"];
+      return item;
+    });
     dbUser.assignments.push(...assignments);
-    
+
     await dbUser.markModified("assignments");
     await dbUser.save();
     res.redirect(`/app`);
@@ -380,7 +380,7 @@ app.post("/assignments/edit", checkLoggedIn(), async (req, res) => {
     await dbUser.markModified("assignments");
     await dbUser.save();
   } catch {
-    res.error()
+    res.error();
   }
   res.send("success");
 });
@@ -498,7 +498,7 @@ app.get("/google/assignments", async (req, res) => {
 });
 
 let quote = { text: "", author: "" };
-app.get("/quote",  (req, res) => {
+app.get("/quote", (req, res) => {
   res.send(quote);
 });
 const resetQuote = async () => {
@@ -525,5 +525,5 @@ function resetAtMidnight() {
     resetAtMidnight();
   }, msToMidnight);
 }
-resetAtMidnight()
+resetAtMidnight();
 export default app;

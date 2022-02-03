@@ -11,36 +11,20 @@
     v-on="$listeners"
   >
     <span
-      class="
-        mr-8
-        w-full
-        bg-red-500
-        text-white
-        p-2
-        rounded-t-lg
-        font-semibold
-        cursor-move
-      "
+      class="mr-8 w-full cursor-move rounded-t-lg bg-red-500 p-2 font-semibold text-white"
       id="modal-header"
     >
       <slot name="title"></slot>
     </span>
-    <div class="flex-grow overflow-y-auto bg-white p-2 flex flex-col rounded-b-lg">
-      <div class="flex-1 mb-auto">
+    <div
+      class="flex flex-grow flex-col overflow-y-auto rounded-b-lg bg-white p-2"
+    >
+      <div class="mb-auto flex-1">
         <slot v-bind:params="params"></slot>
       </div>
       <div class="mt-auto" v-if="showButtons">
         <button
-          class="
-            bg-red-500
-            text-white text-center
-            font-bold
-            mt-2
-            p-2
-            h-10
-            rounded-lg
-            cursor-pointer
-          "
+          class="mt-2 h-10 cursor-pointer rounded-lg bg-red-500 p-2 text-center font-bold text-white"
           @click="$emit('confirm', close)"
         >
           Submit

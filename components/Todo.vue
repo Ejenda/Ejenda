@@ -1,13 +1,12 @@
 <template>
-  <details class="bg-red-400 dark:bg-gray-400 rounded-md p-2 m-2">
-    <summary class="p-2 m-2 font-bold cursor-pointer">{{ name }}</summary>
+  <details class="m-2 rounded-md bg-red-400 p-2 dark:bg-gray-400">
+    <summary class="m-2 cursor-pointer p-2 font-bold">{{ name }}</summary>
     <ul>
-      <li v-for="assignment of assignments" :key="assignment.id" class="
-      bg-red-200
-      m-2
-      p-2
-      rounded-md
-      ">
+      <li
+        v-for="assignment of assignments"
+        :key="assignment.id"
+        class="m-2 rounded-md bg-red-200 p-2"
+      >
         {{ assignment.name }}
       </li>
     </ul>
@@ -20,5 +19,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

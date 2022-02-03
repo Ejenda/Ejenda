@@ -3,7 +3,7 @@ const clientCookie = process.client ? require("js-cookie") : undefined;
 
 // Sync with ./not-authenticated.js
 
-export default async function ({ $auth, redirect, req, store,route }) {
+export default async function ({ $auth, redirect, req, store, route }) {
   let token = null;
   if (process.server) {
     if (req.headers.cookie) {
@@ -19,7 +19,7 @@ export default async function ({ $auth, redirect, req, store,route }) {
   if (!$auth.loggedIn) {
     return redirect("/login");
   }
-  if (!$auth.user.onboarded && route.path !== '/onboarding') {
+  if (!$auth.user.onboarded && route.path !== "/onboarding") {
     return redirect("/onboarding");
   }
 }

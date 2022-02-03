@@ -6,7 +6,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "format": "prettier **/** -w"
   },
   "dependencies": {
     "@nuxtjs/color-mode": "^2.1.1",
@@ -43,6 +44,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "postcss": "^8.4.6",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.4"
   }
 }
