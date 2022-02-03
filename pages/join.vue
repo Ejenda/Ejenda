@@ -206,6 +206,7 @@ export default {
           expires: new Date(253402300000000),
         });
         try {
+          this.$plausible.trackEvent('Join')
           await this.$store.dispatch("auth/login", data.token);
           this.$router.replace(`/onboarding`);
         } catch (err) {
