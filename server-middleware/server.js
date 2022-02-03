@@ -59,6 +59,7 @@ const userSchema = new Schema({
   password: String,
   onboarded: Boolean,
   school: String,
+  admin: Boolean,
   assignments: [userAssignmentSchema],
   subjects: {
     type: Array,
@@ -257,12 +258,13 @@ app.post(
   }
 );
 function cleanFormatUser(user) {
-  // format a user from db into a clean format. strip away password etc
+  // format a user from db into a clean format. strip away password, assignments, etc
   return {
     name: user.name,
     id: user._id,
     onboarded: user.onboarded,
     subjects: user.subjects,
+    admin: user.admin,
   };
 }
 
@@ -496,6 +498,15 @@ app.get("/google/assignments", async (req, res) => {
   }
   res.send(assignments);
 });
+
+app.get('/api/admin', checkLoggedIn(), async (req, res) =>{
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+
+  if (!dbUser.admin) return res.send({ error: 'must be admin'})
+  let totalUsers = await User.find({})
+  res.send( {totalUsers: totalUsers.length})
+})
 
 let quote = { text: "", author: "" };
 app.get("/quote", (req, res) => {
