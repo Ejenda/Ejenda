@@ -5,6 +5,11 @@
     <p>
       {{ adminData.totalUsers }}
     </p>
+    <span class="font-mono font-bold text-lg">Users with 1+ Assignment</span>
+    <p>
+      {{ adminData.usersWithOneAssignment }}
+    </p>
+
   </div>
 </template>
 <script>
