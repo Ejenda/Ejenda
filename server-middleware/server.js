@@ -505,7 +505,9 @@ app.get('/api/admin', checkLoggedIn(), async (req, res) =>{
 
   if (!dbUser.admin) return res.send({ error: 'must be admin'})
   let totalUsers = await User.find({})
-  res.send( {totalUsers: totalUsers.length})
+
+  let usersWithOneAssignment = await User.find({'assignments.0': {$exists: true}});
+  res.send( {totalUsers: totalUsers.length, usersWithOneAssignment: usersWithOneAssignment.length})
 })
 
 let quote = { text: "", author: "" };
