@@ -19,7 +19,7 @@
     "@tailwindcss/typography": "^0.4.1",
     "@zxcvbn-ts/core": "^1.2.0",
     "@zxcvbn-ts/language-common": "^1.0.2",
-    "@zxcvbn-ts/language-en": "^1.2.0",
+    "@zxcvbn-ts/language-en": "^2.0.0",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "cookie": "^0.4.2",
