@@ -89,6 +89,7 @@
         <button
           class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
           @click="deleteItem()"
+          v-if="!disableDelete"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +133,7 @@
 </template>
 <script>
 export default {
-  props: ["assignment", "subject"],
+  props: ["assignment", "subject", "disableDelete"],
   data() {
     return {
       editing: false,
@@ -195,12 +196,13 @@ export default {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: id }),
+        body: JSON.stringify({ id }),
       });
-      let index = this.subject.assignments.findIndex((item) => {
+      let assignments = (this.subject.assignments ?this.subject.assignments :this.subject )
+      let index = assignments.findIndex((item) => {
         return item.id === id;
       });
-      this.subject.assignments.splice(index, 1);
+      assignments.splice(index, 1);
     },
   },
 };
