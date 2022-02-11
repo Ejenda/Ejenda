@@ -39,10 +39,19 @@
               >
             </div>
           </div>
-          <div class="col-span-6">
+          <div class="col-span-6 dark:hidden">
             <img
               alt="Ejenda logo"
               src="~/static/screenshot.png"
+              height="999px"
+              width="572px"
+              class="rounded-sm shadow-lg rotate-3 hidden md:block"
+            />
+          </div>
+          <div class="col-span-6 invisible dark:visible absolute dark:static">
+            <img
+              alt="Ejenda logo"
+              src="~/static/screenshot-dark.png"
               height="999px"
               width="572px"
               class="rounded-sm shadow-lg rotate-3 hidden md:block"
