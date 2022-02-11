@@ -1,26 +1,15 @@
 <template>
-  <div class="flex flex-col bg-gray-50 dark:bg-gray-600 min-h-screen">
-
-    <Nav class="print:hidden"/>
+  <div class="flex min-h-screen flex-col bg-gray-50 dark:bg-gray-600">
+    <Nav class="print:hidden" />
     <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
-    <Footer/>
-    <div class="inset-x-0 bottom-0 rounded sticky" v-if="false">
+    <Footer />
+    <div class="sticky inset-x-0 bottom-0 rounded" v-if="false">
       <div
-        class="
-          max-w-7xl
-          mx-auto
-          py-3
-          px-3
-          sm:px-6
-          lg:px-8
-          m-2
-          bg-red-600
-          rounded
-        "
+        class="m-2 mx-auto max-w-7xl rounded bg-red-600 py-3 px-3 sm:px-6 lg:px-8"
       >
-        <div class="flex items-center justify-between flex-wrap">
-          <div class="w-0 flex-1 flex items-center">
-            <span class="flex p-2 rounded-lg bg-red-800">
+        <div class="flex flex-wrap items-center justify-between">
+          <div class="flex w-0 flex-1 items-center">
+            <span class="flex rounded-lg bg-red-800 p-2">
               <svg
                 class="h-6 w-6 text-white"
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,36 +26,16 @@
                 />
               </svg>
             </span>
-            <p class="ml-3 font-medium text-white truncate">
+            <p class="ml-3 truncate font-medium text-white">
               <span class=""> Coming soon: Ejenda Blocks </span>
             </p>
           </div>
           <div
-            class="
-              order-3
-              mt-2
-              flex-shrink-0
-              w-full
-              sm:order-2 sm:mt-0 sm:w-auto
-            "
+            class="order-3 mt-2 w-full flex-shrink-0 sm:order-2 sm:mt-0 sm:w-auto"
           >
             <nuxt-link
               to="/blocks"
-              class="
-                flex
-                items-center
-                justify-center
-                px-4
-                py-2
-                border border-transparent
-                rounded-md
-                shadow-sm
-                text-sm
-                font-medium
-                text-red-600
-                bg-white
-                hover:bg-red-50
-              "
+              class="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-600 shadow-sm hover:bg-red-50"
             >
               Learn more
             </nuxt-link>
@@ -74,15 +43,7 @@
           <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
             <button
               type="button"
-              class="
-                -mr-1
-                flex
-                p-2
-                rounded-md
-                hover:bg-red-500
-                focus:outline-none focus:ring-2 focus:ring-white
-                sm:-mr-2
-              "
+              class="focus:outline-none -mr-1 flex rounded-md p-2 hover:bg-red-500 focus:ring-2 focus:ring-white sm:-mr-2"
               @click="hideComingSoonPopup"
             >
               <span class="sr-only">Dismiss</span>
@@ -117,7 +78,9 @@ export default {
   },
   mounted() {
     //this.hide = localStorage.getItem("hide") ?? false;
-    console.log("Hello Ejenda console reader. The person writing this is GrahamSH, the creator of Ejenda. I'm fine with you playing around in the console as long as you try not to break the app! As always, if you find any security vulnerabilities, directly email me at graham@ejenda.org." )
+    console.log(
+      "Hello Ejenda console reader. The person writing this is GrahamSH, the creator of Ejenda. I'm fine with you playing around in the console as long as you try not to break the app! As always, if you find any security vulnerabilities, directly email me at graham@ejenda.org."
+    );
   },
   methods: {
     hideComingSoonPopup() {

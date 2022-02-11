@@ -1,27 +1,29 @@
 <template>
   <!-- keep this in sync with join.vue -->
   <main
-    class="min-h-screen flex bg-red-300 dark:bg-gray-700 bg-gradient-to-r from-red-500 dark:from-gray-900 justify-center items-center"
+    class="flex min-h-screen items-center justify-center bg-red-300 bg-gradient-to-r from-red-500 dark:bg-gray-700 dark:from-gray-900"
   >
-    <div class="bg-white dark:bg-gray-600 p-12  max-w-lg w-1/2 h-1/2 rounded-lg bg-opacity-75">
+    <div
+      class="h-1/2 w-1/2 max-w-lg rounded-lg bg-white bg-opacity-75 p-12 dark:bg-gray-600"
+    >
       <div class="text-center">
-        <img class="mx-auto h-10 w-auto rounded-md" src="/logo.svg" alt="Ejenda" />
-        <h2 class="font-bold text-2xl my-2">Join Ejenda</h2>
+        <img
+          class="mx-auto h-10 w-auto rounded-md"
+          src="/logo.svg"
+          alt="Ejenda"
+        />
+        <h2
+          class="my-2 text-2xl font-bold dark:text-white dark:text-opacity-90"
+        >
+          Join Ejenda
+        </h2>
         <p class="my-2 text-gray-500 dark:text-white dark:text-opacity-70">
           Or
           <nuxt-link to="/login">login to an existing account</nuxt-link>
         </p>
       </div>
       <div
-        class="
-          bg-red-100
-          border border-red-400
-          text-red-700
-          px-4
-          py-3
-          my-2
-          rounded
-        "
+        class="my-2 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
         v-if="error"
       >
         <strong class="font-bold">Error creating account!</strong>
@@ -30,7 +32,9 @@
         </span>
       </div>
       <form @submit.prevent="signup">
-        <label class="text-gray-500 dark:text-white dark:text-opacity-70 font-medium text-sm" for="username"
+        <label
+          class="text-sm font-medium text-gray-500 dark:text-white dark:text-opacity-70"
+          for="username"
           >Username</label
         >
         <input
@@ -38,10 +42,12 @@
           id="username"
           name="username"
           v-model="form.username"
-          class="border-2 p-1 my-1 w-full rounded-md block"
+          class="my-1 block w-full rounded-md border-2 p-1"
         />
 
-        <label class="text-gray-500 dark:text-white dark:text-opacity-70 font-medium text-sm" for="password"
+        <label
+          class="text-sm font-medium text-gray-500 dark:text-white dark:text-opacity-70"
+          for="password"
           >Password</label
         >
         <input
@@ -49,14 +55,24 @@
           id="password"
           name="password"
           v-model="form.password"
-          class="border-2 p-1 my-1 w-full rounded-md block"
+          class="my-1 block w-full rounded-md border-2 p-1"
         />
 
-        <div v-if="zxcvbnResults.feedback" class="text-sm text-gray-600 dark:text-white dark:text-opacity-70">
-          <span class="inline">Password strength:</span> <span class="rounded-full h-8 w-8 inline-flex items-center justify-center" :class="pillSwitcher">{{zxcvbnResults.score}}/4</span>
-          <span v-show="zxcvbnResults.feedback.warning" class="text-red-300 block">{{
-            zxcvbnResults.feedback.warning
-          }}</span>
+        <div
+          v-if="zxcvbnResults.feedback"
+          class="text-sm text-gray-600 dark:text-white dark:text-opacity-70"
+        >
+          <span class="inline">Password strength:</span>
+          <span
+            class="inline-flex h-8 w-8 items-center justify-center rounded-full"
+            :class="pillSwitcher"
+            >{{ zxcvbnResults.score }}/4</span
+          >
+          <span
+            v-show="zxcvbnResults.feedback.warning"
+            class="block text-red-300"
+            >{{ zxcvbnResults.feedback.warning }}</span
+          >
           <div v-show="zxcvbnResults.score < 3">
             <ul>
               <li
@@ -67,20 +83,16 @@
               </li>
             </ul>
           </div>
+          <label class="block"
+            >I agree to the
+            <a href="/terms" target="_blank">Terms and Conditions</a> and
+            <a href="/privacy" target="_blank">Privacy Policy</a>
+            <input type="checkbox" v-model="agreeToTOC" class="rounded-md p-1"
+          /></label>
         </div>
         <button
           type="submit"
-          class="
-            bg-red-500
-            text-white
-            w-full
-            text-center
-            font-bold
-            p-2
-            mt-2
-            rounded-lg
-            cursor-pointer
-          "
+          class="mt-2 w-full cursor-pointer rounded-lg bg-red-500 p-2 text-center font-bold text-white"
         >
           Sign up
         </button>
@@ -92,20 +104,6 @@
 <script>
 import cookies from "js-cookie";
 import { zxcvbn, ZxcvbnOptions } from "@zxcvbn-ts/core";
-import zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
-import zxcvbnEnPackage from "@zxcvbn-ts/language-en";
-
-const password = "somePassword";
-const options = {
-  translations: zxcvbnEnPackage.translations,
-  graphs: zxcvbnCommonPackage.adjacencyGraphs,
-  dictionary: {
-    ...zxcvbnCommonPackage.dictionary,
-    ...zxcvbnEnPackage.dictionary,
-  },
-};
-
-ZxcvbnOptions.setOptions(options);
 
 export default {
   middleware: "not-authenticated",
@@ -115,15 +113,16 @@ export default {
       title: `Join - Ejenda`,
     };
   },
+  mounted() {},
   computed: {
-  pillSwitcher: function () {
-    return {
-      'bg-red-500': this.zxcvbnResults.score < 2,
-      'bg-yellow-500': this.zxcvbnResults.score == 2,
-      'bg-green-300 text-white': this.zxcvbnResults.score == 3,
-      'bg-green-500': this.zxcvbnResults.score == 4
-    }
-  }
+    pillSwitcher: function () {
+      return {
+        "bg-red-500": this.zxcvbnResults.score < 2,
+        "bg-yellow-500": this.zxcvbnResults.score == 2,
+        "bg-green-300 text-white": this.zxcvbnResults.score == 3,
+        "bg-green-500": this.zxcvbnResults.score == 4,
+      };
+    },
   },
   data() {
     return {
@@ -133,33 +132,61 @@ export default {
       },
       error: "",
       zxcvbnResults: {},
+      agreeToTOC: false,
+      zxcvbn: {},
     };
   },
   watch: {
-    "form.password": function () {
+    "form.password": async function () {
+      await this.loadOptions();
+      ZxcvbnOptions.setOptions(this.zxcvbnOptions);
+
       this.zxcvbnResults = zxcvbn(this.form.password);
     },
   },
   methods: {
+    async loadOptions() {
+      if (this.zxcvbn.dictionary) return;
+      const zxcvbnCommonPackage = await import(
+        /* webpackChunkName: "zxcvbnCommonPackage" */ "@zxcvbn-ts/language-common"
+      );
+      const zxcvbnEnPackage = await import(
+        /* webpackChunkName: "zxcvbnEnPackage" */ "@zxcvbn-ts/language-en"
+      );
+
+      this.zxcvbnOptions = {
+        dictionary: {
+          ...zxcvbnCommonPackage.default.dictionary,
+          ...zxcvbnEnPackage.default.dictionary,
+        },
+        graphs: zxcvbnCommonPackage.adjacencyGraphs,
+        translations: zxcvbnEnPackage.default.translations,
+      };
+    },
+
     async signup() {
-      if (this.zxcvbnResults.score >= 3) {
-        this.error = "";
-        let res = await fetch(`${process.env.backendURL}/users`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(this.form),
-        });
-        let data = await res.json();
-        if (data.error) {
-          this.error = data.error;
+      if (this.agreeToTOC) {
+        if (this.zxcvbnResults.score >= 3) {
+          this.error = "";
+          let res = await fetch(`${process.env.backendURL}/users`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.form),
+          });
+          let data = await res.json();
+          if (data.error) {
+            this.error = data.error;
+          } else {
+            // login using /session endpoint (copied from login page)
+            this.login(this.form.username, this.form.password);
+          }
         } else {
-          // login using /session endpoint (copied from login page)
-          this.login(this.form.username, this.form.password);
+          this.error = "Please make your password stronger";
         }
       } else {
-        this.error = "Please make your password stronger";
+        this.error = "Please agree to the terms and conditions";
       }
       //cookies.set('token', token, { expires: new Date(253402300000000) })
     },
@@ -179,8 +206,9 @@ export default {
           expires: new Date(253402300000000),
         });
         try {
+          this.$plausible.trackEvent("Join");
           await this.$store.dispatch("auth/login", data.token);
-          this.$router.replace(`/onboarding`,);
+          this.$router.replace(`/onboarding`);
         } catch (err) {
           console.error(`Login failed: ${err}`);
         }

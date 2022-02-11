@@ -4,12 +4,12 @@
     :class="{ 'overflow-hidden': $fetchState.pending }"
   >
     <tabs />
-
+    <div class="flex justify-end"></div>
     <div v-if="$fetchState.pending">
       <div
         v-for="item of skeleton"
         :key="item"
-        class="w-full h-64 dark:bg-gray-400 p-4"
+        class="h-64 w-full p-4 dark:bg-gray-400"
       >
         <skeleton-loader-vue
           type="rect"
@@ -27,13 +27,13 @@
       </div>
     </div>
     <div
-      class="min-h-screen flex justify-center items-center"
+      class="flex min-h-screen items-center justify-center"
       v-else-if="$fetchState.error"
     >
-      <span class="text-2xl justify-center flex flex-col items-center">
+      <span class="flex flex-col items-center justify-center text-2xl">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-10 w-10 inline-block"
+          class="inline-block h-10 w-10"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -47,103 +47,53 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class="dark:bg-transparent bg-red-50">
+    <div v-else class="bg-blue-50 dark:bg-transparent">
       <ul
-        class="
-          dark:bg-opacity-50
-          w-full
-          p-6
-          dark:bg-gray-700
-          border-solid border-2
-          mb-1
-          text-gray-600
-          bg-opacity-10
-          dark:text-white
-        "
+        class="mb-1 w-full border-2 border-solid bg-opacity-10 p-6 text-gray-600 dark:bg-gray-700 dark:bg-opacity-50 dark:text-white"
         v-for="subject of subjects"
         :key="subject.name"
-        :class="$parseColor(subject.color)"
+        :class="$color.parseColor(subject.color)"
       >
-        <h1 class="font-bold text-4xl inline-block">
-          {{ subject.name }}
-        </h1>
-        <span class="inline-block border border-blue rounded-full px-3">{{
-          subject.assignments.length
-        }}</span>
-        <div>
-          <ImportGC
-            :subject="subject"
-            :googleClassroomState="googleClassroomState"
-            :googleClassroomAssignments="googleClassroomAssignments"
-            :importAssignment="importAssignment"
-            v-if="googleClassroomState"
-          ></ImportGC>
+        <div class="flex justify-between">
+          <div>
+            <h1 class="inline-block text-4xl font-bold">
+              {{ subject.name }}
+            </h1>
+            <span class="border-blue inline-block rounded-full border px-3">{{
+              subject.assignments.length
+            }}</span>
+          </div>
+          <div>
+            <ImportGC
+              :subject="subject"
+              :googleClassroomState="googleClassroomState"
+              :googleClassroomAssignments="googleClassroomAssignments"
+              :importAssignment="importAssignment"
+              v-if="googleClassroomState"
+            ></ImportGC>
+          </div>
         </div>
 
         <p v-show="!subject.assignments.length > 0" class="py-2 italic">
           Nothing yet, add a new assignment
         </p>
-        <li
-          class="
-            rounded-sm
-            bg-white bg-opacity-75
-            dark:bg-opacity-50 dark:bg-gray-300
-            text-gray-800
-            my-2
-            p-1
-            flex
-            justify-between
-            shadow-sm
-          "
-          v-for="(assignment, i) of sortAssignments(subject.assignments)"
-          :key="`${assignment.id}`"
-          :class="{
-            '!bg-yellow-500': isToday(new Date(assignment.date)),
-            '!bg-red-800 !text-white': isLate(new Date(assignment.date)),
-          }"
-        >
-          <div class="block">
-            <p>{{ assignment.name }}</p>
-
-            <p
-              v-if="assignment.date"
-              class="italic text-gray-400 dark:text-gray-600"
-            >
-              Due: {{ new Date(assignment.date).toLocaleDateString() }}
-            </p>
-            <p v-else class="italic text-gray-400 dark:text-gray-600">
-              No due date
-            </p>
-          </div>
-          <button
-            class="px-2 py-1 m-1 bg-white rounded-md text-gray-800 print:hidden"
-            @click="deleteItem(subject, assignment.id)"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </button>
-        </li>
+        <transition-group name="assignments">
+          <Assignment
+            v-for="assignment of sortAssignments(subject.assignments)"
+            :key="`${assignment.id}`"
+            :assignment="assignment"
+            :subject="subject"
+          />
+        </transition-group>
         <div class="print:hidden">
           <button
-            class="rounded-l-sm bg-white text-gray-800 p-2 shadow-sm"
+            class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
             @click="push(subject)"
           >
             +</button
           ><input
             placeholder="Add a new assignment"
-            class="text-gray-800 rounded-r-sm p-2 shadow-sm"
+            class="rounded-r-sm p-2 text-gray-800 shadow-sm"
             v-model="subject.entry"
             @keydown.enter="push(subject)"
           />
@@ -153,35 +103,19 @@
                 class="block h-full w-72"
                 v-model="subject.dateEntry"
                 :min-date="new Date()"
+                :is-dark="$colorMode.preference == 'dark'"
               >
                 <template v-slot="{ inputValue, togglePopover }">
                   <div class="flex items-center">
                     <div
-                      class="
-                        p-2
-                        bg-red-100
-                        dark:bg-gray-200
-                        border border-red-200
-                        dark:border-gray-300
-                        text-red-600
-                        dark:text-gray-800
-                        rounded-l
-                      "
+                      class="rounded-l border border-red-200 bg-red-100 p-2 text-red-600 dark:border-gray-300 dark:bg-gray-200 dark:text-gray-800"
                       @click="togglePopover()"
                     >
                       <span>Due</span>
                     </div>
                     <input
                       :value="inputValue"
-                      class="
-                        bg-white
-                        text-gray-700
-                        p-2
-                        appearance-none
-                        border
-                        rounded-r
-                        focus:outline-none focus:border-f-500
-                      "
+                      class="focus:outline-none focus:border-f-500 appearance-none rounded-r border bg-white p-2 text-gray-700"
                       @click="togglePopover()"
                       readonly
                     />
@@ -211,7 +145,10 @@
 export default {
   middleware: "authenticated",
   head() {
-    return { title: "App - Ejenda" };
+    return {
+      title: "App - Ejenda",
+      meta: [{ hid: "robots", name: "robots", content: "noindex" }],
+    };
   },
   activated() {
     // Call fetch again if last fetch more than 30 sec ago
@@ -245,7 +182,6 @@ export default {
   },
   async created() {
     await this.fetchGCI(); // This is a hack to speeeeeeeeeeeeeeeeddddd up loading
-    await this.generateQuote();
   },
   data() {
     let skeleton = [...Array(10).keys()];
@@ -256,16 +192,9 @@ export default {
       googleClassroomState: false,
       googleClassroomAssignments: [],
       skeleton,
-      quote: { author: "", text: "" },
     };
   },
   methods: {
-    async generateQuote() {
-      let res = await fetch(new URL("/quote", process.env.backendURL));
-      let data = await res.json();
-      this.quote.author = data.author;
-      this.quote.text = data.text;
-    },
     sortAssignments(assignments) {
       return assignments
         .slice()
@@ -289,6 +218,7 @@ export default {
         name: subject.entry,
         id: new Date(),
         date: subject.dateEntry,
+        tags: [],
       };
       subject.assignments.push(obj);
       obj.subject = subject.id;
@@ -302,61 +232,59 @@ export default {
       subject.entry = "";
       subject.dateEntry = "";
     },
-    async deleteItem(subject, id) {
-      await this.$auth.fetch(`${process.env.backendURL}/assignments/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-      });
-      let index = subject.assignments.findIndex((item) => {
-        return item.id === id;
-      });
-      subject.assignments.splice(index, 1);
-    },
     generateSubject(name, color, assignments) {
+      let migratedAssignments = assignments.map((item) => {
+        let editing = item;
+        editing.tags = item.tags ? item.tags : [];
+        return editing;
+      });
       return {
         name: name,
         id: name.toLowerCase(),
         color: color,
-        assignments,
-        importing: "",
+        assignments: migratedAssignments,
+        importing: [],
       };
     },
-    importAssignment(subject) {
-      let assignment = this.googleClassroomAssignments.find((item) => {
-        return item.id === subject.importing;
-      });
-      let date;
-      if (assignment.dueDate) {
-        date = new Date(
-          assignment.dueDate.year,
-          assignment.dueDate.month - 1,
-          assignment.dueDate.day - 1
-        );
-      } else {
-        date = undefined;
+    async importAssignment(subject) {
+      for (let assignment of subject.importing) {
+        let assignmentRich = this.googleClassroomAssignments.find((item) => {
+          return item.id === assignment;
+        });
+        let date;
+        if (assignmentRich.dueDate) {
+          date = new Date(
+            assignmentRich.dueDate.year,
+            assignmentRich.dueDate.month - 1,
+            assignmentRich.dueDate.day - 1
+          );
+        } else {
+          date = undefined;
+        }
+        let obj = {
+          name: assignmentRich.title,
+          id: new Date(),
+          date,
+          tags: ["Google Classroom"],
+        };
+        subject.assignments.push(obj);
+        obj.subject = subject.id;
+        await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        });
       }
-      subject.assignments.push({
-        name: assignment.title,
-        id: new Date(),
-        date,
-      });
-    },
-    isToday(someDate) {
-      const today = new Date();
-      return (
-        someDate.getDate() == today.getDate() &&
-        someDate.getMonth() == today.getMonth() &&
-        someDate.getFullYear() == today.getFullYear()
-      );
-    },
-    isLate(date) {
-      return (
-        new Date(date.toDateString()) < new Date(new Date().toDateString())
-      );
+      subject.importing = [];
     },
   },
 };
 </script>
+<style>
+.assignments-enter,
+.assignments-leave-to {
+  @apply translate-x-8 transform opacity-0;
+}
+</style>

@@ -1,4 +1,5 @@
-const app = require("express")();
+import express from "express";
+const app = express();
 import { randomBytes } from "crypto";
 import fs from "fs";
 import bcrypt from "bcrypt";
@@ -8,7 +9,10 @@ import { connect, connection, Schema, model, models } from "mongoose";
 import { google, oauth2_v2 } from "googleapis";
 import web from "./credentials.js";
 import cookieParser from "cookie-parser";
-import fetch from 'node-fetch'
+import fetch from "node-fetch";
+import compression from "compression";
+
+app.use(compression());
 app.use(cookieParser());
 const { client_secret, client_id, redirect_uris } = web;
 const SCOPES = [
@@ -45,6 +49,7 @@ const userAssignmentSchema = new Schema({
   date: String,
   id: String,
   subject: String,
+  tags: Array,
 });
 const userSchema = new Schema({
   name: {
@@ -54,6 +59,7 @@ const userSchema = new Schema({
   password: String,
   onboarded: Boolean,
   school: String,
+  admin: Boolean,
   assignments: [userAssignmentSchema],
   subjects: {
     type: Array,
@@ -197,7 +203,7 @@ app.post(
             if (error.code == 11000) {
               res.status(409).json({ error: "Username already taken" });
             } else {
-              console.log(error);
+              console.error(error);
               res.status(500).json({ error: "Internal server error" });
             }
           } else {
@@ -205,7 +211,7 @@ app.post(
           }
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ error: "Internal server error" });
       }
     } else {
@@ -252,12 +258,13 @@ app.post(
   }
 );
 function cleanFormatUser(user) {
-  // format a user from db into a clean format. strip away password etc
+  // format a user from db into a clean format. strip away password, assignments, etc
   return {
     name: user.name,
     id: user._id,
     onboarded: user.onboarded,
     subjects: user.subjects,
+    admin: user.admin,
   };
 }
 
@@ -303,7 +310,14 @@ app.get("/add/:str", async (req, res) => {
   let dbUser = await User.findOne({ _id: user._id });
   if (dbUser) {
     let data = await Assignment.findOne({ id: req.params.str });
-    dbUser.assignments.push(...data);
+    let assignments = data.assignments.map((item) => {
+      item.subject = data.subject;
+      item.tags = ["Imported"];
+      return item;
+    });
+    dbUser.assignments.push(...assignments);
+
+    await dbUser.markModified("assignments");
     await dbUser.save();
     res.redirect(`/app`);
   } else {
@@ -355,16 +369,21 @@ app.post("/assignments/new", checkLoggedIn(), async (req, res) => {
   res.json({});
 });
 app.post("/assignments/edit", checkLoggedIn(), async (req, res) => {
-  let user = res.locals.requester;
-  let dbUser = await User.findOne({ _id: user._id });
-  let { id, newAssignment } = req.body;
-  let index = dbUser.assignments.findIndex((item) => {
-    return item.id == id;
-  });
-  dbUser.assignments[index].date = newAssignment.date;
-  dbUser.assignments[index].name = newAssignment.name;
-  await dbUser.markModified("assignments");
-  await dbUser.save();
+  try {
+    let user = res.locals.requester;
+    let dbUser = await User.findOne({ _id: user._id });
+    let { id, newAssignment } = req.body;
+    let index = dbUser.assignments.findIndex((item) => {
+      return item.id == id;
+    });
+    dbUser.assignments[index].date = newAssignment.date;
+    dbUser.assignments[index].name = newAssignment.name;
+    dbUser.assignments[index].tags = newAssignment.tags;
+    await dbUser.markModified("assignments");
+    await dbUser.save();
+  } catch {
+    res.error();
+  }
   res.send("success");
 });
 app.post("/subjects/update", checkLoggedIn(), async (req, res) => {
@@ -479,13 +498,25 @@ app.get("/google/assignments", async (req, res) => {
   }
   res.send(assignments);
 });
+
+app.get('/api/admin', checkLoggedIn(), async (req, res) =>{
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+
+  if (!dbUser.admin) return res.send({ error: 'must be admin'})
+  let totalUsers = await User.find({})
+
+  let usersWithOneAssignment = await User.find({'assignments.0': {$exists: true}});
+  res.send( {totalUsers: totalUsers.length, usersWithOneAssignment: usersWithOneAssignment.length})
+})
+
 let quote = { text: "", author: "" };
-app.get("/quote", checkLoggedIn(), (req, res) => {
-  res.json(quote);
+app.get("/quote", (req, res) => {
+  res.send(quote);
 });
 const resetQuote = async () => {
   let res = await fetch("https://zenquotes.io/api/today");
-  let data = await res.json();
+  let data = (await res.json())[0];
   quote.text = data.q;
   quote.author = data.a;
 };
@@ -507,5 +538,5 @@ function resetAtMidnight() {
     resetAtMidnight();
   }, msToMidnight);
 }
-resetAtMidnight()
+resetAtMidnight();
 export default app;
