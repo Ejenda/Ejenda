@@ -32,14 +32,22 @@
               >
             </div>
           </div>
-
-          <div class="col-span-6">
+          <div class="col-span-6 dark:hidden">
             <img
               alt="Ejenda logo"
               :src="require('~/assets/screenshot.png')"
               height="311px"
               width="544px"
               class="hidden rotate-3 rounded-sm shadow-lg md:block"
+            />
+          </div>
+          <div class="col-span-6 invisible dark:visible absolute dark:static">
+            <img
+              alt="Ejenda logo"
+              src="~/static/screenshot-dark.png"
+              height="999px"
+              width="572px"
+              class="rounded-sm shadow-lg rotate-3 hidden md:block"
             />
           </div>
         </div>
