@@ -31,7 +31,7 @@
           No due date
         </p>
       </div>
-      <div class="flex">
+      <div class="flex" v-if="!disableActions">
         <button
           class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
           @click="editName"
@@ -120,7 +120,7 @@
 import { mapMutations, mapState, mapActions } from "vuex";
 
 export default {
-  props: ["assignment", "subject", "disableDelete"],
+  props: ["assignment", "subject", "disableActions"],
   data() {
     return {
       editing: false,
