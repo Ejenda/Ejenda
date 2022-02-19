@@ -48,84 +48,13 @@
       </span>
     </div>
     <div v-else class="bg-blue-50 dark:bg-transparent">
-      <ul
-        class="mb-1 w-full border-2 border-solid bg-opacity-10 p-6 text-gray-600 dark:bg-gray-700 dark:bg-opacity-50 dark:text-white"
+      <Subject
         v-for="subject of subjects"
         :key="subject.name"
-        :class="$color.parseColor(subject.color)"
-      >
-        <div class="flex justify-between">
-          <div>
-            <h1 class="inline-block text-4xl font-bold">
-              {{ subject.name }}
-            </h1>
-            <span class="border-blue inline-block rounded-full border px-3">{{
-              subject.assignments.length
-            }}</span>
-          </div>
-          <div>
-            <ImportGC
-              :subject="subject"
-              :googleClassroomState="googleClassroomState"
-              :googleClassroomAssignments="googleClassroomAssignments"
-              :importAssignment="importAssignment"
-              v-if="googleClassroomState"
-            ></ImportGC>
-          </div>
-        </div>
-
-        <p v-show="!subject.assignments.length > 0" class="py-2 italic">
-          Nothing yet, add a new assignment
-        </p>
-        <transition-group name="assignments">
-          <Assignment
-            v-for="assignment of sortAssignments(subject.assignments)"
-            :key="`${assignment.id}`"
-            :assignment="assignment"
-            :subject="subject"
-          />
-        </transition-group>
-        <div class="print:hidden">
-          <button
-            class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
-            @click="push(subject)"
-          >
-            +</button
-          ><input
-            placeholder="Add a new assignment"
-            class="rounded-r-sm p-2 text-gray-800 shadow-sm"
-            v-model="subject.entry"
-            @keydown.enter="push(subject)"
-          />
-          <div class="mt-1">
-            <client-only>
-              <v-date-picker
-                class="block h-full w-72"
-                v-model="subject.dateEntry"
-                :min-date="new Date()"
-                :is-dark="$colorMode.preference == 'dark'"
-              >
-                <template v-slot="{ inputValue, togglePopover }">
-                  <div class="flex items-center">
-                    <div
-                      class="rounded-l border border-red-200 bg-red-100 p-2 text-red-600 dark:border-gray-300 dark:bg-gray-200 dark:text-gray-800"
-                      @click="togglePopover()"
-                    >
-                      <span>Due</span>
-                    </div>
-                    <input
-                      :value="inputValue"
-                      class="focus:outline-none focus:border-f-500 appearance-none rounded-r border bg-white p-2 text-gray-700"
-                      @click="togglePopover()"
-                      readonly
-                    />
-                  </div>
-                </template>
-              </v-date-picker>
-            </client-only>
-          </div>
-        </div>
-      </ul>
+        :subject="subject"
+        :googleClassroomState="googleClassroomState"
+        :googleClassroomAssignments="googleClassroomAssignments"
+      ></Subject>
       <Modal
         v-model="subjectModalOpen"
         :name="'subjectModal'"
@@ -142,6 +71,8 @@
 </template>
 
 <script>
+import { mapMutations, mapState, mapActions } from "vuex";
+
 export default {
   middleware: "authenticated",
   head() {
@@ -158,35 +89,16 @@ export default {
   },
   fetchOnServer: true,
   async fetch() {
-    var opts = {
-      method: "GET",
-      headers: {
-        pragma: "no-cache",
-        "cache-control": "no-cache",
-      },
-    };
-
-    let subjects = await (
-      await this.$auth.fetch(`${process.env.backendURL}/subjects`, opts)
-    ).json();
-    let built = [];
-    for (let subject of subjects) {
-      let assignments = await (
-        await this.$auth.fetch(
-          `${process.env.backendURL}/assignments/${subject[0].toLowerCase()}`
-        )
-      ).json();
-      built.push(this.generateSubject(subject[0], subject[1], assignments));
-    }
-    this.subjects = [...built];
+    // Only show skeleton if the data is 100+ minutes old
+    await this.loadData();
   },
   async created() {
     await this.fetchGCI(); // This is a hack to speeeeeeeeeeeeeeeeddddd up loading
   },
+
   data() {
     let skeleton = [...Array(10).keys()];
     return {
-      subjects: [],
       currentEntry: "",
       subjectModalOpen: false,
       googleClassroomState: false,
@@ -194,12 +106,15 @@ export default {
       skeleton,
     };
   },
+  computed: {
+    ...mapState({ subjects: (state) => state.assignments.subjects }),
+  },
   methods: {
-    sortAssignments(assignments) {
-      return assignments
-        .slice()
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
-    },
+    ...mapActions({
+      loadData: "assignments/loadData",
+      
+    }),
+    ...mapMutations({}),
     async fetchGCI() {
       let res = await this.$auth.fetch(
         new URL("/google/assignments", process.env.backendURL)
@@ -211,73 +126,6 @@ export default {
       }
       this.googleClassroomState = true;
       this.googleClassroomAssignments = data;
-    },
-    async push(subject) {
-      if (subject.entry?.trim() == "" || !subject.entry) return;
-      let obj = {
-        name: subject.entry,
-        id: new Date(),
-        date: subject.dateEntry,
-        tags: [],
-      };
-      subject.assignments.push(obj);
-      obj.subject = subject.id;
-      await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      });
-      subject.entry = "";
-      subject.dateEntry = "";
-    },
-    generateSubject(name, color, assignments) {
-      let migratedAssignments = assignments.map((item) => {
-        let editing = item;
-        editing.tags = item.tags ? item.tags : [];
-        return editing;
-      });
-      return {
-        name: name,
-        id: name.toLowerCase(),
-        color: color,
-        assignments: migratedAssignments,
-        importing: [],
-      };
-    },
-    async importAssignment(subject) {
-      for (let assignment of subject.importing) {
-        let assignmentRich = this.googleClassroomAssignments.find((item) => {
-          return item.id === assignment;
-        });
-        let date;
-        if (assignmentRich.dueDate) {
-          date = new Date(
-            assignmentRich.dueDate.year,
-            assignmentRich.dueDate.month - 1,
-            assignmentRich.dueDate.day - 1
-          );
-        } else {
-          date = undefined;
-        }
-        let obj = {
-          name: assignmentRich.title,
-          id: new Date(),
-          date,
-          tags: ["Google Classroom"],
-        };
-        subject.assignments.push(obj);
-        obj.subject = subject.id;
-        await this.$auth.fetch(`${process.env.backendURL}/assignments/new`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(obj),
-        });
-      }
-      subject.importing = [];
     },
   },
 };

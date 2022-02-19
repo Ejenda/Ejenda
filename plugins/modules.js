@@ -1,6 +1,9 @@
 import Vue from "vue";
 import { vfmPlugin } from "vue-final-modal/lib";
+import vSelect from "vue-select";
+import 'vue-select/dist/vue-select.css';
 
-// I'm too lazy to make a new file
+
+Vue.component("v-select", vSelect);
 
 Vue.use(vfmPlugin);

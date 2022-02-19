@@ -92,9 +92,6 @@
 </template>
 <script>
 export default {
-  mounted() {
-    console.log(this);
-  },
   middleware: ["authenticated", "not-onboarded"],
   head() {
     return { title: "Get started - Ejenda" };
