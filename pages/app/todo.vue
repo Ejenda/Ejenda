@@ -13,6 +13,7 @@
 
 <script>
 import date from "../../lib/date.js";
+import { mapActions, mapState } from "vuex";
 export default {
   middleware: "authenticated",
   activated() {
@@ -31,7 +32,13 @@ export default {
       assignmentsNoDate: [],
     };
   },
+  computed: {
+    ...mapState({ subjects: (state) => state.assignments.subjects }),
+  },
   methods: {
+    ...mapActions({
+      loadData: "assignments/loadData",
+    }),
     generateSubject(name, color, assignments) {
       return {
         name: name,
@@ -42,37 +49,19 @@ export default {
       };
     },
   },
-  async fetch() {
-    var opts = {
-      method: "GET",
-      headers: {
-        pragma: "no-cache",
-        "cache-control": "no-cache",
-      },
-    };
 
-    let subjects = await (
-      await this.$auth.fetch(`${process.env.backendURL}/subjects`, opts)
-    ).json();
+  async fetch() {
+    await this.loadData()
+
     let built = [];
     this.assignmentsToday = [];
     this.assignmentsMissing = [];
     this.assignmentsThisWeek = [];
     this.assignmentsLater = [];
     this.assignmentsNoDate = [];
-    for (let subject of subjects) {
-      let assignments = await (
-        await this.$auth.fetch(
-          `${process.env.backendURL}/assignments/${subject[0].toLowerCase()}`
-        )
-      ).json();
-      let builtSubject = this.generateSubject(
-        subject[0],
-        subject[1],
-        assignments
-      );
-      built.push(builtSubject);
-      for (let assignment of assignments) {
+    for (let subject of this.subjects) {
+      
+      for (let assignment of subject.assignments) {
         if (assignment.date) {
           if (date.isLate(new Date(assignment.date))) {
             this.assignmentsMissing.push(assignment);

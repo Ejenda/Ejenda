@@ -7,6 +7,7 @@
         :key="assignment.id"
         :assignment="assignment"
         :subject="assignments"
+        :disableActions="true"
       ></assignment>
     </ul>
   </details>
