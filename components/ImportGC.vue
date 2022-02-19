@@ -30,7 +30,7 @@
           valueAttribute="id"
           textAttribute="title"
           multiple
-          v-model="subject.importing"
+          v-model="importing"
           :close-on-select="false"
         ></TRichSelect>
       </client-only>
@@ -47,6 +47,7 @@ export default {
     "googleClassroomState",
     "googleClassroomAssignments",
     "importAssignment",
+    "importing"
   ],
   data() {
     return {

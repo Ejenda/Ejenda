@@ -16,7 +16,7 @@
         </p>
         <input
           ref="name"
-          v-model="assignment.name"
+          v-model="newText"
           v-show="editing"
           class="flex-1 bg-transparent px-2"
         />
@@ -34,7 +34,7 @@
       <div class="flex">
         <button
           class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
-          @click="editAssigment"
+          @click="editName"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -108,30 +108,17 @@
         </button>
       </div>
     </div>
-    <client-only>
-      <TRichSelect
-        :options="possibleTags"
-        multiple
-        v-model="assignment.tags"
-        :close-on-select="false"
-        @input="edit"
-      >
-        <template slot="dropdownDown" slot-scope="{ query }">
-          <div v-if="query" class="text-center">
-            <button
-              type="button"
-              class="block w-full border bg-blue-500 p-3 text-white hover:bg-blue-600"
-              @click="createOption(query)"
-            >
-              Create {{ query }}
-            </button>
-          </div>
-        </template>
-      </TRichSelect>
-    </client-only>
+    <v-select
+      :options="possibleTags"
+      :value="assignment.tags"
+      @input="editEvent($event, 'tags')"
+      multiple
+    ></v-select>
   </li>
 </template>
 <script>
+import { mapMutations, mapState, mapActions } from "vuex";
+
 export default {
   props: ["assignment", "subject", "disableDelete"],
   data() {
@@ -151,59 +138,65 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      editAssignment: "assignments/editAssignment",
+      deleteAssignment: "assignments/deleteAssignment",
+    }),
+
     completeAssignment() {
       let done = "Done";
       var index = this.assignment.tags.indexOf(done);
-
+      let tags = Array.from(this.assignment.tags);
       if (index === -1) {
-        this.assignment.tags.push(done);
+        tags.push(done);
       } else {
-        this.assignment.tags.splice(index, 1);
+        tags.splice(index, 1);
       }
-      this.edit(this.assignment);
-    },
-    async edit() {
-      await this.$auth.fetch(`${process.env.backendURL}/assignments/edit`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          newAssignment: this.assignment,
-          id: this.assignment.id,
-        }),
-      });
+      this.edit("tags", tags);
     },
     createOption(text) {
+      // TODO: This logic breaks on reload, FIX!!!
       if (this.assignment.tags.includes(text)) return;
       this.possibleTags.push(text);
       this.assignment.tags.push(text);
     },
-
-    editAssigment() {
-      this.editing = !this.editing;
+    editName() {
       if (!this.editing) {
-        // This is a little confusing, but we've already changed this.editing
-        this.edit();
-      } else {
+        this.newText = this.assignment.name;
         this.$nextTick(() => this.$refs.name.focus());
+      } else {
+        this.edit("name", this.newText);
       }
+      this.editing = !this.editing;
+    },
+    editEvent(e, toEdit) {
+      console.log("event", e);
+      this.edit(toEdit, e);
+    },
+    edit(toEdit = "name", value) {
+      let assignment = Object.assign({}, this.assignment);
+      assignment[toEdit] = value;
+      this.editAssignment({ subject: this.subject, assignment });
     },
     async deleteItem() {
       let { id } = this.assignment;
-      await this.$auth.fetch(`${process.env.backendURL}/assignments/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-      let assignments = (this.subject.assignments ?this.subject.assignments :this.subject )
-      let index = assignments.findIndex((item) => {
-        return item.id === id;
-      });
-      assignments.splice(index, 1);
+      this.deleteAssignment({ id, subject: this.subject });
     },
   },
 };
 </script>
+<style>
+/* Overriding v-select styles */
+.vs__selected {
+  @apply !bg-red-300 !p-2 !text-white;
+}
+.vs__selected-options {
+  @apply !p-1;
+}
+.vs__deselect > svg {
+  @apply fill-current text-white mx-1;
+}
+.vs__dropdown-option {
+  @apply !p-2;
+}
+</style>
