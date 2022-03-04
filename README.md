@@ -5,7 +5,7 @@
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
   <a href="#" target="_blank">
-    <img alt="License: GPL--3" src="https://img.shields.io/badge/License-GPL--3-yellow.svg" />
+    <img alt="License: GPL--3" src="https://img.shields.io/badge/License-GPL--3-amber.svg" />
   </a>
 </p>
 
@@ -29,16 +29,17 @@ npm run start
 
 👤 **GrahamSH**
 
-* Website: https://grahamsh.com
-* Github: [@GrahamSH-LLK](https://github.com/GrahamSH-LLK)
+- Website: https://grahamsh.com
+- Github: [@GrahamSH-LLK](https://github.com/GrahamSH-LLK)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Ejenda/Ejenda/issues). 
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Ejenda/Ejenda/issues).
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

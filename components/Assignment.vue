@@ -2,7 +2,7 @@
   <li
     class="my-2 rounded-sm border border-gray-100 bg-white bg-opacity-75 p-1 text-gray-800 shadow-sm transition-all dark:bg-gray-300 dark:bg-opacity-50"
     :class="{
-      '!bg-yellow-500': $date.isToday(new Date(assignment.date)),
+      '!bg-amber-500': $date.isToday(new Date(assignment.date)),
       '!bg-red-800 !text-white': $date.isLate(new Date(assignment.date)),
     }"
   >
@@ -194,7 +194,7 @@ export default {
   @apply !p-1;
 }
 .vs__deselect > svg {
-  @apply fill-current text-white mx-1;
+  @apply mx-1 fill-current text-white;
 }
 .vs__dropdown-option {
   @apply !p-2;
