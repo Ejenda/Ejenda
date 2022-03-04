@@ -33,6 +33,7 @@
         :key="`${assignment.id}`"
         :assignment="assignment"
         :subject="subject"
+        :disableDelete="false"
       />
     </transition-group>
     <div class="print:hidden">

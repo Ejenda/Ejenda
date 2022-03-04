@@ -103,7 +103,7 @@
 
 <script>
 import cookies from "js-cookie";
-import { zxcvbn, ZxcvbnOptions } from "@zxcvbn-ts/core";
+import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
 
 export default {
   middleware: "not-authenticated",
@@ -118,9 +118,9 @@ export default {
     pillSwitcher: function () {
       return {
         "bg-red-500": this.zxcvbnResults.score < 2,
-        "bg-yellow-500": this.zxcvbnResults.score == 2,
-        "bg-green-300 text-white": this.zxcvbnResults.score == 3,
-        "bg-green-500": this.zxcvbnResults.score == 4,
+        "bg-amber-500": this.zxcvbnResults.score == 2,
+        "bg-emerald-300 text-white": this.zxcvbnResults.score == 3,
+        "bg-emerald-500": this.zxcvbnResults.score == 4,
       };
     },
   },
@@ -134,12 +134,13 @@ export default {
       zxcvbnResults: {},
       agreeToTOC: false,
       zxcvbn: {},
+      zxcvbnOptions: {}
     };
   },
   watch: {
     "form.password": async function () {
       await this.loadOptions();
-      ZxcvbnOptions.setOptions(this.zxcvbnOptions);
+      zxcvbnOptions.setOptions(this.zxcvbnOptions);
 
       this.zxcvbnResults = zxcvbn(this.form.password);
     },
