@@ -16,7 +16,7 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/svg": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",
-    "@zxcvbn-ts/core": "^2.0.0",
+    "@zxcvbn-ts/core": "^2.0.1",
     "@zxcvbn-ts/language-common": "^2.0.1",
     "@zxcvbn-ts/language-en": "^2.0.0",
     "bcrypt": "^5.0.1",
