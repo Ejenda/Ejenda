@@ -19,7 +19,4 @@ export default async function ({ $auth, redirect, req, store, route }) {
   if (!$auth.loggedIn) {
     return redirect("/login");
   }
-  if (!$auth.user.onboarded && route.path !== "/onboarding") {
-    return redirect("/onboarding");
-  }
 }
