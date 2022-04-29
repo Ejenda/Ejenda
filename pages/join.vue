@@ -209,7 +209,7 @@ export default {
         try {
           this.$plausible.trackEvent("Join");
           await this.$store.dispatch("auth/login", data.token);
-          this.$router.replace(`/onboarding`);
+          this.$router.replace(`/app`);
         } catch (err) {
           console.error(`Login failed: ${err}`);
         }
