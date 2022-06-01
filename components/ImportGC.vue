@@ -6,10 +6,11 @@
     <custom-button
       v-show="googleClassroomState"
       @click="$vfm.show('importModal' + subject.name)"
-      ><span class="hidden md:block">Import assignments</span
+      class="dark:bg-gray-700"
+      ><span class="hidden">Import assignments</span
       ><svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 md:hidden"
+        class="h-6 w-6"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
