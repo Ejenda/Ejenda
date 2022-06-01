@@ -53,7 +53,7 @@
               </div>
               <input
                 :value="inputValue"
-                class="focus:outline-none focus:border-f-500 appearance-none rounded-r border bg-white p-2 text-gray-700"
+                class="focus:border-f-500 appearance-none rounded-r border bg-white p-2 text-gray-700 focus:outline-none"
                 @click="togglePopover()"
                 readonly
               />

@@ -47,7 +47,7 @@
               src="~/static/screenshot-dark.png"
               height="999px"
               width="572px"
-              class="rounded-sm shadow-lg rotate-3 hidden md:block"
+              class="hidden rotate-3 rounded-sm shadow-lg md:block"
             />
           </div>
         </div>

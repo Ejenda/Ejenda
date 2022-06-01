@@ -81,7 +81,6 @@ export default {
                 },
               },
             },
-
           }),
           screens: {
             print: { raw: "print" },

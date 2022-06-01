@@ -51,7 +51,7 @@ export default {
   },
 
   async fetch() {
-    await this.loadData()
+    await this.loadData();
 
     let built = [];
     this.assignmentsToday = [];
@@ -60,7 +60,6 @@ export default {
     this.assignmentsLater = [];
     this.assignmentsNoDate = [];
     for (let subject of this.subjects) {
-      
       for (let assignment of subject.assignments) {
         if (assignment.date) {
           if (date.isLate(new Date(assignment.date))) {

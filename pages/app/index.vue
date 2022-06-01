@@ -1,6 +1,6 @@
 <template>
   <div
-    class="dark:bg-gray-700 "
+    class="dark:bg-gray-700"
     :class="{ 'overflow-hidden': $fetchState.pending }"
   >
     <tabs />
@@ -47,29 +47,61 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else>
-    <div  class="bg-gray-100 dark:bg-transparent p-1 flex w-full overflow-scroll	 snap-x">
-      <Subject
-        v-for="subject of subjects"
-        :key="subject.name"
-        :subject="subject"
-        :googleClassroomState="googleClassroomState"
-        :googleClassroomAssignments="googleClassroomAssignments"
-      ></Subject>
-      <Modal
-        v-model="subjectModalOpen"
-        :name="'subjectModal'"
-        :show-buttons="true"
-        @confirm="$nuxt.refresh() && $vfm.hide('subjectModal')"
-        @cancel="$nuxt.refresh() && $vfm.hide('subjectModal')"
-        ><edit-subjects /><template slot="title">Edit subjects</template></Modal
+    <div class="flex flex-col md:flex-row" v-else>
+      <div
+        class="flex w-full snap-x overflow-scroll bg-gray-100 p-1 dark:bg-transparent"
       >
-    </div>
-          <CustomButton class="m-1 print:hidden" @click="$vfm.show('subjectModal')"
-        >Edit your subjects</CustomButton
-      >
+        <Subject
+          v-for="subject of subjects"
+          :key="subject.name"
+          :subject="subject"
+          :googleClassroomState="googleClassroomState"
+          :googleClassroomAssignments="googleClassroomAssignments"
+        ></Subject>
+        <Modal
+          v-model="subjectModalOpen"
+          :name="'subjectModal'"
+          :show-buttons="true"
+          @confirm="$nuxt.refresh() && $vfm.hide('subjectModal')"
+          @cancel="$nuxt.refresh() && $vfm.hide('subjectModal')"
+          ><edit-subjects /><template slot="title"
+            >Edit subjects</template
+          ></Modal
+        >
       </div>
+      <aside class="w-64" aria-label="Sidebar">
+        <div
+          class="overflow-y-auto rounded bg-gray-50 py-4 px-3 dark:bg-gray-800"
+        >
+          <ul class="space-y-2">
+            <li>
+              <a
+                class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 cursor-pointer"
+                          @click="$vfm.show('subjectModal')"
 
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+                <span class="ml-3 flex-1 whitespace-nowrap">Edit Subjects</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
   </div>
 </template>
 
@@ -115,7 +147,6 @@ export default {
   methods: {
     ...mapActions({
       loadData: "assignments/loadData",
-      
     }),
     ...mapMutations({}),
     async fetchGCI() {
