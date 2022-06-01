@@ -1,12 +1,16 @@
 <template>
   <ul
-    class="my-2 flex-1  p-6 text-gray-600 dark:bg-gray-500 bg-gray-200 bg-opacity-50 dark:bg-opacity-50 dark:text-white mx-2 rounded-md shadow snap-center"
+    class="my-2 mx-2 flex-1 snap-center rounded-md bg-gray-200 bg-opacity-50 p-6 text-gray-600 shadow dark:bg-gray-500 dark:bg-opacity-50 dark:text-white"
   >
     <div class="flex justify-between">
       <div>
         <h1 class="inline-block text-4xl font-bold">
-          {{ subject.name }}  <span class="rounded-full h-4 w-4 inline-block" :class="$color.parseColorBackground(subject.color)"></span>
+          {{ subject.name }}
         </h1>
+        <span
+          class="ml-2 inline-block h-4 w-4 rounded-full"
+          :class="$color.parseColorBackground(subject.color)"
+        ></span>
         <span class="border-blue inline-block rounded-full border px-3">{{
           subject.assignments.length
         }}</span>
@@ -35,19 +39,19 @@
         :disableDelete="false"
       />
     </transition-group>
-    <div class="print:hidden rounded shadow p-2">
+    <div class="rounded p-2 shadow print:hidden">
       <div>
-      <button
-        class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
-        @click="push(subject)"
-      >
-        +</button
-      ><input
-        placeholder="Add a new assignment"
-        class="rounded-r-sm p-2 text-gray-800 shadow-sm"
-        :ref="subject.id"
-        @keydown.enter="push(subject)"
-      />
+        <button
+          class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
+          @click="push(subject)"
+        >
+          +</button
+        ><input
+          placeholder="Add a new assignment"
+          class="rounded-r-sm p-2 text-gray-800 shadow-sm"
+          :ref="subject.id"
+          @keydown.enter="push(subject)"
+        />
       </div>
       <div class="mt-1">
         <client-only>
@@ -67,7 +71,7 @@
                 </div>
                 <input
                   :value="inputValue"
-                  class="focus:outline-none focus:border-f-500 appearance-none rounded-r border bg-white p-2 text-gray-700"
+                  class="focus:border-f-500 appearance-none rounded-r border bg-white p-2 text-gray-700 focus:outline-none"
                   @click="togglePopover()"
                   readonly
                 />
@@ -84,7 +88,7 @@ import { mapActions } from "vuex";
 export default {
   props: ["subject", "googleClassroomAssignments", "googleClassroomState"],
   data() {
-    return {date: '', importing: []}
+    return { date: "", importing: [] };
   },
   methods: {
     ...mapActions({ addAssignment: "assignments/addAssignment" }),

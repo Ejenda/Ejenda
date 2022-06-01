@@ -24,7 +24,6 @@ export const mutations = {
     assignments.splice(index, 1);
   },
   setAssignment(store, { subject, assignment }) {
-
     let subjectIndex = store.subjects.findIndex((value) => {
       return value.id == subject;
     });

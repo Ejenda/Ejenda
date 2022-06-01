@@ -12,13 +12,13 @@
           :class="{ 'line-through': assignment.tags.includes('Done') }"
           v-show="!editing"
         >
-          {{ assignment.name }}</span>
+          {{ assignment.name }}
         </p>
         <input
           ref="name"
           v-model="newText"
           v-show="editing"
-          class="flex-1 bg-transparent px-2 "
+          class="flex-1 bg-transparent px-2"
         />
 
         <p
@@ -33,7 +33,7 @@
       </div>
       <div class="flex" v-if="!disableActions">
         <button
-          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden shadow"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 shadow print:hidden"
           @click="editName"
         >
           <svg
@@ -67,7 +67,7 @@
           </svg>
         </button>
         <button
-          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden shadow"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 shadow print:hidden"
           @click="completeAssignment"
         >
           <svg
@@ -87,7 +87,7 @@
         </button>
 
         <button
-          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden shadow"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 shadow print:hidden"
           @click="deleteItem()"
           v-if="!disableActions"
         >
@@ -188,7 +188,7 @@ export default {
 <style>
 /* Overriding v-select styles */
 .vs__selected {
-  @apply !bg-gray-200 !p-2 !text-gray-600 !border-none shadow;
+  @apply !border-none !bg-gray-200 !p-2 !text-gray-600 shadow;
 }
 .vs__selected-options {
   @apply !p-1;
@@ -200,6 +200,6 @@ export default {
   @apply !p-2;
 }
 .vs__dropdown-toggle {
-  @apply !border-none shadow !pt-2;
+  @apply !border-none !pt-2 shadow;
 }
 </style>

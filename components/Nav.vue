@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between bg-red-300 p-2 shadow-lg dark:bg-gray-900">
+  <div class="flex justify-between bg-gray-100 p-2 shadow-lg dark:bg-gray-900">
     <div class="font-bold">
       <img
         class="inline h-10 w-10 rounded-lg align-text-bottom"

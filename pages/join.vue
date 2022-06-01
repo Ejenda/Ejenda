@@ -134,7 +134,7 @@ export default {
       zxcvbnResults: {},
       agreeToTOC: false,
       zxcvbn: {},
-      zxcvbnOptions: {}
+      zxcvbnOptions: {},
     };
   },
   watch: {

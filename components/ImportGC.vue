@@ -48,7 +48,7 @@ export default {
     "googleClassroomState",
     "googleClassroomAssignments",
     "importAssignment",
-    "importing"
+    "importing",
   ],
   data() {
     return {

@@ -499,16 +499,21 @@ app.get("/google/assignments", async (req, res) => {
   res.send(assignments);
 });
 
-app.get('/api/admin', checkLoggedIn(), async (req, res) =>{
+app.get("/api/admin", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
 
-  if (!dbUser.admin) return res.send({ error: 'must be admin'})
-  let totalUsers = await User.find({})
+  if (!dbUser.admin) return res.send({ error: "must be admin" });
+  let totalUsers = await User.find({});
 
-  let usersWithOneAssignment = await User.find({'assignments.0': {$exists: true}});
-  res.send( {totalUsers: totalUsers.length, usersWithOneAssignment: usersWithOneAssignment.length})
-})
+  let usersWithOneAssignment = await User.find({
+    "assignments.0": { $exists: true },
+  });
+  res.send({
+    totalUsers: totalUsers.length,
+    usersWithOneAssignment: usersWithOneAssignment.length,
+  });
+});
 
 let quote = { text: "", author: "" };
 app.get("/quote", (req, res) => {
