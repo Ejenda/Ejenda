@@ -1,6 +1,6 @@
 <template>
   <div
-    class="dark:bg-gray-700"
+    class="dark:bg-gray-700 "
     :class="{ 'overflow-hidden': $fetchState.pending }"
   >
     <tabs />
@@ -47,7 +47,8 @@
         <p>Try again later</p>
       </span>
     </div>
-    <div v-else class="bg-blue-50 dark:bg-transparent">
+    <div v-else>
+    <div  class="bg-gray-100 dark:bg-transparent p-1 flex w-full overflow-scroll	 snap-x">
       <Subject
         v-for="subject of subjects"
         :key="subject.name"
@@ -63,10 +64,12 @@
         @cancel="$nuxt.refresh() && $vfm.hide('subjectModal')"
         ><edit-subjects /><template slot="title">Edit subjects</template></Modal
       >
-      <CustomButton class="m-1 print:hidden" @click="$vfm.show('subjectModal')"
+    </div>
+          <CustomButton class="m-1 print:hidden" @click="$vfm.show('subjectModal')"
         >Edit your subjects</CustomButton
       >
-    </div>
+      </div>
+
   </div>
 </template>
 

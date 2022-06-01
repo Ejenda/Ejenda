@@ -1,9 +1,9 @@
 <template>
   <li
-    class="my-2 rounded-sm border border-gray-100 bg-white bg-opacity-75 p-1 text-gray-800 shadow-sm transition-all dark:bg-gray-300 dark:bg-opacity-50"
+    class="my-4 rounded-md border border-gray-100 bg-white bg-opacity-75 p-2 text-gray-800 shadow-sm transition-all dark:bg-gray-300 dark:bg-opacity-50"
     :class="{
       '!bg-amber-500': $date.isToday(new Date(assignment.date)),
-      '!bg-red-800 !text-white': $date.isLate(new Date(assignment.date)),
+      '!bg-red-600 !text-white': $date.isLate(new Date(assignment.date)),
     }"
   >
     <div class="flex justify-between">
@@ -12,13 +12,13 @@
           :class="{ 'line-through': assignment.tags.includes('Done') }"
           v-show="!editing"
         >
-          {{ assignment.name }}
+          {{ assignment.name }}</span>
         </p>
         <input
           ref="name"
           v-model="newText"
           v-show="editing"
-          class="flex-1 bg-transparent px-2"
+          class="flex-1 bg-transparent px-2 "
         />
 
         <p
@@ -33,7 +33,7 @@
       </div>
       <div class="flex" v-if="!disableActions">
         <button
-          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden shadow"
           @click="editName"
         >
           <svg
@@ -67,7 +67,7 @@
           </svg>
         </button>
         <button
-          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden shadow"
           @click="completeAssignment"
         >
           <svg
@@ -87,9 +87,9 @@
         </button>
 
         <button
-          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden"
+          class="m-1 rounded-md bg-white px-2 py-1 text-gray-800 print:hidden shadow"
           @click="deleteItem()"
-          v-if="!disableDelete"
+          v-if="!disableActions"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -188,15 +188,18 @@ export default {
 <style>
 /* Overriding v-select styles */
 .vs__selected {
-  @apply !bg-red-300 !p-2 !text-white;
+  @apply !bg-gray-200 !p-2 !text-gray-600 !border-none shadow;
 }
 .vs__selected-options {
   @apply !p-1;
 }
 .vs__deselect > svg {
-  @apply mx-1 fill-current text-white;
+  @apply mx-1 fill-current text-gray-600;
 }
 .vs__dropdown-option {
   @apply !p-2;
+}
+.vs__dropdown-toggle {
+  @apply !border-none shadow !pt-2;
 }
 </style>

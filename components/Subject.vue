@@ -1,12 +1,11 @@
 <template>
   <ul
-    class="mb-1 w-full border-2 border-solid bg-opacity-10 p-6 text-gray-600 dark:bg-gray-700 dark:bg-opacity-50 dark:text-white"
-    :class="$color.parseColor(subject.color)"
+    class="my-2 flex-1  p-6 text-gray-600 dark:bg-gray-500 bg-gray-200 bg-opacity-50 dark:bg-opacity-50 dark:text-white mx-2 rounded-md shadow snap-center"
   >
     <div class="flex justify-between">
       <div>
         <h1 class="inline-block text-4xl font-bold">
-          {{ subject.name }}
+          {{ subject.name }}  <span class="rounded-full h-4 w-4 inline-block" :class="$color.parseColorBackground(subject.color)"></span>
         </h1>
         <span class="border-blue inline-block rounded-full border px-3">{{
           subject.assignments.length
@@ -36,7 +35,8 @@
         :disableDelete="false"
       />
     </transition-group>
-    <div class="print:hidden">
+    <div class="print:hidden rounded shadow p-2">
+      <div>
       <button
         class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
         @click="push(subject)"
@@ -48,10 +48,11 @@
         :ref="subject.id"
         @keydown.enter="push(subject)"
       />
+      </div>
       <div class="mt-1">
         <client-only>
           <v-date-picker
-            class="block h-full w-72"
+            class="block h-full w-full"
             :min-date="new Date()"
             v-model="date"
             :is-dark="$colorMode.preference == 'dark'"
