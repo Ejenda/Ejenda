@@ -76,9 +76,8 @@
           <ul class="space-y-2">
             <li>
               <a
-                class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 cursor-pointer"
-                          @click="$vfm.show('subjectModal')"
-
+                class="flex cursor-pointer items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                @click="$vfm.show('subjectModal')"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +99,6 @@
           </ul>
         </div>
       </aside>
-
     </div>
   </div>
 </template>

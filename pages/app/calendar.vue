@@ -1,9 +1,9 @@
 <template>
-  <div class="section min-h-screen text-center w-full">
+  <div class="section min-h-screen w-full text-center">
     <tabs />
     <client-only>
       <v-calendar
-        class="custom-calendar  "
+        class="custom-calendar"
         :masks="masks"
         :attributes="attributes"
         disable-page-swipe
@@ -128,14 +128,14 @@ export default {
   --weekday-bg: #f8fafc;
   --weekday-border: 1px solid #eaeaea;
   border-radius: 0;
-  border:none;
-  
+  border: none;
+
   width: 100%;
   & .vc-header {
     padding: 10px 0;
   }
   & .vc-weeks {
-    @apply overflow-scroll p-0
+    @apply overflow-scroll p-0;
   }
   & .vc-weekday {
     background-color: var(--weekday-bg);
