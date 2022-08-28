@@ -202,4 +202,7 @@ export default {
 .vs__dropdown-toggle {
   @apply !border-none !pt-2 shadow;
 }
+:root {
+  --vs-dropdown-color: gray;
+}
 </style>

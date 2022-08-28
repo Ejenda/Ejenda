@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="my-2 mx-2 flex-1 snap-center rounded-md bg-gray-200 bg-opacity-50 p-6 text-gray-600 shadow dark:bg-gray-500 dark:bg-opacity-50 dark:text-white"
+    class="my-2 mx-2 flex-1 snap-center rounded-md bg-gray-200 bg-opacity-50 p-6 pb-8 text-gray-600 shadow dark:bg-gray-500 dark:bg-opacity-50 dark:text-white"
   >
     <div class="flex justify-between">
       <div>
