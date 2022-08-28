@@ -12,7 +12,7 @@
   "dependencies": {
     "@nuxtjs/color-mode": "^2.1.1",
     "@nuxtjs/pwa": "^3.3.5",
-    "@nuxtjs/sentry": "^5.1.7",
+    "@nuxtjs/sentry": "^6.0.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/svg": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",
