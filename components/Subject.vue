@@ -39,7 +39,7 @@
         :disableDelete="false"
       />
     </transition-group>
-    <div class="rounded p-2 shadow print:hidden">
+    <div class="rounded p-2 shadow print:hidden w-min">
       <div>
         <button
           class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
@@ -53,7 +53,7 @@
           @keydown.enter="push(subject)"
         />
       </div>
-      <div class="mt-1">
+      <div class="mt-1 min-w-60	">
         <client-only>
           <v-date-picker
             class="block h-full w-full"

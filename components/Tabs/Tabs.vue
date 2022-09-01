@@ -5,11 +5,9 @@
         <TabsTab to="/app">List</TabsTab>
         <TabsTab to="/app/calendar">Calendar</TabsTab>
         <TabsTab to="/app/todo"> To Do</TabsTab>
-        <span class="mx-2 dark:text-red-200"
-          >Plan
-          <span class="hidden text-sm font-light italic md:inline"
-            >Coming Soon</span
-          ></span
+        <TabsTab to="/app/horizontal"
+          >Horizontal
+          </TabsTab
         >
       </div>
       <blockquote
