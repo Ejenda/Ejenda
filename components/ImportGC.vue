@@ -33,6 +33,7 @@
           multiple
           v-model="importing"
           :close-on-select="false"
+          :autofocus="true"
         ></TRichSelect>
       </client-only>
       <custom-button @click="importAssignment(subject)"

@@ -492,15 +492,16 @@ app.get("/google/assignments", async (req, res) => {
   const classroom = google.classroom({ version: "v1", auth: oAuth2Client });
 
   let { data } = await classroom.courses.list({
-    pageSize: 100,
+    pageSize: 15,
     auth: oAuth2Client,
     courseStates: 'ACTIVE'
   });
   const courses = data.courses;
   if (courses && courses.length) {
     for (let course of courses) {
+      console.log(course.id)
         let { data } = await classroom.courses.courseWork.list({
-          pageSize: 50,
+          pageSize: 15,
           courseId: course.id,
           auth: oAuth2Client,
         });
@@ -509,6 +510,7 @@ app.get("/google/assignments", async (req, res) => {
         }
       
     }
+    console.log('end')
   } else {
     console.log("No courses found.");
   }
