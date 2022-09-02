@@ -409,9 +409,10 @@ app.get("/optimizedsubjects", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
   let enriched = dbUser.subjects.map(
+  
     (it) => {
       let subjectassignments = dbUser.assignments.filter((item) => {
-        return item.subject == it[0];
+        return item.subject == it[0].toLowerCase();
       })
   
       return {data: it, assignments: subjectassignments }
@@ -493,20 +494,20 @@ app.get("/google/assignments", async (req, res) => {
   let { data } = await classroom.courses.list({
     pageSize: 100,
     auth: oAuth2Client,
+    courseStates: 'ACTIVE'
   });
   const courses = data.courses;
   if (courses && courses.length) {
     for (let course of courses) {
-      if (course.courseState == "ACTIVE") {
         let { data } = await classroom.courses.courseWork.list({
-          pageSize: 100,
+          pageSize: 50,
           courseId: course.id,
           auth: oAuth2Client,
         });
         if (data.courseWork) {
           assignments.push(...data.courseWork);
         }
-      }
+      
     }
   } else {
     console.log("No courses found.");
