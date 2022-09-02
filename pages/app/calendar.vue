@@ -59,16 +59,12 @@ export default {
     };
 
     let subjects = await (
-      await this.$auth.fetch(`${process.env.backendURL}/subjects`, opts)
+      await this.$auth.fetch(`${process.env.backendURL}/optimizedsubjects`, opts)
     ).json();
     let built = [];
     this.attributes = [];
     for (let subject of subjects) {
-      let assignments = await (
-        await this.$auth.fetch(
-          `${process.env.backendURL}/assignments/${subject[0].toLowerCase()}`
-        )
-      ).json();
+      let assignments = subject.assignments;
       let builtSubject = this.generateSubject(
         subject[0],
         subject[1],

@@ -405,6 +405,21 @@ app.get("/subjects", checkLoggedIn(), async (req, res) => {
   let dbUser = await User.findOne({ _id: user._id });
   res.send(dbUser.subjects);
 });
+app.get("/optimizedsubjects", checkLoggedIn(), async (req, res) => {
+  let user = res.locals.requester;
+  let dbUser = await User.findOne({ _id: user._id });
+  let enriched = dbUser.subjects.map(
+    (it) => {
+      let subjectassignments = dbUser.assignments.filter((item) => {
+        return item.subject == it[0];
+      })
+  
+      return {data: it, assignments: subjectassignments }
+    }
+  )
+  res.send(enriched);
+});
+
 app.get("/assignments/:subject", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });

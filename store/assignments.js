@@ -96,7 +96,7 @@ export const actions = {
 
     return new Promise(async (resolve, reject) => {
       let subjects = await (
-        await this.$auth.fetch(`${process.env.backendURL}/subjects`, {
+        await this.$auth.fetch(`${process.env.backendURL}/optimizedsubjects`, {
           method: "GET",
           headers: {
             pragma: "no-cache",
@@ -106,12 +106,8 @@ export const actions = {
       ).json();
       let built = [];
       for (let subject of subjects) {
-        let assignments = await (
-          await this.$auth.fetch(
-            `${process.env.backendURL}/assignments/${subject[0].toLowerCase()}`
-          )
-        ).json();
-        built.push(generateSubject(subject[0], subject[1], assignments));
+        let assignments = subject.assignments;
+        built.push(generateSubject(subject.data[0], subject.data[1], assignments));
       }
       commit("setSubjects", built);
       resolve(built);
