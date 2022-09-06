@@ -408,16 +408,13 @@ app.get("/subjects", checkLoggedIn(), async (req, res) => {
 app.get("/optimizedsubjects", checkLoggedIn(), async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
-  let enriched = dbUser.subjects.map(
-  
-    (it) => {
-      let subjectassignments = dbUser.assignments.filter((item) => {
-        return item.subject == it[0].toLowerCase();
-      })
-  
-      return {data: it, assignments: subjectassignments }
-    }
-  )
+  let enriched = dbUser.subjects.map((it) => {
+    let subjectassignments = dbUser.assignments.filter((item) => {
+      return item.subject == it[0].toLowerCase();
+    });
+
+    return { data: it, assignments: subjectassignments };
+  });
   res.send(enriched);
 });
 
@@ -441,6 +438,10 @@ app.delete("/assignments/delete", checkLoggedIn(), async (req, res) => {
   await dbUser.save();
   res.json({ ok: true });
 });
+google.options({
+  http2: true,
+});
+
 app.get("/google/auth", (req, res) => {
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -473,6 +474,7 @@ app.get("/google/auth/callback", checkLoggedIn(), async (req, res) => {
   dbUser.save();
   res.redirect("/app");
 });
+
 app.get("/google/assignments", async (req, res) => {
   let user = res.locals.requester;
   let dbUser = await User.findOne({ _id: user._id });
@@ -489,32 +491,44 @@ app.get("/google/assignments", async (req, res) => {
   let assignments = [];
   const tokens = dbUser.classroomToken;
   oAuth2Client.setCredentials(tokens);
+
+  
   const classroom = google.classroom({ version: "v1", auth: oAuth2Client });
+  function fetchAssignments(value) {
+    return new Promise(async (resolve) => {
+      let { data } = await classroom.courses.courseWork.list({
+        pageSize: 15,
+        courseId: value,
+        auth: oAuth2Client,
+        fields: "courseWork(title,id)",
+      });
+      resolve(...data.courseWork);
+    });
+  }
 
   let { data } = await classroom.courses.list({
     pageSize: 15,
     auth: oAuth2Client,
-    courseStates: 'ACTIVE'
+    courseStates: "ACTIVE",
   });
   const courses = data.courses;
   if (courses && courses.length) {
+    const promises = [];
     for (let course of courses) {
-      console.log(course.id)
-        let { data } = await classroom.courses.courseWork.list({
-          pageSize: 15,
-          courseId: course.id,
-          auth: oAuth2Client,
-        });
-        if (data.courseWork) {
-          assignments.push(...data.courseWork);
-        }
-      
+      promises.push(fetchAssignments(course.id));
     }
-    console.log('end')
+    Promise.all(promises)
+      .then((results) => {
+        console.log("All done", results);
+        res.json(results);
+      })
+      .catch((e) => {
+        // Handle errors here
+      });
   } else {
     console.log("No courses found.");
   }
-  res.send(assignments);
+  //res.send(assignments);
 });
 
 app.get("/api/admin", checkLoggedIn(), async (req, res) => {
