@@ -8,19 +8,26 @@
       @cancel="$vfm.hide('createSubject')"
     >
       <template slot="title">Add subject</template>
-      Name: <input v-model="newName" /> Color:
-      <select v-model="newColor">
-        <option value="red">Red</option>
-        <option value="indigo">Indigo</option>
-        <option value="blue">Blue</option>
-        <option value="yellow">Yellow</option>
-        <option value="green">Green</option>
-        <option value="purple">Purple</option>
-      </select>
+      <p class="pb-1"><span>Name:</span> <input v-model="newName" class=" rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-10"/></p>
+      <p>
+        <span >Color:</span>
+        <select class=" rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-10" v-model="newColor">
+          <option value="red">Red</option>
+          <option value="indigo">Indigo</option>
+          <option value="blue">Blue</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="purple">Purple</option>
+        </select>
+      </p>
     </Modal>
     <draggable v-model="subjects" ghost-class="ghost">
       <transition-group>
-        <div v-for="(element, i) of subjects" :key="element[0]">
+        <div
+          v-for="(element, i) of subjects"
+          :key="element[0]"
+          class="mb-1 flex justify-between rounded-md bg-gray-100 p-2"
+        >
           {{ element[0] }}
           <button @click="removeAt(i)">
             <svg

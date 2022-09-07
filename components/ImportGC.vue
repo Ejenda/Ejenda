@@ -36,7 +36,7 @@
           :autofocus="true"
         ></TRichSelect>
       </client-only>
-      <custom-button @click="importAssignment(subject)"
+      <custom-button @click="importAssignment(subject)" class="mt-2"
         >Add assignment</custom-button
       >
     </Modal>
