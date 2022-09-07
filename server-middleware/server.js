@@ -510,6 +510,7 @@ app.get("/google/assignments", async (req, res) => {
     pageSize: 15,
     auth: oAuth2Client,
     courseStates: "ACTIVE",
+    fields: 'courses(id)'
   });
   const courses = data.courses;
   if (courses && courses.length) {
