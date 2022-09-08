@@ -188,7 +188,7 @@ export default {
 <style>
 /* Overriding v-select styles */
 .vs__selected {
-  @apply !border-none !bg-gray-200 !p-2 !text-gray-600 shadow;
+  @apply !border-none !bg-gray-100 !p-2 !text-gray-600 shadow;
 }
 .vs__selected-options {
   @apply !p-1;
@@ -197,12 +197,19 @@ export default {
   @apply mx-1 fill-current text-gray-600;
 }
 .vs__dropdown-option {
-  @apply !p-2;
+  @apply !p-2 !text-gray-800;
 }
 .vs__dropdown-toggle {
-  @apply !border-none !pt-2 shadow;
+  @apply !border-none !pt-2 shadow ;
+}
+.vs__open-indicator {
+  @apply !fill-current !text-gray-600
+}
+.vs__dropdown-option--highlight {
+  @apply !bg-blue-200 !text-gray-800
 }
 :root {
   --vs-dropdown-color: gray;
 }
+
 </style>

@@ -63,15 +63,7 @@ const userSchema = new Schema({
   assignments: [userAssignmentSchema],
   subjects: {
     type: Array,
-    default: [
-      ["Math", "red"],
-      ["English", "indigo"],
-      ["Science", "yellow"],
-      ["Social Studies", "blue"],
-      ["Foreign Language", "green"],
-      ["Related Arts", "purple"],
-      ["Random Things", ""],
-    ],
+    default: [["Delete Me", "red"]],
   },
   classroomToken: Object,
 });
@@ -198,6 +190,22 @@ app.post(
         new User({
           name: username,
           password: hashed,
+          assignments: [
+            {
+              name: "Add your subjects! Click on the button on the sidebar to get started",
+              id: "getting-started-1",
+              date: new Date(),
+              tags: [],
+              subject: "delete me",
+            },
+            {
+              name: "Once you've done that, add your first assignment to the subjects!",
+              id: "getting-started-2",
+              date: new Date((new Date().getTime() + 24 * 60 * 60 * 1000) + 1 ),
+              tags: [],
+              subject: "delete me",
+            },
+          ],
         }).save(function (error) {
           if (error) {
             if (error.code == 11000) {
@@ -492,7 +500,6 @@ app.get("/google/assignments", async (req, res) => {
   const tokens = dbUser.classroomToken;
   oAuth2Client.setCredentials(tokens);
 
-  
   const classroom = google.classroom({ version: "v1", auth: oAuth2Client });
   function fetchAssignments(value) {
     return new Promise(async (resolve) => {
@@ -510,7 +517,7 @@ app.get("/google/assignments", async (req, res) => {
     pageSize: 15,
     auth: oAuth2Client,
     courseStates: "ACTIVE",
-    fields: 'courses(id)'
+    fields: "courses(id)",
   });
   const courses = data.courses;
   if (courses && courses.length) {

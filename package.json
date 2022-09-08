@@ -45,6 +45,7 @@
     "vue-select": "^3.18.3",
     "vue-tailwind": "^2.5.1",
     "vuedraggable": "^2.24.3",
+    "workbox-window": "^6.5.4",
     "zlib": "^1.0.5"
   },
   "devDependencies": {

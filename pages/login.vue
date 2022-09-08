@@ -105,6 +105,7 @@ export default {
           expires: new Date(253402300000000),
         });
         try {
+          await this.$store.dispatch("auth/logout");
           await this.$store.dispatch("auth/login", data.token);
           this.$router.push({
             path: "/app",

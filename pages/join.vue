@@ -208,6 +208,7 @@ export default {
         });
         try {
           this.$plausible.trackEvent("Join");
+          await this.$store.dispatch("auth/logout");
           await this.$store.dispatch("auth/login", data.token);
           this.$router.replace(`/app`);
         } catch (err) {
