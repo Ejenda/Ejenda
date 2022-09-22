@@ -72,7 +72,7 @@
       </div>
       <aside class="w-64" aria-label="Sidebar">
         <div
-          class="overflow-y-auto rounded bg-gray-50 py-4 px-3 dark:bg-gray-800"
+          class="overflow-y-auto rounded bg-gray-50 py-4 px-3 dark:bg-gray-800 h-full"
         >
           <ul class="space-y-2 w-60	z">
             <li>
@@ -94,7 +94,7 @@
                     d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                   />
                 </svg>
-                <span class="ml-3 flex-1 whitespace-nowrap ">Edit Subjects</span>
+                <span class="ml-3 flex-1 whitespace-nowrap h-full">Edit Subjects</span>
               </a>
             </li>
           </ul>

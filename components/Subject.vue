@@ -1,19 +1,19 @@
 <template>
   <ul
-    class="my-2 mx-2 flex-1 snap-center rounded-md bg-gray-200 bg-opacity-50 p-6 pb-8 text-gray-600 shadow dark:bg-gray-500 dark:bg-opacity-50 dark:text-white"
+    class="my-2 mx-2 flex-1 snap-center rounded-md bg-white bg-opacity-75 p-6 pb-8 text-gray-600 shadow dark:bg-gray-500 dark:bg-opacity-50 dark:text-white"
   >
-    <div class="flex justify-between">
+    <div class="flex justify-between items-center">
       <div>
-        <h1 class="inline-block text-4xl font-bold">
-          {{ subject.name }}
-        </h1>
         <span
-          class="ml-2 inline-block h-4 w-4 rounded-full"
+          class="p-1/2 h-6  px-1 text-2xl font-bold text-white"
           :class="$color.parseColorBackground(subject.color)"
-        ></span>
-        <span class="border-blue inline-block rounded-full border px-3">{{
-          subject.assignments.length
-        }}</span>
+          >{{ subject.name }}
+        </span>
+        <span
+          class="p-1/2 h-6 bg-gray-300 px-2 text-2xl font-bold text-white text-gray-800"
+        >
+          {{ subject.assignments.length }}
+        </span>
       </div>
       <div>
         <ImportGC
@@ -39,7 +39,7 @@
         :disableDelete="false"
       />
     </transition-group>
-    <div class="rounded p-2 shadow print:hidden w-min">
+    <div class="w-min rounded p-2 shadow print:hidden">
       <div>
         <button
           class="rounded-l-sm bg-white p-2 text-gray-800 shadow-sm"
@@ -53,7 +53,7 @@
           @keydown.enter="push(subject)"
         />
       </div>
-      <div class="mt-1 min-w-60	">
+      <div class="min-w-60 mt-1">
         <client-only>
           <v-date-picker
             class="block h-full w-full"

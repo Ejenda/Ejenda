@@ -1,6 +1,6 @@
 <template>
   <li
-    class="my-4 rounded-md border border-gray-100 bg-white bg-opacity-75 p-2 text-gray-800 shadow-sm transition-all dark:bg-gray-300 dark:bg-opacity-50"
+    class="my-4 rounded-md  border border-gray-200 bg-gray-200 bg-opacity-25 p-2 text-gray-800 shadow-sm transition-all dark:bg-gray-500 dark:bg-opacity-75 dark:border-gray-600"
     :class="{
       '!bg-amber-500': $date.isToday(new Date(assignment.date)),
       '!bg-red-600 !text-white': $date.isLate(new Date(assignment.date)),
@@ -11,6 +11,7 @@
         <p
           :class="{ 'line-through': assignment.tags.includes('Done') }"
           v-show="!editing"
+          class="dark:text-white"
         >
           {{ assignment.name }}
         </p>
@@ -23,11 +24,11 @@
 
         <p
           v-if="assignment.date"
-          class="italic text-gray-400 dark:text-gray-600"
+          class="italic text-gray-400 dark:text-gray-200"
         >
-          Due: {{ new Date(assignment.date).toLocaleDateString() }}
+          Due {{ new Date(assignment.date).toLocaleDateString() }}
         </p>
-        <p v-else class="italic text-gray-400 dark:text-gray-600">
+        <p v-else class="italic text-gray-400 dark:text-gray-200">
           No due date
         </p>
       </div>
