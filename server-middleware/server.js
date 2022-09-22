@@ -74,14 +74,16 @@ let sessions = [];
 })();
 
 const strictCors = {};
-function findSession(token) {
-  const session = sessions.find((f) => f.token == token);
+async function findSession(token) {
+
+  const session = (await Session.findOne({token}).exec());
+  console.log(session)
   return session;
 }
 async function addSession(token, id, time) {
   // defaults to 6 hours
   new Session({ id: id, token: token }).save();
-  sessions.push({ id: id, token: token });
+  //sessions.push({ id: id, token: token });
 
   if (time) {
     setTimeout(() => {
@@ -93,12 +95,10 @@ async function addSession(token, id, time) {
 
 async function removeSession(token) {
   await Session.deleteOne({ token });
-  sessions = sessions.filter((obj) => {
-    return obj.token !== token;
-  });
 }
 
 function findUser(id) {
+  console.log(id)
   id = id.toString();
   if (id.length !== 24) {
     id = "000000000000000000000001";
@@ -117,8 +117,9 @@ function findUser(id) {
 app.use(async (req, res, next) => {
   // get user
   const token = req.headers.authorization || req.cookies.token;
-  let user = findSession(token);
+  let user = await findSession(token);
   if (user) {
+    console.log('user', user)
     res.locals.requester = await findUser(user.id);
     if (res.locals.requester) {
       res.locals.loggedIn = true;
