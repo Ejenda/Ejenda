@@ -8,10 +8,19 @@
       @cancel="$vfm.hide('createSubject')"
     >
       <template slot="title">Add subject</template>
-      <p class="pb-1"><span>Name:</span> <input v-model="newName" class=" rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-10"/></p>
+      <p class="pb-1">
+        <span>Name:</span>
+        <input
+          v-model="newName"
+          class="h-10 rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </p>
       <p>
-        <span >Color:</span>
-        <select class=" rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-10" v-model="newColor">
+        <span>Color:</span>
+        <select
+          class="h-10 rounded-md border border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          v-model="newColor"
+        >
           <option value="red">Red</option>
           <option value="indigo">Indigo</option>
           <option value="blue">Blue</option>
@@ -28,7 +37,25 @@
           :key="element[0]"
           class="mb-1 flex justify-between rounded-md bg-gray-100 p-2"
         >
-          {{ element[0] }}
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-6 w-6 inline-block cursor-move"
+              
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+
+            {{ element[0] }}
+          </div>
           <button @click="removeAt(i)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
