@@ -1,10 +1,10 @@
 <template>
   <div>
-    <a href="/google/auth" v-show="googleClassroomState === 'bad'">
-      Sign in with Google to import
+    <a href="/google/auth" v-if="googleClassroomState === 'out'">
+      Sign in with Google
     </a>
     <custom-button
-      v-show="googleClassroomState"
+      v-else-if="googleClassroomState"
       @click="$vfm.show('importModal' + subject.name)"
       class="dark:bg-gray-700"
       ><span class="hidden">Import assignments</span
