@@ -34,7 +34,7 @@
     "mongoose": "^6.7.0",
     "net": "^1.0.2",
     "node-fetch": "^3.2.10",
-    "nuxt": "^2.15.8",
+    "nuxt": "^3.2.0",
     "skeleton-loader-vue": "^1.0.10",
     "stream": "^0.0.2",
     "url": "^0.11.0",
