@@ -1,3 +1,3 @@
 <template>
-    <List/>
+    
 </template>
