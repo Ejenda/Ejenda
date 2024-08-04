@@ -1,6 +1,6 @@
 {
-  "id": "fd02d775-5e00-4848-a23c-af8714832392",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "7ece89b7-4344-4411-ad08-84a4be72b53f",
+  "prevId": "fd02d775-5e00-4848-a23c-af8714832392",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -32,6 +32,35 @@
           "type": "text[]",
           "primaryKey": false,
           "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(32)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},

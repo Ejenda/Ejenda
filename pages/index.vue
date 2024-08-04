@@ -1,16 +1,18 @@
 <template>
+  <Header />
+
   <div
     class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 pt-20 text-center lg:pt-32"
   >
     <h1
-      class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl"
+      class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl dark:text-slate-200"
     >
-      Assignments 
+      Assignments
       <span class="relative whitespace-nowrap text-primary-600"
         ><svg
           aria-hidden="true"
           viewBox="0 0 418 42"
-          class="absolute left-0 top-2/3 h-[0.58em] w-full fill-primary-300/70"
+          class="absolute left-0 top-2/3 h-[0.58em] w-full fill-primary-300/70 dark:fill-primary-400/70"
           preserveAspectRatio="none"
         >
           <path
@@ -18,10 +20,12 @@
           ></path></svg
         ><span class="relative">made simple</span></span
       >
-       for students.
+      for students.
     </h1>
-    <p class="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-        A better way to keep track of your assignments and tasks.
+    <p
+      class="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700 dark:text-slate-400"
+    >
+      A better way to keep track of your assignments and tasks.
     </p>
     <div class="mt-10 flex justify-center gap-x-6">
       <a
@@ -44,9 +48,7 @@
       >
     </div>
     <div class="mt-36 lg:mt-44">
-      <p class="font-display text-base text-slate-900">
-      </p>
-   
+      <p class="font-display text-base text-slate-900"></p>
     </div>
   </div>
 </template>

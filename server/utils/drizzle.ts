@@ -1,11 +1,11 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 export { sql, eq, and, or, like } from "drizzle-orm";
 import * as schema from "../database/schema";
-
+import { randomBytes } from "crypto";
 import postgres from "postgres";
 import KSUID from "ksuid";
 
-const queryClient = postgres("postgres://postgres:example@localhost:5432/db");
+const queryClient = postgres("postgres://postgres:example@localhost:5555/db");
 
 export const tables = schema;
 
@@ -16,7 +16,11 @@ export function useDrizzle() {
 export type User = typeof schema.users.$inferSelect;
 export type Assignment = typeof schema.assignments.$inferSelect;
 
-type KeyPrefix = "user" | "assn";
+type KeyPrefix = "user" | "assn" | "subj";
 export function useKSUID(keyPrefix: KeyPrefix) {
-  return "user" + "_" + KSUID.randomSync().string;
+  return keyPrefix + "_" + KSUID.randomSync().string;
+}
+
+export function createSession() {
+  return "sess_" + randomBytes(16).toString("hex");
 }

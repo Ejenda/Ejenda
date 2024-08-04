@@ -9,10 +9,17 @@ export default eventHandler(async (event) => {
     .values({
       id: useKSUID("user"),
       password: hashed,
-      createdAt: Date.now(),
       name,
     })
+    .onConflictDoNothing()
     .returning();
+    if (!user.length) {
+      throw createError({
+        statusCode: 409,
+          message: "User already exists",
+        
+      });
+    }
 
-  return user;
+  return user[0];
 });
