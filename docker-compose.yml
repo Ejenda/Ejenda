@@ -20,5 +20,7 @@ services:
   app:
     build:
       context: .
+    environment:
+      - PRODUCTION=true
     ports:
       - "3000:3000"
