@@ -5,6 +5,7 @@ import { randomBytes } from "crypto";
 import postgres from "postgres";
 import KSUID from "ksuid";
 
+
 const queryClient = postgres("postgres://postgres:example@localhost:5555/db");
 
 export const tables = schema;

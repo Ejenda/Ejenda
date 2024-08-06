@@ -1,0 +1,2 @@
+CREATE INDEX IF NOT EXISTS "assignment_user_id_idx" ON "assignments" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "subject_id_idx" ON "assignments" USING btree ("subject_id");

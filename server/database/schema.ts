@@ -20,19 +20,28 @@ export const userRelations = relations(users, ({ many }) => ({
   user: many(assignments),
 }));
 
-export const assignments = pgTable("assignments", {
-  id: varchar("id", { length: 32 })
-    .primaryKey()
-    .$defaultFn(() => useKSUID("subj")),
-  userId: varchar("user_id", { length: 32 }),
-  title: text("title").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  tags: text("tags").array(),
-  due: timestamp("due", { withTimezone: true }),
-  subjectId: varchar("subject_id", { length: 32 }),
-});
+export const assignments = pgTable(
+  "assignments",
+  {
+    id: varchar("id", { length: 32 })
+      .primaryKey()
+      .$defaultFn(() => useKSUID("subj")),
+    userId: varchar("user_id", { length: 32 }),
+    title: text("title").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    tags: text("tags").array(),
+    due: timestamp("due", { withTimezone: true }),
+    subjectId: varchar("subject_id", { length: 32 }),
+  },
+  (table) => {
+    return {
+      assignmentUserIdIdx: index("assignment_user_id_idx").on(table.userId),
+      subjectIdIdx: index("subject_id_idx").on(table.subjectId),
+    };
+  }
+);
 
 export const assignmentsRelations = relations(assignments, ({ one, many }) => ({
   user: one(users, {
