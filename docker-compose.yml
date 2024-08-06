@@ -23,4 +23,4 @@ services:
     environment:
       - PRODUCTION=true
     ports:
-      - "3000:3000"
+      - "3080:3000"
