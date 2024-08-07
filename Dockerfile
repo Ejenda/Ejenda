@@ -29,6 +29,7 @@ COPY --from=build /src/.output /src/.output
 # Optional, only needed if you rely on unbundled dependencies
 COPY --from=build /src/node_modules /src/node_modules
 COPY --from=build /src/package.json /src/package.json
+COPY --from=build /src/drizzle.config.ts /src/drizzle.config.ts
 
 RUN npm run db:migrate
 RUN npm prune
