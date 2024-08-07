@@ -22,13 +22,15 @@ RUN npm run build
 
 # Run
 FROM base
-RUN npm run db:migrate
-RUN npm prune
 
 ENV PORT=$PORT
 
 COPY --from=build /src/.output /src/.output
 # Optional, only needed if you rely on unbundled dependencies
-# COPY --from=build /src/node_modules /src/node_modules
+COPY --from=build /src/node_modules /src/node_modules
+COPY --from=build /src/package.json /src/package.json
+
+RUN npm run db:migrate
+RUN npm prune
 
 CMD [ "node", ".output/server/index.mjs" ]
