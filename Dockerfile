@@ -30,8 +30,8 @@ COPY --from=build /src/.output /src/.output
 COPY --from=build /src/node_modules /src/node_modules
 COPY --from=build /src/package.json /src/package.json
 COPY --from=build /src/drizzle.config.ts /src/drizzle.config.ts
+COPY --from=build /src/server/database /src/server/database
+COPY --from=build /src/scripts/run.sh /src/scripts/run.sh
 
-RUN npm run db:migrate
-RUN npm prune
-
-CMD [ "node", ".output/server/index.mjs" ]
+RUN chmod +x /src/scripts/run.sh
+CMD [ "sh", "/src/scripts/run.sh" ]
