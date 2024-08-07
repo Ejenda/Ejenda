@@ -16,21 +16,19 @@ const links = computed(() => {
       (assignment) => !assignment.tags?.includes("done")
     ).length;
     const missing = subject.assignments.some(
-          (assignment) =>
-            !assignment.due || done || new Date(assignment.due) < new Date()
-        );
+      (assignment) =>
+        !assignment.due || done || new Date(assignment.due) < new Date()
+    );
     return {
-      label: titleCase(subject.name, {normalize: true}),
+      label: titleCase(subject.name, { normalize: true }),
       click: () => {
         currentSubjectId.value = subject.id;
       },
       active: subject.id === currentSubjectId.value,
       badge: {
         label: done,
-        variant: missing ? "subtle" :"soft",
-        color: missing
-          ? "red"
-          : "white",
+        variant: missing ? "subtle" : "soft",
+        color: missing ? "red" : "white",
       },
     };
   });
@@ -38,6 +36,16 @@ const links = computed(() => {
 const currentSubject = computed(() =>
   data.value?.find((subject) => subject.id === currentSubjectId.value)
 );
+const assn = ref({
+  name: "",
+  tags: [],
+  due: new Date(),
+});
+const assnWithSubject = computed(() => ({
+  ...assn.value,
+  subjectId: currentSubjectId.value,
+}));
+const { mutate } = addAssignment();
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
@@ -45,6 +53,12 @@ const currentSubject = computed(() =>
     <UVerticalNavigation :links="links" />
 
     <div>
+      <div>
+        <!-- create new assn-->
+        <UInput v-model="assn.name" placeholder="Assignment name" />
+
+        <div @click="mutate(assnWithSubject)">Create new assignment</div>
+      </div>
       <div
         v-for="assignment in currentSubject?.assignments"
         :key="assignment.id"
