@@ -6,7 +6,7 @@ export default defineConfig({
   out: "./server/database/migrations",
   dbCredentials: {
     url: `postgres://postgres:example@${
-      !process.env.PRODUCTION ? "localhost:5555" : "db:5432"
+      process.env.NODE_ENV != "production" ? "localhost:5555" : "db:5432"
     }/db`,
   },
 });
