@@ -19,6 +19,7 @@ RUN npm install --production=false
 COPY --link . .
 
 RUN npm run build
+RUN npm run db:migrate
 RUN npm prune
 
 # Run
