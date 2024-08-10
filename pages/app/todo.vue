@@ -2,7 +2,7 @@
 definePageMeta({
   middleware: "auth",
 });
-
+import {format} from "date-fns";
 const tabsLinks = [
   { label: "Subjects", to: "/app", icon: "i-heroicons-academic-cap" },
   { label: "Todo", to: "/app/todo", icon: "i-heroicons-check-circle" },
@@ -59,14 +59,39 @@ const cards = computed(() => {
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
-  <div v-for="card of cards" :key="card.label">
-    <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-200">
-      {{ card.label }}
-    </h2>
-    <div class="grid grid-cols-1 gap-4 mt-4">
-      <div v-for="assignment of card.assignments" :key="assignment.id">
-        {{ assignment.title }}
+  <UAccordion :items="cards">
+    <template #default="{ item, index, open }">
+      <UButton variant="soft" class="mb-1.5 w-full">
+        <span class="truncate"> {{ item.label }}</span>
+        <UBadge color="gray" class="ml-2">{{ item.assignments.length }}</UBadge>
+
+        <template #trailing>
+          <UIcon
+            name="i-heroicons-chevron-right-20-solid"
+            class="w-5 h-5 ms-auto transform transition-transform duration-200"
+            :class="[open && 'rotate-90']"
+          />
+        </template> </UButton
+    ></template>
+    <template #item="{ item }">
+      <div v-if="!item.assignments.length">
+        <p class="text-center text-gray-500">No assignments</p>
       </div>
-    </div>
-  </div>
+      <div class="grid grid-cols-1 gap-4 mt-4">
+        <div v-for="assignment of item.assignments" :key="assignment.id">
+          <UCard>
+            <template #header>
+              {{ assignment.title }}
+            </template>
+              <div class="flex gap-2 mt-2">
+                <UBadge>Due {{ format(new Date(assignment.due), "MMMM d, yyy") }}</UBadge>
+                <div v-for="tag of assignment.tags" :key="tag">
+                  <UBadge>{{ tag }} </UBadge>
+                </div>
+              </div>
+          </UCard>
+        </div>
+      </div>
+    </template>
+  </UAccordion>
 </template>
