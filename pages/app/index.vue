@@ -6,7 +6,7 @@ definePageMeta({
   middleware: "auth",
 });
 const { data, isPending } = queryAssignments();
-const { mutate,isError } = addAssignment();
+const { mutate, isError } = addAssignment();
 const { mutate: createSubjectMut } = createSubject();
 
 const tabsLinks = [
@@ -74,9 +74,32 @@ const createAssn = () => {
       due: new Date(),
     };
   }
-}
-  
-        
+};
+const columns = [
+  { key: "title", label: "Name" },
+  { key: "due", label: "Due" },
+  { key: "tags", label: "Tags" },
+  { key: "actions" },
+];
+const items = (row) => [
+  [
+    {
+      label: "Edit",
+      icon: "i-heroicons-pencil-square-20-solid",
+      click: () => console.log("Edit", row.id),
+    },
+    {
+      label: "Mark as done",
+      icon: "i-heroicons-check-20-solid",
+    },
+  ],
+  [
+    {
+      label: "Delete",
+      icon: "i-heroicons-trash-20-solid",
+    },
+  ],
+];
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
@@ -86,7 +109,9 @@ const createAssn = () => {
     <div>
       <div>
         <!-- create new assn-->
-        <UInput v-model="assn.name" placeholder="Assignment name" />
+         <UFormGroup label="Name">
+        <UInput v-model="assn.name" placeholder="Assignment name" /></UFormGroup>
+        <UFormGroup label="Due Date">
         <UPopover :popper="{ placement: 'bottom-start' }">
           <UButton
             icon="i-heroicons-calendar-days-20-solid"
@@ -94,22 +119,41 @@ const createAssn = () => {
           />
 
           <template #panel="{ close }">
-            <DatePicker v-model="assn.due" is-required @close="close" :min-date="new Date()"/>
+            <DatePicker
+              v-model="assn.due"
+              is-required
+              @close="close"
+              :min-date="new Date()"
+            />
           </template>
-        </UPopover>
-        <UButton @click="createAssn">Create new assignment</UButton>
+        </UPopover></UFormGroup>
+        <UButton @click="createAssn" class="mt-2">Create new assignment</UButton>
       </div>
-      <div
-        v-for="assignment in currentSubject?.assignments"
-        :key="assignment.id"
-        class="p-4 border rounded-md"
+      <UTable
+        grow
+        :columns="columns"
+        :rows="currentSubject?.assignments"
+        :loading="isPending"
       >
-        <h2>{{ assignment.title }}</h2>
-        <p v-if="assignment.due">Due: {{  format(new Date(assignment.due), 'd MMM, yyy') }}</p>
-        <div v-for="tag of assignment.tags" :key="tag">
-          <span>{{ tag }}</span>
-        </div>
-      </div>
+        <template #due-data="{ row }">
+          <span>{{ format(new Date(row.due), "MMMM d, yyy") }}</span>
+        </template>
+        <template #tags-data="{ row }">
+          <div v-for="tag of row.tags" :key="tag">
+            <UBadge>{{ tag }}</UBadge>
+          </div>
+        </template>
+        <template #actions-data="{ row }">
+          <UDropdown :items="items(row)">
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-ellipsis-horizontal-20-solid"
+            />
+          </UDropdown>
+        </template>
+      </UTable>
+  
     </div>
   </div>
 </template>
