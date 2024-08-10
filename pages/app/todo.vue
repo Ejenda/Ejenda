@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: "auth",
+});
+
 const tabsLinks = [
   { label: "Subjects", to: "/app", icon: "i-heroicons-academic-cap" },
   { label: "Todo", to: "/app/todo", icon: "i-heroicons-check-circle" },
