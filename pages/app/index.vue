@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { titleCase } from "scule";
 import { format } from "date-fns";
+import { is } from "drizzle-orm";
 
 definePageMeta({
   middleware: "auth",
@@ -17,7 +18,6 @@ const tabsLinks = [
 ];
 const currentSubjectId = ref(data.value?.[0].id);
 const links = computed(() => {
-
   let subjectLinks =
     data.value?.map((subject) => {
       const done = subject.assignments.filter(
@@ -57,9 +57,6 @@ const links = computed(() => {
 });
 const currentSubject = computed(() => {
   return data.value?.find((subject) => subject.id === currentSubjectId.value);
-});
-const currentSubjectAssignments = computed(() => {
-  return currentSubject.value?.assignments;
 });
 const assn = ref({
   name: "",
@@ -131,6 +128,31 @@ const markDone = (id: string) => {
     });
   }
 };
+const computedTags = (row: any) => {
+  console.log(row);
+  const isMissing = (date: string) => {
+    return (
+      new Date(date).getTime() < new Date().getTime() && !row.tags.includes("done")
+    );
+  };
+
+  const isDueTommorow = (date: string) => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return (
+      new Date(date).getDate() === tomorrow.getDate() &&
+      new Date(date).getMonth() === tomorrow.getMonth() &&
+      new Date(date).getFullYear() === tomorrow.getFullYear()
+    );
+  };
+  let tags = [];
+  if (isMissing(row.due)) {
+    tags.push("missing");
+  } else if (isDueTommorow(row.due)) {
+    tags.push("due tomorrow");
+  }
+  return tags;
+};
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
@@ -166,7 +188,7 @@ const markDone = (id: string) => {
       <div class="flex-1 flex">
         <UTable
           :columns="columns"
-          :rows="currentSubjectAssignments"
+          :rows="currentSubject?.assignments"
           :loading="isPending"
           :ui="{ wrapper: 'flex-1' }"
           :sort="{ key: 'due', direction: 'asc' }"
@@ -175,9 +197,16 @@ const markDone = (id: string) => {
             <span>{{ format(new Date(row.due), "MMMM d, yyy") }}</span>
           </template>
           <template #tags-data="{ row }">
-            <span v-if="!row.tags.length">No tags</span>
-            <div v-for="tag of row.tags" :key="tag">
-              <UBadge>{{ tag }}</UBadge>
+            <span v-if="!row.tags.length && !computedTags(row).length">No tags</span>
+            <div class="flex flex-row gap-1">
+              <div v-for="tag of row.tags" :key="tag">
+                <UBadge :color="tag == 'done' ? 'green' : 'primary'"
+                  >{{ tag }}
+                </UBadge>
+              </div>
+              <div v-for="tag of computedTags(row)" :key="tag">
+                <UBadge color="red">{{ tag }}</UBadge>
+                </div>
             </div>
           </template>
           <template #actions-data="{ row }">
