@@ -8,7 +8,7 @@
   <VueQueryDevtools />
 </template>
 <script setup>
-import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
+import { VueQueryDevtools } from "@tanstack/vue-query-devtools";
 
 useSeoMeta({
   ogImage: "/favicon.svg",
