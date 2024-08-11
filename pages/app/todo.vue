@@ -32,9 +32,7 @@ const cards = computed(() => {
   };
   const isMissing = (date) => {
     return (
-      new Date(date).getDate() > new Date().getDate() &&
-      new Date(date).getMonth() >= new Date().getMonth() &&
-      new Date(date).getFullYear() >= new Date().getFullYear()
+      new Date(date).getTime() < new Date().getTime()
     );
   };
 
