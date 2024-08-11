@@ -12,8 +12,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token.value}`,
       },
+    }).catch((e) => {
+      token.value = null;
+      authenticated.value = false;
     });
-    if (data) {
+
+    if (!data) {
       user.value = data;
     }
   }
