@@ -25,7 +25,7 @@ export const assignments = pgTable(
   {
     id: varchar("id", { length: 32 })
       .primaryKey()
-      .$defaultFn(() => useKSUID("subj")),
+      .$defaultFn(() => useKSUID("assn")),
     userId: varchar("user_id", { length: 32 }),
     title: text("title").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })

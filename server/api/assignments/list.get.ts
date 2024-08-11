@@ -5,7 +5,9 @@ export default eventHandler(async (event) => {
   const subjects = await useDrizzle().query.subjects.findMany({
     where: eq(tables.subjects.userId, session.userId),
     with: {
-      assignments: true,
+      assignments: {
+        orderBy: (table, {asc}) => asc(table.due),
+      },
     },
     columns: {
       userId: false,

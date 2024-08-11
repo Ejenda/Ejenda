@@ -7,6 +7,7 @@ definePageMeta({
 });
 const { data, isPending } = queryAssignments();
 const { mutate, isError } = addAssignment();
+const { mutate: mutateAssn } = mutateAssignment();
 const { mutate: createSubjectMut } = createSubject();
 
 const tabsLinks = [
@@ -16,6 +17,7 @@ const tabsLinks = [
 ];
 const currentSubjectId = ref(data.value?.[0].id);
 const links = computed(() => {
+
   let subjectLinks =
     data.value?.map((subject) => {
       const done = subject.assignments.filter(
@@ -53,9 +55,12 @@ const links = computed(() => {
     ...subjectLinks,
   ];
 });
-const currentSubject = computed(() =>
-  data.value?.find((subject) => subject.id === currentSubjectId.value)
-);
+const currentSubject = computed(() => {
+  return data.value?.find((subject) => subject.id === currentSubjectId.value);
+});
+const currentSubjectAssignments = computed(() => {
+  return currentSubject.value?.assignments;
+});
 const assn = ref({
   name: "",
   tags: [],
@@ -86,11 +91,12 @@ const items = (row) => [
     {
       label: "Edit",
       icon: "i-heroicons-pencil-square-20-solid",
-      click: () => console.log("Edit", row.id),
+      //click: () => markDone(row.id),
     },
     {
-      label: "Mark as done",
+      label: !row.tags.includes("done") ? "Mark as done" : "Mark as not done",
       icon: "i-heroicons-check-20-solid",
+      click: () => markDone(row.id),
     },
   ],
   [
@@ -105,60 +111,86 @@ watch(data, () => {
     currentSubjectId.value = data.value?.[0].id;
   }
 });
+const markDone = (id: string) => {
+  const assignment = toRaw(currentSubject.value)?.assignments.find(
+    (assn: any) => assn.id === id
+  );
+  if (assignment) {
+    //assignment.title += " done"; // why on earth does this work
+    let tags = [...assignment.tags];
+    if (tags.includes("done")) {
+      tags = assignment.tags.filter((tag: string) => tag !== "done");
+    } else {
+      tags.push("done");
+    }
+    mutateAssn({
+      subjectId: assignment.subjectId,
+      id: assignment.id,
+      tags,
+      due: assignment.due,
+    });
+  }
+};
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
   <div class="flex">
-    <UVerticalNavigation :links="links" :ui="{wrapper: 'w-64'}"/>
+    <UVerticalNavigation :links="links" :ui="{ wrapper: 'w-64' }" />
 
-    <div>
+    <div class="flex flex-1 flex-col p-2">
       <div>
         <!-- create new assn-->
-         <UFormGroup label="Name">
-        <UInput v-model="assn.name" placeholder="Assignment name" /></UFormGroup>
+        <UFormGroup label="Name">
+          <UInput v-model="assn.name" placeholder="Assignment name"
+        /></UFormGroup>
         <UFormGroup label="Due Date">
-        <UPopover :popper="{ placement: 'bottom-start' }">
-          <UButton
-            icon="i-heroicons-calendar-days-20-solid"
-            :label="format(assn.due, 'd MMM, yyy')"
-          />
-
-          <template #panel="{ close }">
-            <DatePicker
-              v-model="assn.due"
-              is-required
-              @close="close"
-              :min-date="new Date()"
-            />
-          </template>
-        </UPopover></UFormGroup>
-        <UButton @click="createAssn" class="mt-2">Create new assignment</UButton>
-      </div>
-      <UTable
-        grow
-        :columns="columns"
-        :rows="currentSubject?.assignments"
-        :loading="isPending"
-      >
-        <template #due-data="{ row }">
-          <span>{{ format(new Date(row.due), "MMMM d, yyy") }}</span>
-        </template>
-        <template #tags-data="{ row }">
-          <div v-for="tag of row.tags" :key="tag">
-            <UBadge>{{ tag }}</UBadge>
-          </div>
-        </template>
-        <template #actions-data="{ row }">
-          <UDropdown :items="items(row)">
+          <UPopover :popper="{ placement: 'bottom-start' }">
             <UButton
-              color="gray"
-              variant="ghost"
-              icon="i-heroicons-ellipsis-horizontal-20-solid"
+              icon="i-heroicons-calendar-days-20-solid"
+              :label="format(assn.due, 'd MMM, yyy')"
             />
-          </UDropdown>
-        </template>
-      </UTable>
-  
+
+            <template #panel="{ close }">
+              <DatePicker
+                v-model="assn.due"
+                is-required
+                @close="close"
+                :min-date="new Date()"
+              />
+            </template> </UPopover
+        ></UFormGroup>
+        <UButton @click="createAssn" class="mt-2"
+          >Create new assignment</UButton
+        >
+      </div>
+      <div class="flex-1 flex">
+        <UTable
+          :columns="columns"
+          :rows="currentSubjectAssignments"
+          :loading="isPending"
+          :ui="{ wrapper: 'flex-1' }"
+          :sort="{ key: 'due', direction: 'asc' }"
+        >
+          <template #due-data="{ row }">
+            <span>{{ format(new Date(row.due), "MMMM d, yyy") }}</span>
+          </template>
+          <template #tags-data="{ row }">
+            <span v-if="!row.tags.length">No tags</span>
+            <div v-for="tag of row.tags" :key="tag">
+              <UBadge>{{ tag }}</UBadge>
+            </div>
+          </template>
+          <template #actions-data="{ row }">
+            <UDropdown :items="items(row)">
+              <UButton
+                color="gray"
+                variant="ghost"
+                icon="i-heroicons-ellipsis-horizontal-20-solid"
+              />
+            </UDropdown>
+          </template>
+        </UTable>
+      </div>
     </div>
   </div>
 </template>
