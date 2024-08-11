@@ -100,11 +100,16 @@ const items = (row) => [
     },
   ],
 ];
+watch(data, () => {
+  if (!currentSubject.value) {
+    currentSubjectId.value = data.value?.[0].id;
+  }
+});
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
   <div class="flex">
-    <UVerticalNavigation :links="links" />
+    <UVerticalNavigation :links="links" :ui="{wrapper: 'w-64'}"/>
 
     <div>
       <div>
