@@ -10,11 +10,17 @@ const { data, isPending } = queryAssignments();
 const { mutate, isError } = addAssignment();
 const { mutate: mutateAssn } = mutateAssignment();
 const { mutate: createSubjectMut } = createSubject();
+const {mutate: deleteAssignmentMut} = deleteAssignment();
 
 const tabsLinks = [
   { label: "Subjects", to: "/app", icon: "i-heroicons-academic-cap" },
   { label: "Todo", to: "/app/todo", icon: "i-heroicons-check-circle" },
-  { label: "Calendar", to: "/app/calendar", icon: "i-heroicons-calendar" },
+  {
+    label: "Calendar (coming soon)",
+    to: "/app/calendar",
+    icon: "i-heroicons-calendar",
+    disabled: true,
+  },
 ];
 const currentSubjectId = ref(data.value?.[0].id);
 const links = computed(() => {
@@ -100,6 +106,7 @@ const items = (row) => [
     {
       label: "Delete",
       icon: "i-heroicons-trash-20-solid",
+      click: () => deleteAssignmentMut(row.id),
     },
   ],
 ];
@@ -129,26 +136,20 @@ const markDone = (id: string) => {
   }
 };
 const computedTags = (row: any) => {
-  console.log(row);
-  const isMissing = (date: string) => {
-    return (
-      new Date(date).getTime() < new Date().getTime() && !row.tags.includes("done")
-    );
-  };
-
-  const isDueTommorow = (date: string) => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return (
-      new Date(date).getDate() === tomorrow.getDate() &&
-      new Date(date).getMonth() === tomorrow.getMonth() &&
-      new Date(date).getFullYear() === tomorrow.getFullYear()
-    );
-  };
+  const isMissing =
+    new Date(row.due).getTime() < new Date().getTime() &&
+    !row.tags.includes("done");
+  const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+  const isDueTommorow =  (
+    new Date(row.due).getDate() === tomorrow.getDate() &&
+    new Date(row.due).getMonth() === tomorrow.getMonth() &&
+    new Date(row.due).getFullYear() === tomorrow.getFullYear()
+  );
   let tags = [];
-  if (isMissing(row.due)) {
+  if (isMissing) {
     tags.push("missing");
-  } else if (isDueTommorow(row.due)) {
+  } else if (isDueTommorow) {
     tags.push("due tomorrow");
   }
   return tags;
@@ -197,7 +198,9 @@ const computedTags = (row: any) => {
             <span>{{ format(new Date(row.due), "MMMM d, yyy") }}</span>
           </template>
           <template #tags-data="{ row }">
-            <span v-if="!row.tags.length && !computedTags(row).length">No tags</span>
+            <span v-if="!row.tags.length && !computedTags(row).length"
+              >No tags</span
+            >
             <div class="flex flex-row gap-1">
               <div v-for="tag of row.tags" :key="tag">
                 <UBadge :color="tag == 'done' ? 'green' : 'primary'"
@@ -206,7 +209,7 @@ const computedTags = (row: any) => {
               </div>
               <div v-for="tag of computedTags(row)" :key="tag">
                 <UBadge color="red">{{ tag }}</UBadge>
-                </div>
+              </div>
             </div>
           </template>
           <template #actions-data="{ row }">

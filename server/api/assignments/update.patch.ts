@@ -8,7 +8,12 @@ export default eventHandler(async (event) => {
       due: new Date(due),
       tags,
     })
-    .where(and(eq(tables.assignments.id, id)))
+    .where(
+      and(
+        eq(tables.assignments.id, id),
+        eq(tables.assignments.userId, session.userId)
+      )
+    )
     .returning();
   return assignment;
 });
