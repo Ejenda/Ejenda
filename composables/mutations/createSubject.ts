@@ -38,6 +38,10 @@ export default function () {
         },
         onSettled: async () => {
             await queryClient.invalidateQueries({ queryKey: ["assignments"] });
+            useToast().add({
+                title: "Subject Added",
+                description: "The subject was successfully added",
+            });
         },
     });
 }

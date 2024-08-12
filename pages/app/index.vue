@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { titleCase } from "scule";
-import { format } from "date-fns";
+import { format, sub } from "date-fns";
 import { is } from "drizzle-orm";
 
 definePageMeta({
@@ -10,7 +10,8 @@ const { data, isPending } = queryAssignments();
 const { mutate, isError } = addAssignment();
 const { mutate: mutateAssn } = mutateAssignment();
 const { mutate: createSubjectMut } = createSubject();
-const {mutate: deleteAssignmentMut} = deleteAssignment();
+const { mutate: deleteAssignmentMut } = deleteAssignment();
+const { mutate: deleteSubjectMut } = deleteSubject();
 
 const tabsLinks = [
   { label: "Subjects", to: "/app", icon: "i-heroicons-academic-cap" },
@@ -38,6 +39,7 @@ const links = computed(() => {
         click: () => {
           currentSubjectId.value = subject.id;
         },
+        id: subject.id,
         active: subject.id === currentSubjectId.value,
         badge: {
           label: done,
@@ -89,7 +91,7 @@ const columns = [
   { key: "tags", label: "Tags" },
   { key: "actions" },
 ];
-const items = (row) => [
+const rowItems = (row) => [
   [
     {
       label: "Edit",
@@ -106,7 +108,7 @@ const items = (row) => [
     {
       label: "Delete",
       icon: "i-heroicons-trash-20-solid",
-      click: () => deleteAssignmentMut(row.id),
+      click: () =>  deleteAssignmentMut(row.id),
     },
   ],
 ];
@@ -140,12 +142,11 @@ const computedTags = (row: any) => {
     new Date(row.due).getTime() < new Date().getTime() &&
     !row.tags.includes("done");
   const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
-  const isDueTommorow =  (
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const isDueTommorow =
     new Date(row.due).getDate() === tomorrow.getDate() &&
     new Date(row.due).getMonth() === tomorrow.getMonth() &&
-    new Date(row.due).getFullYear() === tomorrow.getFullYear()
-  );
+    new Date(row.due).getFullYear() === tomorrow.getFullYear();
   let tags = [];
   if (isMissing) {
     tags.push("missing");
@@ -154,11 +155,44 @@ tomorrow.setDate(tomorrow.getDate() + 1);
   }
   return tags;
 };
+const subjectItems = (subject: any) => {
+  return [
+    [
+      /*{
+        label: "Edit",
+        icon: "i-heroicons-pencil-square-20-solid",
+        click: () => console.log("edit"),
+      },*/
+      {
+        label: "Delete",
+        icon: "i-heroicons-trash-20-solid",
+        click: () => confirm('are you sure?') && deleteSubjectMut(subject.id),
+      },
+    ],
+  ];
+};
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
   <div class="flex">
-    <UVerticalNavigation :links="links" :ui="{ wrapper: 'w-64' }" />
+    <UVerticalNavigation :links="links" :ui="{ wrapper: 'w-64' }">
+      <template #badge="{ link }">
+        <UBadge
+          class="flex-shrink-0 ml-auto relative rounded"
+          :color="link.badge?.color"
+          :variant="link.badge?.variant"
+          v-show="link.badge && !link.active"
+          >{{ link.badge?.label }}</UBadge
+        >
+        <UDropdown :items="subjectItems(link)" v-show="link.active" class="flex-shrink-0 ml-auto relative rounded" size="sm">
+          <UButton
+            color="gray"
+            variant="ghost"
+            icon="i-heroicons-ellipsis-horizontal-20-solid"
+          />
+        </UDropdown>
+      </template>
+    </UVerticalNavigation>
 
     <div class="flex flex-1 flex-col p-2">
       <div>
@@ -213,7 +247,7 @@ tomorrow.setDate(tomorrow.getDate() + 1);
             </div>
           </template>
           <template #actions-data="{ row }">
-            <UDropdown :items="items(row)">
+            <UDropdown :items="rowItems(row)">
               <UButton
                 color="gray"
                 variant="ghost"

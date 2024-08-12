@@ -11,6 +11,10 @@ export default function () {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ["assignments"] });
+             useToast().add({
+                title: "Assignment Deleted",
+                description: "The assignment was successfully deleted",
+            });
         }
       
     });
