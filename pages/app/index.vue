@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { AddAssignmentModal, UButton } from '#components'
+
 import { titleCase } from "scule";
 import { format, sub } from "date-fns";
 import { is } from "drizzle-orm";
@@ -7,7 +9,6 @@ definePageMeta({
   middleware: "auth",
 });
 const { data, isPending } = queryAssignments();
-const { mutate, isError } = addAssignment();
 const { mutate: mutateAssn } = mutateAssignment();
 const { mutate: createSubjectMut } = createSubject();
 const { mutate: deleteAssignmentMut } = deleteAssignment();
@@ -66,15 +67,9 @@ const links = computed(() => {
 const currentSubject = computed(() => {
   return data.value?.find((subject) => subject.id === currentSubjectId.value);
 });
-const assn = ref({
-  name: "",
-  tags: [],
-  due: new Date(),
-});
-const assnWithSubject = computed(() => ({
-  ...assn.value,
-  subjectId: currentSubjectId.value,
-}));
+
+
+/*
 const createAssn = () => {
   mutate(assnWithSubject.value);
   if (!isError.value) {
@@ -84,7 +79,14 @@ const createAssn = () => {
       due: new Date(),
     };
   }
-};
+};*/
+const modal = useModal();
+function createAssn () {
+  modal.open(AddAssignmentModal, {
+    subjectId: currentSubjectId.value,
+  })
+}
+
 const columns = [
   { key: "title", label: "Name" },
   { key: "due", label: "Due" },
@@ -181,10 +183,10 @@ const subjectItems = (subject: any) => {
           class="flex-shrink-0 ml-auto relative rounded"
           :color="link.badge?.color"
           :variant="link.badge?.variant"
-          v-show="link.badge && !link.active"
+          v-if="link.badge && !link.active"
           >{{ link.badge?.label }}</UBadge
         >
-        <UDropdown :items="subjectItems(link)" v-show="link.active" class="flex-shrink-0 ml-auto relative rounded" size="sm">
+        <UDropdown :items="subjectItems(link)" v-if="link.active" class="flex-shrink-0 ml-auto relative rounded" size="sm">
           <UButton
             color="gray"
             variant="ghost"
@@ -195,31 +197,7 @@ const subjectItems = (subject: any) => {
     </UVerticalNavigation>
 
     <div class="flex flex-1 flex-col p-2">
-      <div>
-        <!-- create new assn-->
-        <UFormGroup label="Name">
-          <UInput v-model="assn.name" placeholder="Assignment name"
-        /></UFormGroup>
-        <UFormGroup label="Due Date">
-          <UPopover :popper="{ placement: 'bottom-start' }">
-            <UButton
-              icon="i-heroicons-calendar-days-20-solid"
-              :label="format(assn.due, 'd MMM, yyy')"
-            />
-
-            <template #panel="{ close }">
-              <DatePicker
-                v-model="assn.due"
-                is-required
-                @close="close"
-                :min-date="new Date()"
-              />
-            </template> </UPopover
-        ></UFormGroup>
-        <UButton @click="createAssn" class="mt-2"
-          >Create new assignment</UButton
-        >
-      </div>
+      <UButton @click="createAssn" class="mb-2">Add assignment</UButton>
       <div class="flex-1 flex">
         <UTable
           :columns="columns"
