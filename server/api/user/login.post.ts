@@ -28,7 +28,7 @@ export default eventHandler(async (event) => {
     .returning();
   // set cookie
   // set-cookie: session=${session.id}; HttpOnly; Secure; SameSite=Strict
-  return new Response(JSON.stringify(user), {
+  return new Response(JSON.stringify({user}), {
     headers: {
       "set-cookie": `session=${session[0].id}; Path=/; SameSite=Strict`,
       "content-type": "application/json",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AddAssignmentModal, UButton } from '#components'
+import { AddAssignmentModal, UButton } from "#components";
 
 import { titleCase } from "scule";
 import { format, sub } from "date-fns";
@@ -68,7 +68,6 @@ const currentSubject = computed(() => {
   return data.value?.find((subject) => subject.id === currentSubjectId.value);
 });
 
-
 /*
 const createAssn = () => {
   mutate(assnWithSubject.value);
@@ -81,10 +80,10 @@ const createAssn = () => {
   }
 };*/
 const modal = useModal();
-function createAssn () {
+function createAssn() {
   modal.open(AddAssignmentModal, {
     subjectId: currentSubjectId.value,
-  })
+  });
 }
 
 const columns = [
@@ -110,7 +109,7 @@ const rowItems = (row) => [
     {
       label: "Delete",
       icon: "i-heroicons-trash-20-solid",
-      click: () =>  deleteAssignmentMut(row.id),
+      click: () => deleteAssignmentMut(row.id),
     },
   ],
 ];
@@ -168,7 +167,7 @@ const subjectItems = (subject: any) => {
       {
         label: "Delete",
         icon: "i-heroicons-trash-20-solid",
-        click: () => confirm('are you sure?') && deleteSubjectMut(subject.id),
+        click: () => confirm("are you sure?") && deleteSubjectMut(subject.id),
       },
     ],
   ];
@@ -184,9 +183,14 @@ const subjectItems = (subject: any) => {
           :color="link.badge?.color"
           :variant="link.badge?.variant"
           v-if="link.badge && !link.active"
-          >{{ link.badge?.label }}</UBadge
+          >{{ link.badge?.label }}
+        </UBadge>
+        <UDropdown
+          :items="subjectItems(link)"
+          v-if="link.active"
+          class="flex-shrink-0 ml-auto relative rounded"
+          size="sm"
         >
-        <UDropdown :items="subjectItems(link)" v-if="link.active" class="flex-shrink-0 ml-auto relative rounded" size="sm">
           <UButton
             color="gray"
             variant="ghost"
@@ -216,12 +220,13 @@ const subjectItems = (subject: any) => {
             <div class="flex flex-row gap-1">
               <div v-for="tag of row.tags" :key="tag">
                 <UBadge :color="tag == 'done' ? 'green' : 'primary'"
-                  >{{ tag }}
+                  >{{ tag }} <UIcon name="i-heroicons-x-mark" class="ml-2 cursor-pointer"></UIcon>
                 </UBadge>
               </div>
               <div v-for="tag of computedTags(row)" :key="tag">
                 <UBadge color="red">{{ tag }}</UBadge>
               </div>
+              <UBadge color="white" class="cursor-pointer"><UIcon name="i-heroicons-plus"></UIcon></UBadge>
             </div>
           </template>
           <template #actions-data="{ row }">
