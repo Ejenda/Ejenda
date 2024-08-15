@@ -192,7 +192,7 @@ const addTag = (assignmentId: string, tag: string) => {
 };
 const tagAddItems = (row: any) => {
   return [
-    getTags().map((tag) => ({
+    getTags().filter((tag)=>!row.tags.includes(tag)).map((tag) => ({
       label: tag,
       click: () => addTag(row.id, tag),
     })),
@@ -227,7 +227,8 @@ const tagAddItems = (row: any) => {
     </UVerticalNavigation>
 
     <div class="flex flex-1 flex-col p-2">
-      <UButton @click="createAssn" class="mb-2">Add assignment</UButton>
+      <div class="flex-1 justify-end flex">
+      <UButton @click="createAssn" class="mb-2">Add assignment</UButton></div>
       <div class="flex-1 flex">
         <UTable
           :columns="columns"
@@ -243,7 +244,7 @@ const tagAddItems = (row: any) => {
             <span v-if="!row.tags.length && !computedTags(row).length"
               >No tags</span
             >
-            <div class="flex flex-row gap-1">
+            <div class="flex flex-row gap-1 w-96 flex-wrap">
               <div v-for="tag of row.tags" :key="tag">
                 <UBadge :color="tag == 'done' ? 'green' : 'primary'"
                   >{{ tag }}
