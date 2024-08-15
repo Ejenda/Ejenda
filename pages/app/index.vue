@@ -200,9 +200,9 @@ const tagAddItems = (row: any) => {
 };
 </script>
 <template>
-  <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
-  <div class="flex">
-    <UVerticalNavigation :links="links" :ui="{ wrapper: 'w-64' }">
+  <UHorizontalNavigation :links="tabsLinks" class="border-b border-gray-200 dark:border-gray-700"></UHorizontalNavigation>
+  <div class="flex h-[calc(100vh-49px)]">
+    <UVerticalNavigation :links="links" :ui="{ wrapper: 'w-64' }" class="border-r border-gray-200 dark:border-gray-700">
       <template #badge="{ link }">
         <UBadge
           class="flex-shrink-0 ml-auto relative rounded"
@@ -227,8 +227,8 @@ const tagAddItems = (row: any) => {
     </UVerticalNavigation>
 
     <div class="flex flex-1 flex-col p-2">
-      <div class="flex-1 justify-end flex">
-      <UButton @click="createAssn" class="mb-2">Add assignment</UButton></div>
+      <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700 justify-end">
+      <UButton @click="createAssn" >Add assignment</UButton></div>
       <div class="flex-1 flex">
         <UTable
           :columns="columns"
