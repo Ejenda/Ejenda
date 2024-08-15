@@ -27,15 +27,7 @@ const assn = ref({
   tags: [],
   due: new Date(),
 });
-const tags = [
-  "Long Term Assignment",
-  "Physical",
-  "Online",
-  "Reading",
-  "Imported",
-  "Notice",
-
-];
+const tags = getTags();
 </script>
 
 <template>

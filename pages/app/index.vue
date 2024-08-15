@@ -173,12 +173,31 @@ const subjectItems = (subject: any) => {
   ];
 };
 const removeTag = (assignmentId: string, tagToRemove: string) => {
-  const assignment = currentSubject.value?.assignments.find((x) => (x.id == assignmentId))
+  const assignment = currentSubject.value?.assignments.find(
+    (x) => x.id == assignmentId
+  );
   mutateAssn({
     ...assignment,
-    tags: assignment?.tags?.filter((x)=> x !== tagToRemove)
-  })
-}
+    tags: assignment?.tags?.filter((x) => x !== tagToRemove),
+  });
+};
+const addTag = (assignmentId: string, tag: string) => {
+  const assignment = currentSubject.value?.assignments.find(
+    (x) => x.id == assignmentId
+  );
+  mutateAssn({
+    ...assignment,
+    tags: [...(assignment?.tags || []), tag],
+  });
+};
+const tagAddItems = (row: any) => {
+  return [
+    getTags().map((tag) => ({
+      label: tag,
+      click: () => addTag(row.id, tag),
+    })),
+  ];
+};
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
@@ -227,13 +246,24 @@ const removeTag = (assignmentId: string, tagToRemove: string) => {
             <div class="flex flex-row gap-1">
               <div v-for="tag of row.tags" :key="tag">
                 <UBadge :color="tag == 'done' ? 'green' : 'primary'"
-                  >{{ tag }} <UIcon name="i-heroicons-x-mark" class="ml-2 cursor-pointer" @click="removeTag(row.id, tag)"></UIcon>
+                  >{{ tag }}
+                  <UIcon
+                    name="i-heroicons-x-mark"
+                    class="ml-2 cursor-pointer"
+                    @click="removeTag(row.id, tag)"
+                  ></UIcon>
                 </UBadge>
               </div>
               <div v-for="tag of computedTags(row)" :key="tag">
                 <UBadge color="red">{{ tag }}</UBadge>
               </div>
-              <UBadge color="white" class="cursor-pointer"><UIcon name="i-heroicons-plus"></UIcon></UBadge>
+              <UDropdown
+                :items="tagAddItems(row)"
+                :popper="{ placement: 'bottom-start' }"
+              >
+                <UBadge color="white" class="cursor-pointer"
+                  ><UIcon name="i-heroicons-plus"></UIcon></UBadge
+              ></UDropdown>
             </div>
           </template>
           <template #actions-data="{ row }">
