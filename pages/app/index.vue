@@ -172,6 +172,13 @@ const subjectItems = (subject: any) => {
     ],
   ];
 };
+const removeTag = (assignmentId: string, tagToRemove: string) => {
+  const assignment = currentSubject.value?.assignments.find((x) => (x.id == assignmentId))
+  mutateAssn({
+    ...assignment,
+    tags: assignment?.tags?.filter((x)=> x !== tagToRemove)
+  })
+}
 </script>
 <template>
   <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
@@ -220,7 +227,7 @@ const subjectItems = (subject: any) => {
             <div class="flex flex-row gap-1">
               <div v-for="tag of row.tags" :key="tag">
                 <UBadge :color="tag == 'done' ? 'green' : 'primary'"
-                  >{{ tag }} <UIcon name="i-heroicons-x-mark" class="ml-2 cursor-pointer"></UIcon>
+                  >{{ tag }} <UIcon name="i-heroicons-x-mark" class="ml-2 cursor-pointer" @click="removeTag(row.id, tag)"></UIcon>
                 </UBadge>
               </div>
               <div v-for="tag of computedTags(row)" :key="tag">
