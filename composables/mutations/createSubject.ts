@@ -7,7 +7,6 @@ export default function () {
     return vq.useMutation({
         mutationKey: ["createSubject"],
         mutationFn: async (newSubject: Object) => {
-            console.log(newSubject);
             const data = await $fetch("/api/subjects/create", {
                 method: "POST",
                 body: JSON.stringify(newSubject),
@@ -21,7 +20,6 @@ export default function () {
             const previousSubjects = queryClient.getQueryData(["assignments"]);
             // Optimistically update to the new value
             queryClient.setQueryData(["assignments"], (old: any) => {
-              console.log(old);
               old.push({
                 id: `subj_${Date.now()}`,
                 name: newSubject.name,

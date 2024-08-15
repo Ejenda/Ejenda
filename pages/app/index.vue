@@ -51,6 +51,8 @@ const links = computed(() => {
     }) ?? [];
 
   return [
+    ...subjectLinks,
+
     {
       label: "New subject",
       icon: "i-heroicons-plus-circle",
@@ -61,24 +63,12 @@ const links = computed(() => {
         }
       },
     },
-    ...subjectLinks,
   ];
 });
 const currentSubject = computed(() => {
   return data.value?.find((subject) => subject.id === currentSubjectId.value);
 });
 
-/*
-const createAssn = () => {
-  mutate(assnWithSubject.value);
-  if (!isError.value) {
-    assn.value = {
-      name: "",
-      tags: [],
-      due: new Date(),
-    };
-  }
-};*/
 const modal = useModal();
 function createAssn() {
   modal.open(AddAssignmentModal, {
@@ -192,17 +182,26 @@ const addTag = (assignmentId: string, tag: string) => {
 };
 const tagAddItems = (row: any) => {
   return [
-    getTags().filter((tag)=>!row.tags.includes(tag)).map((tag) => ({
-      label: tag,
-      click: () => addTag(row.id, tag),
-    })),
+    getTags()
+      .filter((tag) => !row.tags.includes(tag))
+      .map((tag) => ({
+        label: tag,
+        click: () => addTag(row.id, tag),
+      })),
   ];
 };
 </script>
 <template>
-  <UHorizontalNavigation :links="tabsLinks" class="border-b border-gray-200 dark:border-gray-700"></UHorizontalNavigation>
+  <UHorizontalNavigation
+    :links="tabsLinks"
+    class="border-b border-gray-200 dark:border-gray-700"
+  ></UHorizontalNavigation>
   <div class="flex h-[calc(100vh-49px)]">
-    <UVerticalNavigation :links="links" :ui="{ wrapper: 'w-64' }" class="border-r border-gray-200 dark:border-gray-700">
+    <UVerticalNavigation
+      :links="links"
+      :ui="{ wrapper: 'w-64' }"
+      class="border-r border-gray-200 dark:border-gray-700"
+    >
       <template #badge="{ link }">
         <UBadge
           class="flex-shrink-0 ml-auto relative rounded"
@@ -227,8 +226,11 @@ const tagAddItems = (row: any) => {
     </UVerticalNavigation>
 
     <div class="flex flex-1 flex-col p-2">
-      <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700 justify-end">
-      <UButton @click="createAssn" >Add assignment</UButton></div>
+      <div
+        class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700 justify-end"
+      >
+        <UButton @click="createAssn">Add assignment</UButton>
+      </div>
       <div class="flex-1 flex">
         <UTable
           :columns="columns"
