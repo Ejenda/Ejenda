@@ -214,7 +214,7 @@ const tagAddItems = (row: any) => {
       </template>
     </UVerticalNavigation>
 
-    <div class="flex flex-1 flex-col p-2">
+    <div class="flex flex-1 flex-col">
       <div
         class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700 justify-end"
       >
