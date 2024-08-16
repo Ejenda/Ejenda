@@ -236,7 +236,7 @@ const tagAddItems = (row: any) => {
             <span v-if="!row.tags.length && !computedTags(row).length"
               >No tags</span
             >
-            <div class="flex flex-row gap-1 w-96 flex-wrap">
+            <TransitionGroup class="flex flex-row gap-1 w-96 flex-wrap" tag="div" name="list">
               <div v-for="tag of row.tags" :key="tag">
                 <UBadge :color="tag == 'done' ? 'green' : 'primary'"
                   >{{ tag }}
@@ -257,7 +257,7 @@ const tagAddItems = (row: any) => {
                 <UBadge color="white" class="cursor-pointer"
                   ><UIcon name="i-heroicons-plus"></UIcon></UBadge
               ></UDropdown>
-            </div>
+            </TransitionGroup>
           </template>
           <template #actions-data="{ row }">
             <UDropdown :items="rowItems(row)">
@@ -274,3 +274,19 @@ const tagAddItems = (row: any) => {
   </div>
   </UContainer>
 </template>
+<style>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-leave-active {
+  position: absolute;
+}
+
+</style>
