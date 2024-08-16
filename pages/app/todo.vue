@@ -3,11 +3,6 @@ definePageMeta({
   middleware: "auth",
 });
 import {format} from "date-fns";
-const tabsLinks = [
-  { label: "Subjects", to: "/app", icon: "i-heroicons-academic-cap" },
-  { label: "Todo", to: "/app/todo", icon: "i-heroicons-check-circle" },
-  { label: "Calendar", to: "/app/calendar", icon: "i-heroicons-calendar" },
-];
 const { data, isPending } = queryAssignments();
 const cards = computed(() => {
   // sort into array with no date, missing, due today, due this week, due later
@@ -56,7 +51,7 @@ const cards = computed(() => {
 });
 </script>
 <template>
-  <UHorizontalNavigation :links="tabsLinks"></UHorizontalNavigation>
+    <AppTabs/>
   <UAccordion :items="cards">
     <template #default="{ item, index, open }">
       <UButton variant="soft" class="mb-1.5 w-full">

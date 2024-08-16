@@ -14,16 +14,6 @@ const { mutate: createSubjectMut } = createSubject();
 const { mutate: deleteAssignmentMut } = deleteAssignment();
 const { mutate: deleteSubjectMut } = deleteSubject();
 
-const tabsLinks = [
-  { label: "Subjects", to: "/app", icon: "i-heroicons-academic-cap" },
-  { label: "Todo", to: "/app/todo", icon: "i-heroicons-check-circle" },
-  {
-    label: "Calendar (coming soon)",
-    to: "/app/calendar",
-    icon: "i-heroicons-calendar",
-    disabled: true,
-  },
-];
 const currentSubjectId = ref(data.value?.[0].id);
 const links = computed(() => {
   let subjectLinks =
@@ -192,10 +182,8 @@ const tagAddItems = (row: any) => {
 };
 </script>
 <template>
-  <UHorizontalNavigation
-    :links="tabsLinks"
-    class="border-b border-gray-200 dark:border-gray-700"
-  ></UHorizontalNavigation>
+      <AppTabs/>
+
   <div class="flex h-[calc(100vh-49px)]">
     <UVerticalNavigation
       :links="links"

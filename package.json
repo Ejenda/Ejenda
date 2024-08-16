@@ -12,6 +12,11 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/timegrid": "^6.1.15",
+    "@fullcalendar/vue3": "^6.1.15",
     "@nuxt/ui": "^2.18.3",
     "@tanstack/vue-query": "^5.51.21",
     "@tanstack/vue-query-devtools": "^5.51.21",
