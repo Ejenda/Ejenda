@@ -51,6 +51,7 @@ const cards = computed(() => {
 });
 </script>
 <template>
+  <UContainer>
     <AppTabs/>
   <UAccordion :items="cards">
     <template #default="{ item, index, open }">
@@ -87,4 +88,5 @@ const cards = computed(() => {
       </div>
     </template>
   </UAccordion>
+  </UContainer>
 </template>

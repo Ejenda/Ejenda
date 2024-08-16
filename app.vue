@@ -15,3 +15,8 @@ useSeoMeta({
   ogImage: "/favicon.svg",
 });
 </script>
+<style>
+html {
+  scrollbar-gutter: stable;
+}
+</style>

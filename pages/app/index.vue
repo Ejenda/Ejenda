@@ -182,6 +182,7 @@ const tagAddItems = (row: any) => {
 };
 </script>
 <template>
+  <UContainer>
       <AppTabs/>
 
   <div class="flex h-[calc(100vh-49px)]">
@@ -270,4 +271,5 @@ const tagAddItems = (row: any) => {
       </div>
     </div>
   </div>
+  </UContainer>
 </template>
