@@ -16,7 +16,7 @@ const {user, authenticated} = storeToRefs(useAuthStore())
               dark="/wordmarks/dark.svg"
               class="h-8 w-auto"
           /></NuxtLink>
-          <div class="hidden md:flex md:gap-x-6">
+          <div class="hidden -md:flex md:gap-x-6">
             <a
               class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-slate-600 dark:hover:text-slate-100"
               href="#features"
@@ -38,6 +38,7 @@ const {user, authenticated} = storeToRefs(useAuthStore())
             color="primary"
             variant="solid"
             href="/register"
+            v-if="!authenticated"
             ><span
               >Get started <span class="hidden lg:inline">today</span></span
             ></NuxtLink
@@ -45,7 +46,7 @@ const {user, authenticated} = storeToRefs(useAuthStore())
         </div>
         <div class="flex items-center gap-x-5 md:gap-x-8" v-else>
           {{ user.name }}
-          <div class="hidden md:block">
+          <div class="block">
             <a
               class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
               href="/app"

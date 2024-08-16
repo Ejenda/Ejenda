@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-[calc(100vh-116px)] items-center">
+  <div class="flex min-h-[calc(100vh-116px)] items-center">
     <div class="mx-auto w-full max-w-sm border rounded-md h-min">
       <div class="flex flex-col space-y-1.5 p-6">
         <h3 class="whitespace-nowrap font-semibold tracking-tight text-2xl">
@@ -33,6 +33,17 @@
         <UButton type="submit" @click="login" size="md" block class="mt-8">
           {{ actionStrings.cta }}
         </UButton>
+      </div>
+      <div class="flex p-6 items-center flex-col justify-center"> 
+      <UDivider class="mt-4" label="OR"/>
+      <UButton
+        variant="ghost"
+        color="primary"
+        class="mt-4"
+        @click="() => router.push(props.join ? '/login' : '/register')"
+      >
+        {{ props.join ? "Login" : "Register" }}
+      </UButton>
       </div>
     </div>
   </div>
