@@ -19,7 +19,19 @@ export default eventHandler(async (event) => {
           message: "User already exists",
         
       });
+    } else {
+      // create default subject
+      await useDrizzle()
+        .insert(tables.subjects)
+        .values({
+          id: useKSUID("subj"),
+          name: "Default",
+          userId: user[0].id,
+        })
+        .returning();
+        
     }
+  
 
   return user[0];
 });

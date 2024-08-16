@@ -253,6 +253,7 @@ const tagAddItems = (row: any) => {
               <UDropdown
                 :items="tagAddItems(row)"
                 :popper="{ placement: 'bottom-start' }"
+                key="addTag"
               >
                 <UBadge color="white" class="cursor-pointer"
                   ><UIcon name="i-heroicons-plus"></UIcon></UBadge
