@@ -74,11 +74,11 @@ const columns = [
 ];
 const rowItems = (row) => [
   [
-    {
+    /*{
       label: "Edit",
       icon: "i-heroicons-pencil-square-20-solid",
       //click: () => markDone(row.id),
-    },
+    },*/
     {
       label: !row.tags.includes("done") ? "Mark as done" : "Mark as not done",
       icon: "i-heroicons-check-20-solid",
@@ -180,6 +180,7 @@ const tagAddItems = (row: any) => {
       })),
   ];
 };
+
 </script>
 <template>
   <UContainer>
