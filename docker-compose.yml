@@ -24,3 +24,4 @@ services:
       - PRODUCTION=true
     ports:
       - "3080:3000"
+    restart: always
