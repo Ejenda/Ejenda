@@ -2,6 +2,9 @@
 definePageMeta({
   middleware: "auth",
 });
+useHead({
+  title: "Todo"
+})
 import {format} from "date-fns";
 const { data, isPending } = queryAssignments();
 const cards = computed(() => {

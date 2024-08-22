@@ -14,6 +14,11 @@ import { VueQueryDevtools } from "@tanstack/vue-query-devtools";
 useSeoMeta({
   ogImage: "/favicon.svg",
 });
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - Ejenda` : 'Ejenda';
+  }
+})
 </script>
 <style>
 html {

@@ -4,7 +4,9 @@ import { AddAssignmentModal, UButton } from "#components";
 import { titleCase } from "scule";
 import { format, sub } from "date-fns";
 import { is } from "drizzle-orm";
-
+useHead({
+  title: "Subjects"
+})
 definePageMeta({
   middleware: "auth",
 });
