@@ -53,6 +53,7 @@ const prev = () => {
   const calendarApi = fullCalendar.value.getApi();
   calendarApi.prev();
 };
+
 </script>
 
 <template>
