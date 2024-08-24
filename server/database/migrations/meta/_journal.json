@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1722563614154,
+      "tag": "0000_round_sasquatch",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1722564274847,
+      "tag": "0001_cloudy_scream",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1722597263481,
+      "tag": "0002_chemical_lila_cheney",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1722685963892,
+      "tag": "0003_foamy_rick_jones",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1722685986700,
+      "tag": "0004_loud_wolfsbane",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1722701310005,
+      "tag": "0005_slim_madelyne_pryor",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1722701779696,
+      "tag": "0006_magical_queen_noir",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1722701793504,
+      "tag": "0007_aspiring_baron_strucker",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1722771088400,
+      "tag": "0008_brief_blacklash",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1722786367020,
+      "tag": "0009_gigantic_swarm",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,171 +1,85 @@
-<template>
-  <div class="section min-h-screen w-full text-center">
-    <tabs />
-    <client-only>
-      <v-calendar
-        class="custom-calendar"
-        :masks="masks"
-        :attributes="attributes"
-        disable-page-swipe
-        is-expanded
-      >
-        <template v-slot:day-content="{ day, attributes }">
-          <div class="z-10 flex h-full flex-col overflow-hidden">
-            <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
-            <div class="flex-grow overflow-x-auto overflow-y-auto">
-              <p
-                v-for="attr in attributes"
-                :key="attr.key"
-                class="mt-0 mb-1 rounded-sm p-1 text-xs leading-tight"
-                :class="attr.customData.class"
-              >
-                {{ attr.customData.title }}
-              </p>
-            </div>
-          </div>
-        </template>
-      </v-calendar>
-    </client-only>
-  </div>
-</template>
+<script setup>
+import { ref, computed } from "vue";
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+useHead({
+  title: 'Calendar'
+})
+const { data: assignmentData, isPending } = queryAssignments();
+let events = computed(() => {
+  if (!assignmentData.value) return [];
+  let event = assignmentData.value.flatMap((course) =>
+    course.assignments.map((assignment) => ({
+      id: assignment.id,
+      title: assignment.title,
+      start: new Date(assignment.due),
+      allDay: true,
+    }))
+  );
+  console.log(event);
+  return event;
+});
+const calendarOptions = ref({
+  plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+  initialView: "dayGridMonth",
+  editable: true,
+  selectable: true,
+  selectMirror: true,
+  dayMaxEvents: true,
+  weekends: true,
+  initialEvents: events.value,
+  headerToolbar: false,
+});
+watch(assignmentData, (value) => {
+  if (value) {
+    calendarOptions.value.events = events.value;
+  }
+});
 
-<script>
-export default {
-  middleware: "authenticated",
-  activated() {
-    // Call fetch again if last fetch more than 5 sec ago
-    if (this.$fetchState.timestamp <= Date.now() - 5000) {
-      this.$fetch();
-    }
-  },
+function handleWeekendsToggle() {
+  calendarOptions.value.weekends = !calendarOptions.value.weekends;
+}
 
-  data() {
-    return {
-      key: 1,
-      masks: {
-        weekdays: "WWW",
-      },
-      subjects: [],
-      attributes: [],
-    };
-  },
-  async fetch() {
-    var opts = {
-      method: "GET",
-      headers: {
-        pragma: "no-cache",
-        "cache-control": "no-cache",
-      },
-    };
+function handleEvents(events) {
+  events.value = events;
+}
+const fullCalendar = ref(null);
 
-    let subjects = await (
-      await this.$auth.fetch(`${process.env.backendURL}/optimizedsubjects`, opts)
-    ).json();
-    let built = [];
-    this.attributes = [];
-    for (let subject of subjects) {
-      let assignments = subject.assignments;
-      let builtSubject = this.generateSubject(
-        subject[0],
-        subject[1],
-        assignments
-      );
-      built.push(builtSubject);
-      let filtered = assignments.filter((item) => {
-        return !!item.date;
-      });
-      let buildingAttributes = filtered.map((item) => {
-        let key = this.key;
-        this.key++;
-        return {
-          key: key,
-          customData: {
-            title: item.name,
-            class: this.$color.parseColorBackground(builtSubject.color),
-          },
-          dates: new Date(item.date),
-        };
-      });
-      console.log(buildingAttributes);
-      this.attributes.push(...buildingAttributes);
-    }
-    this.subjects = [...built];
-  },
-  methods: {
-    generateSubject(name, color, assignments) {
-      return {
-        name: name,
-        id: name.toLowerCase(),
-        color: color,
-        assignments,
-        importing: "",
-      };
-    },
-  },
+const next = () => {
+  const calendarApi = fullCalendar.value.getApi();
+  calendarApi.next();
 };
+const prev = () => {
+  const calendarApi = fullCalendar.value.getApi();
+  calendarApi.prev();
+};
+
 </script>
 
-<style lang="postcss" scoped>
-::-webkit-scrollbar {
-  width: 0px;
-}
-::-webkit-scrollbar-track {
-  display: none;
-}
-.is-today {
-  @apply !bg-red-100;
-}
-/deep/ .custom-calendar.vc-container {
-  @apply bg-gray-100;
-  --day-border: 1px solid #b8c2cc;
-  --day-border-highlight: 1px solid #b8c2cc;
-  --day-width: 90px;
-  --day-height: 90px;
-  --weekday-bg: #f8fafc;
-  --weekday-border: 1px solid #eaeaea;
-  border-radius: 0;
-  border: none;
+<template>
+  <UContainer class="flex flex-col">
+    <AppTabs />
 
-  width: 100%;
-  & .vc-header {
-    padding: 10px 0;
-  }
-  & .vc-weeks {
-    @apply overflow-scroll p-0;
-  }
-  & .vc-weekday {
-    background-color: var(--weekday-bg);
-    border-bottom: var(--weekday-border);
-    border-top: var(--weekday-border);
-    padding: 5px 0;
-  }
-  & .vc-day {
-    padding: 0 5px 3px 5px;
-    text-align: left;
-    height: var(--day-height);
-    min-width: var(--day-width);
-    background-color: white;
-    &.weekday-1,
-    &.weekday-7 {
-      background-color: #eff8ff;
-    }
-    &.is-today {
-      background-color: #eff8ff;
-    }
-    &:not(.on-bottom) {
-      border-bottom: var(--day-border);
-      &.weekday-1 {
-        border-bottom: var(--day-border-highlight);
-      }
-    }
-    &:not(.on-right) {
-      border-right: var(--day-border);
-    }
-  }
-  & .vc-day-dots {
-    margin-bottom: 5px;
-  }
-}
-</style>
+    <div class="flex gap-2 justify-between my-2">
+      <UButton @click="prev">Prev</UButton>
+      <UButton @click="next">Next</UButton>
+    </div>
 
-<style></style>
+    <div class="demo-app-main">
+      <FullCalendar
+        ref="fullCalendar"
+        v-if="!isPending"
+        class="demo-app-calendar"
+        :options="calendarOptions"
+      >
+        <template #eventContent="arg">
+          <b>{{ arg.timeText }}</b>
+          <i>{{ arg.event.title }}</i>
+        </template>
+      </FullCalendar>
+      <p v-else>Loading...</p>
+    </div>
+  </UContainer>
+</template>

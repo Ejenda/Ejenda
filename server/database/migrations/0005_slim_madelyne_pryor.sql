@@ -1,0 +1,1 @@
+DROP TABLE "assignments_to_subjects";

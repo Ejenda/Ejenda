@@ -1,45 +1,75 @@
-<h1 align="center">Welcome to Ejenda 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-2.1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://docs.ejenda.org" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="#" target="_blank">
-    <img alt="License: GPL--3" src="https://img.shields.io/badge/License-GPL--3-amber.svg" />
-  </a>
-</p>
+# Nuxt 3 Minimal Starter
 
-> Ejenda is the solution to paper agendas. It stores all of your subjects digitally, saving on paper and creating a convienient space for assignments. Check back soon for more features, as Ejenda is in beta.
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-### 🏠 [Homepage](https://ejenda.org)
+## Setup
 
-## Install
+Make sure to install the dependencies:
 
-```sh
+```bash
+# npm
 npm install
+
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+
+# bun
+bun install
 ```
 
-## Usage
+## Development Server
 
-```sh
-npm run start
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
 ```
 
-## Author
+## Production
 
-👤 **GrahamSH**
+Build the application for production:
 
-- Website: https://grahamsh.com
-- Github: [@GrahamSH-LLK](https://github.com/GrahamSH-LLK)
+```bash
+# npm
+npm run build
 
-## 🤝 Contributing
+# pnpm
+pnpm run build
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Ejenda/Ejenda/issues).
+# yarn
+yarn build
 
-## Show your support
+# bun
+bun run build
+```
 
-Give a ⭐️ if this project helped you!
+Locally preview production build:
 
----
+```bash
+# npm
+npm run preview
 
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+# pnpm
+pnpm run preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
