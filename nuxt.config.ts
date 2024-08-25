@@ -8,7 +8,12 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ["@nuxt/ui", "@pinia/nuxt", "@nuxtjs/plausible"],
+  modules: [
+    "@nuxt/ui",
+    "@pinia/nuxt",
+    "@nuxtjs/plausible",
+    "@scalar/nuxt",
+  ],
   nitro: {
     experimental: {
       openAPI: true,
@@ -25,13 +30,6 @@ export default defineNuxtConfig({
     ],
   },
 
-  vite: {
-    server: {
-      hmr: {
-        protocol: "wss",
-      },
-    },
-  },
   plausible: {
     apiHost: "https://possible.grahamsh.com"
   },
