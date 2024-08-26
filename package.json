@@ -21,7 +21,7 @@
     "@tanstack/vue-query": "^5.51.21",
     "@tanstack/vue-query-devtools": "^5.51.21",
     "bcrypt": "^5.1.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.6.0",
     "drizzle-orm": "^0.32.1",
     "ksuid": "^3.0.0",
     "mongodb": "^6.8.0",
