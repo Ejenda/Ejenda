@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@pinia/nuxt",
     "@nuxtjs/plausible",
-    "@scalar/nuxt",
   ],
   nitro: {
     experimental: {
