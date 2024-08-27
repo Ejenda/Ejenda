@@ -2,7 +2,7 @@
   <Header/>
   <Auth :join="false"/>
 </template>
-<script>
+<script setup>
 useHead({
   title: "Login"
 })

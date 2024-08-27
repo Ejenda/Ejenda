@@ -2,7 +2,7 @@
     <Header/>
     <Auth :join="true"/>
 </template>
-<script>
+<script setup>
 useHead( 
     {
         title: 'Join'
