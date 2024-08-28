@@ -8,4 +8,5 @@ useHead(
         title: 'Join'
     }
 )
+
 </script>

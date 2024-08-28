@@ -4,13 +4,21 @@ import { AddAssignmentModal, UButton } from "#components";
 import { titleCase } from "scule";
 import { format, sub } from "date-fns";
 import { is } from "drizzle-orm";
+import {useQuery} from '@tanstack/vue-query'
 useHead({
-  title: "Subjects"
-})
+  title: "Subjects",
+});
 definePageMeta({
   middleware: "auth",
 });
-const { data, isPending } = queryAssignments();
+const { data, isPending, suspense } = useQuery({
+  queryKey: ["assignments"],
+  queryFn: async () => {
+    const {data} = await useFetch("/api/assignments/list");
+    return data;
+  },
+});
+
 const { mutate: mutateAssn } = mutateAssignment();
 const { mutate: createSubjectMut } = createSubject();
 const { mutate: deleteAssignmentMut } = deleteAssignment();
@@ -181,100 +189,105 @@ const tagAddItems = (row: any) => {
         click: () => addTag(row.id, tag),
       })),
   ];
-};
+};  
+//await suspense();
 
 </script>
 <template>
   <UContainer>
-      <AppTabs/>
+    <AppTabs />
 
-  <div class="flex h-[calc(100vh-49px)]">
-    <UVerticalNavigation
-      :links="links"
-      :ui="{ wrapper: 'w-64' }"
-      class="border-r border-gray-200 dark:border-gray-700"
-    >
-      <template #badge="{ link }">
-        <UBadge
-          class="flex-shrink-0 ml-auto relative rounded"
-          :color="link.badge?.color"
-          :variant="link.badge?.variant"
-          v-if="link.badge && !link.active"
-          >{{ link.badge?.label }}
-        </UBadge>
-        <UDropdown
-          :items="subjectItems(link)"
-          v-if="link.active"
-          class="flex-shrink-0 ml-auto relative rounded"
-          size="sm"
-        >
-          <UButton
-            color="gray"
-            variant="ghost"
-            icon="i-heroicons-ellipsis-horizontal-20-solid"
-          />
-        </UDropdown>
-      </template>
-    </UVerticalNavigation>
-
-    <div class="flex flex-1 flex-col">
-      <div
-        class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700 justify-end"
+    <div class="flex h-[calc(100vh-49px)]">
+      <UVerticalNavigation
+        :links="links"
+        :ui="{ wrapper: 'w-64' }"
+        class="border-r border-gray-200 dark:border-gray-700"
       >
-        <UButton @click="createAssn">Add assignment</UButton>
-      </div>
-      <div class="flex-1 flex">
-        <UTable
-          :columns="columns"
-          :rows="currentSubject?.assignments"
-          :loading="isPending"
-          :ui="{ wrapper: 'flex-1' }"
-          :sort="{ key: 'due', direction: 'asc' }"
+        <template #badge="{ link }">
+          <UBadge
+            class="flex-shrink-0 ml-auto relative rounded"
+            :color="link.badge?.color"
+            :variant="link.badge?.variant"
+            v-if="link.badge && !link.active"
+            >{{ link.badge?.label }}
+          </UBadge>
+          <UDropdown
+            :items="subjectItems(link)"
+            v-if="link.active"
+            class="flex-shrink-0 ml-auto relative rounded"
+            size="sm"
+          >
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-ellipsis-horizontal-20-solid"
+            />
+          </UDropdown>
+        </template>
+      </UVerticalNavigation>
+
+      <div class="flex flex-1 flex-col">
+        <div
+          class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700 justify-end"
         >
-          <template #due-data="{ row }">
-            <span>{{ format(new Date(row.due), "MMMM d, yyy") }}</span>
-          </template>
-          <template #tags-data="{ row }">
-            <span v-if="!row.tags.length && !computedTags(row).length"
-              >No tags</span
-            >
-            <div class="flex flex-row gap-1 w-96 flex-wrap" tag="div" name="list">
-              <div v-for="tag of row.tags" :key="tag">
-                <UBadge :color="tag == 'done' ? 'green' : 'primary'"
-                  >{{ tag }}
-                  <UIcon
-                    name="i-heroicons-x-mark"
-                    class="ml-2 cursor-pointer"
-                    @click="removeTag(row.id, tag)"
-                  ></UIcon>
-                </UBadge>
-              </div>
-              <div v-for="tag of computedTags(row)" :key="tag">
-                <UBadge color="red">{{ tag }}</UBadge>
-              </div>
-              <UDropdown
-                :items="tagAddItems(row)"
-                :popper="{ placement: 'bottom-start' }"
-                key="addTag"
+          <UButton @click="createAssn">Add assignment</UButton>
+        </div>
+        <div class="flex-1 flex">
+          <UTable
+            :columns="columns"
+            :rows="currentSubject?.assignments"
+            :loading="isPending"
+            :ui="{ wrapper: 'flex-1' }"
+            :sort="{ key: 'due', direction: 'asc' }"
+          >
+            <template #due-data="{ row }">
+              <span>{{ format(new Date(row.due), "MMMM d, yyy") }}</span>
+            </template>
+            <template #tags-data="{ row }">
+              <span v-if="!row.tags.length && !computedTags(row).length"
+                >No tags</span
               >
-                <UBadge color="white" class="cursor-pointer"
-                  ><UIcon name="i-heroicons-plus"></UIcon></UBadge
-              ></UDropdown>
-            </div>
-          </template>
-          <template #actions-data="{ row }">
-            <UDropdown :items="rowItems(row)">
-              <UButton
-                color="gray"
-                variant="ghost"
-                icon="i-heroicons-ellipsis-horizontal-20-solid"
-              />
-            </UDropdown>
-          </template>
-        </UTable>
+              <div
+                class="flex flex-row gap-1 w-96 flex-wrap"
+                tag="div"
+                name="list"
+              >
+                <div v-for="tag of row.tags" :key="tag">
+                  <UBadge :color="tag == 'done' ? 'green' : 'primary'"
+                    >{{ tag }}
+                    <UIcon
+                      name="i-heroicons-x-mark"
+                      class="ml-2 cursor-pointer"
+                      @click="removeTag(row.id, tag)"
+                    ></UIcon>
+                  </UBadge>
+                </div>
+                <div v-for="tag of computedTags(row)" :key="tag">
+                  <UBadge color="red">{{ tag }}</UBadge>
+                </div>
+                <UDropdown
+                  :items="tagAddItems(row)"
+                  :popper="{ placement: 'bottom-start' }"
+                  key="addTag"
+                >
+                  <UBadge color="white" class="cursor-pointer"
+                    ><UIcon name="i-heroicons-plus"></UIcon></UBadge
+                ></UDropdown>
+              </div>
+            </template>
+            <template #actions-data="{ row }">
+              <UDropdown :items="rowItems(row)">
+                <UButton
+                  color="gray"
+                  variant="ghost"
+                  icon="i-heroicons-ellipsis-horizontal-20-solid"
+                />
+              </UDropdown>
+            </template>
+          </UTable>
+        </div>
       </div>
     </div>
-  </div>
   </UContainer>
 </template>
 <style>
@@ -291,5 +304,4 @@ const tagAddItems = (row: any) => {
 .list-leave-active {
   position: absolute;
 }
-
 </style>
