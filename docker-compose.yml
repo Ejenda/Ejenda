@@ -17,6 +17,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
       POSTGRES_DB: db
+    ports:
+      - "5432:5432"
   app:
     build:
       context: .
