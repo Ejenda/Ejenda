@@ -1,3 +1,9 @@
 export default function () {
-    return 
+    return vq.useQuery({
+      queryKey: ["assignments"],
+      queryFn: async () => {
+        const { data } = await useFetch("/api/assignments/list");
+        return data;
+      },
+    });
 }

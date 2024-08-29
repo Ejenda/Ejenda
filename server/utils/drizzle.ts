@@ -7,7 +7,7 @@ import KSUID from "ksuid";
 
 const queryClient = postgres(
   `postgres://postgres:example@${
-    process.env.NODE_ENV == "production" ? "localhost:5555" : "localhost:5432"
+    process.env.NODE_ENV != "production" ? "localhost:5555" : "localhost:5432"
   }/db`
 );
 

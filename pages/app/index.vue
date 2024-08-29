@@ -11,13 +11,7 @@ useHead({
 definePageMeta({
   middleware: "auth",
 });
-const { data, isPending, suspense } = useQuery({
-  queryKey: ["assignments"],
-  queryFn: async () => {
-    const {data} = await useFetch("/api/assignments/list");
-    return data;
-  },
-});
+const { data, isPending, suspense } = queryAssignments();
 
 const { mutate: mutateAssn } = mutateAssignment();
 const { mutate: createSubjectMut } = createSubject();
