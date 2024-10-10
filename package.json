@@ -19,7 +19,7 @@
     "@fullcalendar/vue3": "^6.1.15",
     "@nuxt/ui": "^2.18.3",
     "@tanstack/vue-query": "^5.51.21",
-    "@tanstack/vue-query-devtools": "^5.51.21",
+    "@tanstack/vue-query-devtools": "^5.59.6",
     "bcrypt": "^5.1.1",
     "date-fns": "^2.30.0",
     "drizzle-orm": "^0.32.1",
